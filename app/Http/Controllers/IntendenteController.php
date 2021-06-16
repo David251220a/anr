@@ -5,9 +5,13 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Http\File;
+use Illuminate\Support\Facades\Input;
 use DB;
 use Carbon\Carbon;
 use App\Votacion_Intendente;
+use App\Auditoria;
+use App\Http\Controllers\Storage;
 
 class IntendenteController extends Controller
 {
@@ -29,6 +33,10 @@ class IntendenteController extends Controller
             ->select('a.*'
             ,'b.Desc_Lista')
             ->orderBy('Id_Lista', 'ASC')
+            ->get();
+
+            $aux_intendente = DB::table('intendente AS a')            
+            ->orderBy('Id_Intendente', 'ASC')
             ->get();
 
             $user = DB::table('user_config AS a')
@@ -62,6 +70,7 @@ class IntendenteController extends Controller
 
             return view('votacion\intendente.index',["intendente"=>$intendente
             , "user"=>$user
+            , "aux_intendente"=>$aux_intendente
             , "mesa"=>$mesa
             , "local_votacion"=>$local_votacion
             , "votos_intendente"=>$votos_intendente]);
@@ -113,8 +122,28 @@ class IntendenteController extends Controller
                     $votacion->Fecha_Alta = $date;
                     $votacion->Id_Local = $local[$cont];
                     $votacion->Id_User = $id_user;
+                    if ($request->hasFile('pacta')){
+
+                        $file = $request->file('pacta');
+                        $file->move(public_path().'./imagenes/acta/', $file->getClientOriginalName());
+                        $votacion->imagen = $file->getClientOriginalName();
+
+                    }
                     
                     $votacion->save();
+
+                    $auditoria = new Auditoria();
+
+                    $auditoria->Id_Intendente = $intendente[$cont];                    
+                    $auditoria->Id_Local = $local[$cont];
+                    $auditoria->Id_Mesa = $mesa[$cont];
+                    $auditoria->Votos_Valor_Anterior = 0;
+                    $auditoria->Votos_Valor_Nuevo = $votos[$cont];
+                    $auditoria->Descripcion_Cambio = "Primera carga de Intendente en el Local: ".$local[$cont]. " mesa: " .$mesa[$cont];
+                    $auditoria->Fecha = $date;
+                    $auditoria->Id_User = $id_user;
+                    
+                    $auditoria->save();
 
                 }else{
 

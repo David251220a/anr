@@ -15,6 +15,9 @@
     </div>
 </div>
 
+<u><h3><strong>Consejal</strong></h3></u>
+
+
 <div class="row">
     
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -27,7 +30,7 @@
 
 
 
-{!! Form::open(array('url'=>'votacion/consejal', 'method'=>'POST', 'autocomplete'=>'off'))!!}
+{!! Form::open(array('url'=>'votacion/consejal', 'method'=>'POST', 'autocomplete'=>'off', 'file'=>'true', 'enctype'=>"multipart/form-data"))!!}
 {{Form::token()}}
 
 <div class="row">
@@ -107,6 +110,17 @@
         
                 </div>
 
+                <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
+
+                    <div class="form-group">
+        
+                        <label form="pacta" > Acta</label>
+                        <input type="file" name="pacta" id="pacta" class="form-control" placeholder="Acta.." >
+        
+                    </div>
+        
+                </div>
+
                 <div class="col-lg-2 col-sm-2 col-md-2 col-xs-12">
 
                     <div class="form-group">
@@ -173,6 +187,44 @@
 
 <br>
 
+<div class="col-lg-12 col-sm-12 col-md-12 col-xs-12" id="guardar">
+
+    <div class="form-group">
+
+        <a href="{{URL::action('PDFController@Resumen_General_Consejal')}}" target="_blank">
+            <button class="btn btn-info"><li  class="fa fa-file-pdf-o"></li> Resumen General</button>
+        </a>
+
+        <a href="{{URL::action('PDFController@Resumen_Local_Consejal')}}" target="_blank">
+            <button class="btn btn-info"><li  class="fa fa-file-pdf-o"></li> Resumen por Local</button>
+        </a>
+
+        <a href="{{URL::action('PDFController@Resumen_Mesa_Consejal')}}" target="_blank">
+            <button class="btn btn-info"><li  class="fa fa-file-pdf-o"></li> Resumen por Mesa</button>
+        </a>
+        
+        <div class="btn-group">
+            <button type="button" class="btn btn-info dropdown-toggle"
+                    data-toggle="dropdown"><li  class="fa fa-file-pdf-o"></li>
+                Mas Opciones <span class="caret"></span>
+            </button>
+
+            <ul class="dropdown-menu" role="menu">
+                
+                @foreach ($aux_consejal as $aux)
+                                
+                    <li><a href="{{URL::action('PDFController@Consejal' , $aux->Id_Consejal)}}" target="_blank"><li  class="fa fa-file-pdf-o"></li> {{$aux->Nombre}} {{$aux->Apellido}}</a></li>                
+        
+                @endforeach                
+                                                        
+            </ul>
+
+        </div>        
+
+    </div>
+
+</div>
+
 <div class="rows">
 
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -185,8 +237,7 @@
                     
                     <th style="text-align: center">Lista</th>                                                
                     <th style="text-align: center">Consejal</th>                    
-                    <th style="text-align: center">Votos</th>
-                    <th style="text-align: center">Opcion</th>
+                    <th style="text-align: center">Votos</th>                    
 
                 </thead>                
                 @foreach ($votos_consejal as $vot)
@@ -195,28 +246,7 @@
                                             
                         <td>{{$vot->Desc_Lista}}</td>                    
                         <td>{{$vot->Nombre}} {{$vot->Apellido}}</td>
-                        <td style="text-align: right">{{number_format($vot->Votos,0, ".", ".")}}</td>
-                        <td>
-                            <div class="btn-group">
-                                
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-default dropdown-toggle"
-                                            data-toggle="dropdown">
-                                      Accion <span class="caret"></span>
-                                    </button>
-    
-                                    <ul class="dropdown-menu" role="menu">
-
-                                        <li><a href="#" target="_blank"><li  class="fa fa-file-pdf-o"></li> Resumen General</a></li>
-                                        <li><a href="#" target="_blank"><li  class="fa fa-file-pdf-o"></li>Local de Votacion</a></li>
-                                                                                
-                                    </ul>
-    
-                                </div>
-                            
-                            </div>                                   
-                           
-                        </td>                 
+                        <td style="text-align: right">{{number_format($vot->Votos,0, ".", ".")}}</td>                        
                     
                     </tr>
                 @endforeach

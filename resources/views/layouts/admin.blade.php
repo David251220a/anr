@@ -4,7 +4,7 @@
   
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>CJPPM | www.cjppm.com</title>
+    <title>ANR | www.anr.com</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.5 -->
@@ -93,7 +93,7 @@
           <ul class="sidebar-menu">
             <li class="header"></li>
             
-            <li id="pFuncionario" name="pVotacion" class="treeview">
+            <li id="pvotacion" name="pvotacion" class="treeview">
               <a href="#">
                 <i class="fa fa-user-o"></i>
                 <span>Votacion</span>
@@ -103,17 +103,45 @@
                 <li><a href="{{url('votacion/intendente')}}"><i class="fa fa-circle-o"></i> Intendente</a></li>
                 <li><a href="{{url('votacion/consejal')}}"><i class="fa fa-circle-o"></i> Consejal</a></li>
               </ul>
+            </li>
+
+            <li id="pconsulta" name="pconsulta" class="treeview">
+              <a href="#">
+                <i class="fa fa-inbox"></i>
+                <span>Consulta</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+
+                <li><a href="{{url('consulta/votos_intendente')}}"><i class="fa fa-circle-o"></i> Votos Intendente</a></li>
+                <li><a href="{{url('consulta/votos_consejal')}}"><i class="fa fa-circle-o"></i> Votos Consejal</a></li>
+                
+              </ul>
             </li>                       
 
-            <li id="pAcceso" name="pAcceso" class="treeview">
+            <li id="pAcceso1" name="pAcceso1" class="treeview">
               <a href="#">
                 <i class="fa fa-folder"></i> <span>Acceso</span>
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-                <li><a href="#"><i class="fa fa-circle-o"></i> Usuarios</a></li>
+                <li id="#"><a href="{{url('acceso/usuario')}}"><i class="fa fa-circle-o"></i> Usuarios</a></li>
+                <li id="#"><a href="{{url('acceso/reset')}}"><i class="fa fa-refresh"></i> Cambio de Contraseña</a></li>
+                <li id="#"><a href="{{url('acceso/auditoria')}}"><i class="fa fa-cogs"></i> Auditoria</a></li>
                 
               </ul>
+            </li>
+
+            <li id="#" name="#" class="treeview">
+              <a href="{{url('acceso/reset')}}">
+                <i class="fa fa-refresh"></i> <span>Cambio Contraseña</span>                
+              </a>              
+            </li>
+
+            <li>
+              <a href="{{url('acceso/auditoria')}}">
+                <i class="fa fa-cogs"></i> <span>Auditoria</span>                
+              </a>              
             </li>
                         
           </ul>
@@ -147,8 +175,7 @@
                 <div class="box-body">
                   	<div class="row">
 	                  	<div class="col-md-12">
-                              <!--Contenido-->
-                               
+                              <!--Contenido-->                               
                                 @yield('contenido')
                                 @yield('scripts')
                                 <input type="hidden" id="prol" name="prol"  value="{{Auth::user()->id_rol}}" class="form-control">
@@ -211,7 +238,7 @@
 
     if (id_rol == 2){
             
-      $("#pAcceso").remove();
+      $("#pAcceso1").remove();
 
     }
 

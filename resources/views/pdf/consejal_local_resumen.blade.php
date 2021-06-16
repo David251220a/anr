@@ -8,7 +8,7 @@
 
 @php $local_5 = 0 @endphp
 
-@foreach ($votacion_intendente as $res)
+@foreach ($votacion_consejal as $res)
 
     @if($res->Id_Local == 1)
 
@@ -104,7 +104,7 @@
                         <tr style="text-align: center">
 
                             <th scope="col">Lista</th>
-                            <th scope="col">Intendente</th>
+                            <th scope="col">Consejal</th>
                             <th scope="col">Votos</th>
 
                         </tr>
@@ -113,7 +113,7 @@
 
                     <tbody>
 
-                        @foreach ($votacion_intendente as $vot)
+                        @foreach ($votacion_consejal as $vot)
                             
                             @if($vot->Id_Local == $loca->Id_Local)
                                 

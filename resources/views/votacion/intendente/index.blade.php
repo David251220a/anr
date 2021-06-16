@@ -15,6 +15,8 @@
     </div>
 </div>
 
+<u><h3><strong>Intendente</strong></h3></u>
+
 <div class="row">
     
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -27,7 +29,7 @@
 
 
 
-{!! Form::open(array('url'=>'votacion/intendente', 'method'=>'POST', 'autocomplete'=>'off'))!!}
+{!! Form::open(array('url'=>'votacion/intendente', 'method'=>'POST', 'autocomplete'=>'off', 'file'=>'true', 'enctype'=>"multipart/form-data"))!!}
 {{Form::token()}}
 
 <div class="row">
@@ -107,6 +109,17 @@
         
                 </div>
 
+                <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
+
+                    <div class="form-group">
+        
+                        <label form="pacta">Acta</label>
+                        <input type="file" name="pacta" id="pacta" class="form-control" placeholder="Acta.." >
+        
+                    </div>
+        
+                </div>
+
                 <div class="col-lg-2 col-sm-2 col-md-2 col-xs-12">
 
                     <div class="form-group">
@@ -172,6 +185,46 @@
 
 <br>
 
+<div class="col-lg-12 col-sm-12 col-md-12 col-xs-12" id="guardar">
+
+    <div class="form-group">
+
+        <a href="{{URL::action('PDFController@Resumen_General')}}" target="_blank">
+            <button class="btn btn-info"><li  class="fa fa-file-pdf-o"></li> Resumen General</button>
+        </a>
+
+        <a href="{{URL::action('PDFController@Resumen_Local')}}" target="_blank">
+            <button class="btn btn-info"><li  class="fa fa-file-pdf-o"></li> Resumen por Local</button>
+        </a>
+
+        <a href="{{URL::action('PDFController@Resumen_Mesa')}}" target="_blank">
+            <button class="btn btn-info"><li  class="fa fa-file-pdf-o"></li> Resumen por Mesa</button>
+        </a>
+        
+        <div class="btn-group">
+            <button type="button" class="btn btn-info dropdown-toggle"
+                    data-toggle="dropdown"><li  class="fa fa-file-pdf-o"></li>
+                Mas Opciones <span class="caret"></span>
+            </button>
+
+            <ul class="dropdown-menu" role="menu">
+                
+                @foreach ($aux_intendente as $aux)
+                                
+                    <li><a href="{{URL::action('PDFController@Intendente' , $aux->Id_Intendente)}}" target="_blank"><li  class="fa fa-file-pdf-o"></li> {{$aux->Nombre}} {{$aux->Apellido}}</a></li>                
+        
+                @endforeach                
+                                                        
+            </ul>
+
+        </div>        
+
+    </div>
+
+</div>   
+
+<br>
+
 <div class="rows">
 
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -185,7 +238,7 @@
                     <th style="text-align: center">Lista</th>                                                
                     <th style="text-align: center">Intendente</th>                    
                     <th style="text-align: center">Votos</th>
-                    <th style="text-align: center">Opcion</th>
+                    <!-- <th style="text-align: center">Opcion</th> -->
 
                 </thead>                
                 @foreach ($votos_intendente as $vot)
@@ -195,7 +248,7 @@
                         <td>{{$vot->Desc_Lista}}</td>                    
                         <td>{{$vot->Nombre}} {{$vot->Apellido}}</td>
                         <td style="text-align: right">{{number_format($vot->Votos,0, ".", ".")}}</td>
-                        <td>
+                        <!--<td>
                             <div class="btn-group">
                                 
                                 <div class="btn-group">
@@ -215,7 +268,7 @@
                             
                             </div>                                   
                            
-                        </td>                 
+                        </td>  -->              
                     
                     </tr>
                 @endforeach

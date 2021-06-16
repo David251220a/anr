@@ -8,6 +8,10 @@ use Illuminate\Support\Facades\Validator;
 use DB;
 use Carbon\Carbon;
 use App\Votacion_Consejal;
+use App\Auditoria;
+use Illuminate\Http\File;
+use Illuminate\Support\Facades\Input;
+use App\Http\Controllers\Storage;
 
 class ConsejalController extends Controller
 {
@@ -37,6 +41,10 @@ class ConsejalController extends Controller
             ->where('a.Id_User','=',$id_user)
             ->first();
 
+            $aux_consejal = DB::table('consejal')            
+            ->orderBy('Id_Consejal', 'ASC')
+            ->get();
+
             $local_votacion = DB::table('local_votacion')
             ->orderBy('Id_Local', 'ASC')
             ->get();
@@ -62,6 +70,7 @@ class ConsejalController extends Controller
             return view('votacion\consejal.index',["consejal"=>$consejal
             , "user"=>$user
             , "mesa"=>$mesa
+            , "aux_consejal"=>$aux_consejal
             , "local_votacion"=>$local_votacion
             , "votos_consejal"=>$votos_consejal]);
 
@@ -112,8 +121,28 @@ class ConsejalController extends Controller
                     $votacion->Fecha_Alta = $date;
                     $votacion->Id_Local = $local[$cont];
                     $votacion->Id_User = $id_user;
+                    if ($request->hasFile('pacta')){
+
+                        $file = $request->file('pacta');
+                        $file->move(public_path().'./imagenes/acta/', $file->getClientOriginalName());
+                        $votacion->imagen = $file->getClientOriginalName();
+
+                    }
                     
                     $votacion->save();
+
+                    $auditoria = new Auditoria();
+
+                    $auditoria->Id_Consejal = $consejal[$cont];                    
+                    $auditoria->Id_Local = $local[$cont];
+                    $auditoria->Id_Mesa = $mesa[$cont];
+                    $auditoria->Votos_Valor_Anterior = 0;
+                    $auditoria->Votos_Valor_Nuevo = $votos[$cont];
+                    $auditoria->Descripcion_Cambio = "Primera carga de Consejal en el Local: ".$local[$cont]. " mesa: " .$mesa[$cont];
+                    $auditoria->Fecha = $date;
+                    $auditoria->Id_User = $id_user;
+                    
+                    $auditoria->save();
 
                 }else{
 
