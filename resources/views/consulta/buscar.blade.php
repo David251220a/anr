@@ -36,7 +36,7 @@
                         <th style="text-align: center; font-size: 1.2rem">M</th>
                         <th style="text-align: center; font-size: 1.2rem">O</th>
                         <th style="text-align: center; font-size: 1.2rem">C</th>
-                        <th style="text-align: center; font-size: 1.2rem">Referente</th>
+                        <th style="text-align: center; font-size: 1.2rem">Referentes</th>
                         <th style="text-align: center; font-size: 1.2rem">OK</th>
                         
                     </thead>
