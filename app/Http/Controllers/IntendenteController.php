@@ -3,15 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Http\File;
-use Illuminate\Support\Facades\Input;
-use DB;
-use Carbon\Carbon;
+use App\Http\Requests\IntendenteRequest;
 use App\Votacion_Intendente;
-use App\Auditoria;
-use App\Http\Controllers\Storage;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
+use Barryvdh\DomPDF\Facade as PDF;
 
 class IntendenteController extends Controller
 {
@@ -19,32 +16,21 @@ class IntendenteController extends Controller
     public function __construct(){
 
         $this->middleware('auth');
+        $this->middleware('ad');
 
     }
 
     public function index(Request $request){        
 
-        if($request){
-            
-            $id_user = auth()->id();
+        if($request){            
 
-            $intendente = DB::table('intendente AS a')
+            $intendentes = DB::table('intendente AS a')
             ->join('lista AS b','b.Id_Lista','=','a.Id_Lista')
             ->select('a.*'
+            , DB::raw('CONCAT(a.Nombre, space(1), a.Apellido, " - ", b.Alias) AS Intendente')
             ,'b.Desc_Lista')
             ->orderBy('Id_Lista', 'ASC')
             ->get();
-
-            $aux_intendente = DB::table('intendente AS a')            
-            ->orderBy('Id_Intendente', 'ASC')
-            ->get();
-
-            $user = DB::table('user_config AS a')
-            ->join('local_votacion AS b','b.Id_Local','=','a.Id_Local')
-            ->select('a.*'
-            ,'b.Desc_Local')
-            ->where('a.Id_User','=',$id_user)
-            ->first();
 
             $local_votacion = DB::table('local_votacion')
             ->orderBy('Id_Local', 'ASC')
@@ -54,26 +40,9 @@ class IntendenteController extends Controller
             ->orderBy('Id_Mesa', 'ASC')
             ->get();
 
-            $votos_intendente = DB::table('votacion_intendente AS a')
-            ->join('intendente AS b','b.Id_Intendente','=','a.Id_Intendente')
-            ->join('lista AS c','c.Id_Lista','=','b.Id_Lista')
-            ->select('a.Id_Intendente'            
-            , DB::raw('SUM(a.`Votos`) AS Votos')
-            , 'b.Apellido'
-            , 'b.Nombre'
-            , 'c.Desc_Lista')            
-            ->groupBy('a.Id_Intendente'                    
-            , 'b.Apellido'
-            , 'b.Nombre'
-            , 'c.Desc_Lista')            
-            ->get();
-
-            return view('votacion\intendente.index',["intendente"=>$intendente
-            , "user"=>$user
-            , "aux_intendente"=>$aux_intendente
+            return view('votacion.intendente.index',["intendentes"=>$intendentes            
             , "mesa"=>$mesa
-            , "local_votacion"=>$local_votacion
-            , "votos_intendente"=>$votos_intendente]);
+            , "local_votacion"=>$local_votacion]);
 
            
 
@@ -81,94 +50,60 @@ class IntendenteController extends Controller
 
     }
 
-    public function store(Request $request){        
-        
+    public function store(IntendenteRequest $request){
+
         $id_user = auth()->id();
 
-        $hubo_error = 0;
+        $existe_registro = DB::table('votacion_intendente')
+        ->where('Id_Local', $request->id_local)
+        ->where('Id_Mesa', $request->id_mesa)
+        ->first();
 
-        try {
+        if ($existe_registro) {
             
-            DB::beginTransaction();                        
+            $aux_mesa = DB::table('mesa')
+            ->where('Id_Mesa', $request->id_mesa)
+            ->first();
 
-            $intendente = $request->get('intendente');
-            $votos = $request->get('votos');
-            $local = $request->get('local');
-            $mesa = $request->get('mesa');
+            $aux_local = DB::table('local_votacion')
+            ->where('Id_Local', $request->id_local)
+            ->first();
 
-            $date = Carbon :: now ();
+            return redirect()->route('intendente.index')->with('msj', 'Ya existe registro en este local: '.$aux_local->Desc_Local.' y en este mesa: '.$aux_mesa->Mesa);
 
-            $cont = 0;
-
-            while ($cont < count($intendente)) {
-
-                $id_intendente = $intendente[$cont];
-                $local_votacion = $local[$cont];
-                $id_mesa = $mesa[$cont];
-
-                $verificacion_votacion = DB::table('votacion_intendente')
-                ->where('Id_Intendente','=',$id_intendente)
-                ->where('Id_Local','=',$local_votacion)
-                ->where('Id_Mesa','=',$id_mesa)
-                ->first();
-
-                if (empty($verificacion_votacion->Id_Intendente)){
-
-                    $votacion = new Votacion_Intendente();
-
-                    $votacion->Id_Intendente = $intendente[$cont];
-                    $votacion->Votos = $votos[$cont];
-                    $votacion->Id_Mesa = $mesa[$cont];
-                    $votacion->Fecha_Alta = $date;
-                    $votacion->Id_Local = $local[$cont];
-                    $votacion->Id_User = $id_user;
-                    if ($request->hasFile('pacta')){
-
-                        $file = $request->file('pacta');
-                        $file->move(public_path().'./imagenes/acta/', $file->getClientOriginalName());
-                        $votacion->imagen = $file->getClientOriginalName();
-
-                    }
-                    
-                    $votacion->save();
-
-                    $auditoria = new Auditoria();
-
-                    $auditoria->Id_Intendente = $intendente[$cont];                    
-                    $auditoria->Id_Local = $local[$cont];
-                    $auditoria->Id_Mesa = $mesa[$cont];
-                    $auditoria->Votos_Valor_Anterior = 0;
-                    $auditoria->Votos_Valor_Nuevo = $votos[$cont];
-                    $auditoria->Descripcion_Cambio = "Primera carga de Intendente en el Local: ".$local[$cont]. " mesa: " .$mesa[$cont];
-                    $auditoria->Fecha = $date;
-                    $auditoria->Id_User = $id_user;
-                    
-                    $auditoria->save();
-
-                }else{
-
-                    $hubo_error = 1;
-                    break;
-
-                }
-                
-                $cont = $cont + 1 ;
-            }
-
-            if ($hubo_error == 1){
-
-                return back()->with('msj', 'Ya se ha cargado los votos del Intendente en este local de Votacion y Mesa!!!');
-
-            }
-            
-            DB::commit();
-
-        } catch (\Excepcion $e) {
-            //throw $th;
-            DB::rollback();
         }
 
-        return redirect('votacion/intendente');
+        $intendente = $request->get('intendente');
+        $votos = $request->get('votos');
 
+        $cont = 0;
+        $url="";
+
+        if ($request->file('acta')) {
+            
+            $imagen = $request->file('acta')->store('public/documentos');
+            $url = Storage::url($imagen);
+
+        }
+
+        while ($cont < count($intendente)) {
+            # code...
+            $votacion_intendente = new Votacion_Intendente();
+            $votacion_intendente->Id_Local = $request->id_local;
+            $votacion_intendente->Id_Mesa = $request->id_mesa;
+            $votacion_intendente->Id_Intendente = $intendente[$cont];
+            $votacion_intendente->Votos = $votos[$cont];
+            $votacion_intendente->Fecha_Alta =  Carbon::now();
+            $votacion_intendente->Id_User = $id_user;
+            $votacion_intendente->imagen = $url;
+            
+            $votacion_intendente->save();
+            $cont = $cont + 1 ;  
+
+        }        
+
+        return redirect()->route('intendente.index');
+        
     }
+
 }

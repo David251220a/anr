@@ -35,7 +35,7 @@ class acc_UsuarioController extends Controller
                 ->orderby('id','asc')
                 ->paginate(10);
     
-                return view('acceso\usuario.index',["usuario"=>$usuario, "searchtext"=>$query]);
+                return view('acceso.usuario.index',["usuario"=>$usuario, "searchtext"=>$query]);
     
             }else{
     

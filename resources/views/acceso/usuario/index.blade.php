@@ -61,7 +61,7 @@
                         </td>
                     </tr>                    
 
-                    @include('acceso.usuario.modal_contraseña')
+                    @include('acceso.usuario.modal_contrasena')
 
                     @endforeach
                     

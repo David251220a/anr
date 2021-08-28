@@ -51,7 +51,7 @@ class AuditoriaController extends Controller
             ->orderby('Id_Auditoria','DESC')
             ->get();
 
-            return view('acceso\auditoria.index',["auditoria"=>$auditoria, "auditoria_consejal"=>$auditoria_consejal]);    
+            return view('acceso.auditoria.index',["auditoria"=>$auditoria, "auditoria_consejal"=>$auditoria_consejal]);    
             
         }
 

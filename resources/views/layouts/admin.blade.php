@@ -113,7 +113,9 @@
               </a>
               <ul class="treeview-menu">
 
-                <li><a href="{{url('consulta/votos_intendente')}}"><i class="fa fa-circle-o"></i> Votos Intendente</a></li>
+                <li><a href="{{ route('consulta.index') }}"><i class="fa fa-circle-o"></i> Votante</a></li>
+                <li><a href="{{ route('electores') }}"><i class="fa fa-circle-o"></i> Mesa Habilitadas</a></li>
+                <li><a href="{{url('consulta/votos_intendente')}}"><i class="fa fa-circle-o"></i> Votos Intendente</a></li>                
                 <li><a href="{{url('consulta/votos_consejal')}}"><i class="fa fa-circle-o"></i> Votos Consejal</a></li>
                 
               </ul>
@@ -175,7 +177,7 @@
                 <div class="box-body">
                   	<div class="row">
 	                  	<div class="col-md-12">
-                              <!--Contenido-->                               
+                              <!--Contenido-->
                                 @yield('contenido')
                                 @yield('scripts')
                                 <input type="hidden" id="prol" name="prol"  value="{{Auth::user()->id_rol}}" class="form-control">
@@ -239,9 +241,8 @@
     if (id_rol == 2){
             
       $("#pAcceso1").remove();
-
-    }
-
+      $("#pvotacion").remove();
+    }    
   
   }
     

@@ -3,12 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use DB;
-use Maatwebsite\Excel\Concerns\FromCollection;
 use Barryvdh\DomPDF\Facade as PDF;
-use App\Http\Requests\PersonaFormRequest;
-use illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
+
 
 class PDFController extends Controller
 {
@@ -32,7 +29,7 @@ class PDFController extends Controller
         ->first();
         
         
-        $PDF = PDF::loadView('pdf\intendente_resumen',["votacion_intendente"=>$votacion_intendente
+        $PDF = PDF::loadView('pdf.intendente_resumen',["votacion_intendente"=>$votacion_intendente
         , "aux"=>$aux]);      
                 
         return $PDF->stream();
@@ -61,7 +58,7 @@ class PDFController extends Controller
         ->orderBy('Id_Local', 'ASC' )
         ->get();        
                 
-        $PDF = PDF::loadView('pdf\intendente_local_resumen',["votacion_intendente"=>$votacion_intendente
+        $PDF = PDF::loadView('pdf.intendente_local_resumen',["votacion_intendente"=>$votacion_intendente
         , "local_votacion"=>$local_votacion]);
 
         return $PDF->stream();
@@ -90,7 +87,7 @@ class PDFController extends Controller
         ->orderBy('Id_Intendente', 'ASC' )
         ->get();
 
-        $PDF = PDF::loadView('pdf\intendente_mesa_resumen',["resumen_mesa"=>$resumen_mesa
+        $PDF = PDF::loadView('pdf.intendente_mesa_resumen',["resumen_mesa"=>$resumen_mesa
         , "intendente"=>$intendente]);
 
         return $PDF->stream();
@@ -116,7 +113,7 @@ class PDFController extends Controller
         ->orderBy('Id_Local', 'ASC' )
         ->get();
 
-        $PDF = PDF::loadView('pdf\intendente',["local_votacion"=>$local_votacion
+        $PDF = PDF::loadView('pdf.intendente',["local_votacion"=>$local_votacion
         , "aux_intendente"=>$aux_intendente
         , "intendente"=>$intendente]);
 
@@ -148,7 +145,7 @@ class PDFController extends Controller
         ->first();
         
         
-        $PDF = PDF::loadView('pdf\consejal_resumen',["votacion_consejal"=>$votacion_consejal
+        $PDF = PDF::loadView('pdf.consejal_resumen',["votacion_consejal"=>$votacion_consejal
         , "aux"=>$aux]);      
                 
         return $PDF->stream();
@@ -177,7 +174,7 @@ class PDFController extends Controller
         ->orderBy('Id_Local', 'ASC' )
         ->get();        
         
-        $PDF = PDF::loadView('pdf\consejal_local_resumen',["votacion_consejal"=>$votacion_consejal
+        $PDF = PDF::loadView('pdf.consejal_local_resumen',["votacion_consejal"=>$votacion_consejal
         , "local_votacion"=>$local_votacion]);      
                 
         return $PDF->stream();
@@ -215,7 +212,7 @@ class PDFController extends Controller
         ->orderBy('Id_Consejal', 'ASC' )
         ->get();
 
-        $PDF = PDF::loadView('pdf\consejal_mesa_resumen',["resumen_mesa"=>$resumen_mesa
+        $PDF = PDF::loadView('pdf.consejal_mesa_resumen',["resumen_mesa"=>$resumen_mesa
         , "consejal"=>$consejal
         , "total"=>$total]);
 
@@ -242,11 +239,111 @@ class PDFController extends Controller
         ->orderBy('Id_Local', 'ASC' )
         ->get();
 
-        $PDF = PDF::loadView('pdf\consejal',["local_votacion"=>$local_votacion
+        $PDF = PDF::loadView('pdf.consejal',["local_votacion"=>$local_votacion
         , "aux_consejal"=>$aux_consejal
         , "consejal"=>$consejal]);
 
         return $PDF->stream();
+
+    }
+
+    public function Lista(){
+        
+        $consejal = DB::table('votacion_consejal AS a')
+        ->join('consejal AS b','b.Id_Consejal','=','a.Id_Consejal')        
+        ->join('lista AS c','c.Id_Lista','=','b.Id_Lista')
+        ->select('b.Id_Lista'
+        , 'a.Id_Consejal'
+        , 'b.Nombre'
+        , 'b.Apellido'
+        , DB::raw('SUM(a.`Votos`) AS Votos')
+        , 'c.Desc_Lista')
+        ->where('b.Id_Lista','=', 8)
+        ->groupBy('b.Id_Lista'
+        , 'a.Id_Consejal'
+        , 'b.Nombre'
+        , 'b.Apellido'
+        , 'c.Desc_Lista')                
+        ->orderBy('b.Id_Lista', 'Asc')
+        ->orderBy('a.Id_Consejal', 'Asc')
+        ->get();
+
+        $lista = DB::table('lista_consejal')
+        ->where('Id_Lista','=', 8)
+        ->orderBy('Id_Lista', 'ASC' )
+        ->get();
+
+        $consejal_monto = DB::table('votacion_consejal AS a')
+        ->join('consejal AS b','b.Id_Consejal','=','a.Id_Consejal')        
+        ->join('lista AS c','c.Id_Lista','=','b.Id_Lista')
+        ->where('b.Id_Lista','=', 8)
+        ->select('b.Id_Lista'            
+        , DB::raw('SUM(a.`Votos`) AS Votos')
+        , 'c.Desc_Lista')
+        ->groupBy('b.Id_Lista'
+        , 'c.Desc_Lista')                
+        ->orderBy(DB::raw('SUM(a.`Votos`)'), 'DESC')
+        ->get();
+    
+        $PDF = PDF::loadView('pdf.consejal_lista',["consejal"=>$consejal
+        , "lista"=>$lista
+        , "consejal_monto"=>$consejal_monto]);
+
+        return $PDF->stream();
+
+    }
+
+    public function Lista_resumen(){
+        
+        $consejal = DB::table('votacion_consejal AS a')
+        ->join('consejal AS b','b.Id_Consejal','=','a.Id_Consejal')        
+        ->join('lista AS c','c.Id_Lista','=','b.Id_Lista')
+        ->select('b.Id_Lista'            
+        , DB::raw('SUM(a.`Votos`) AS Votos')
+        , 'c.Desc_Lista')
+        ->groupBy('b.Id_Lista'
+        , 'c.Desc_Lista')                
+        ->orderBy(DB::raw('SUM(a.`Votos`)'), 'DESC')
+        ->get();
+        
+
+        $PDF = PDF::loadView('pdf.consejal_lista',["consejal"=>$consejal]);
+
+        return $PDF->stream();
+
+    }
+
+    public function electores(){
+
+        $electores = DB::table('electores')
+        ->orderBy('Orden', 'ASC')
+        ->get();
+
+        return view('pdf.electores', compact('electores'));
+
+    }
+
+    public function electores_pdf(){
+
+        $electores = DB::table('electores')
+        ->orderBy('Orden', 'ASC')
+        ->get();
+
+        $PDF = PDF::loadView('pdf.electores_pdf',["electores"=>$electores]);      
+                
+        return $PDF->stream();        
+
+    }
+
+    public function electores_pdf_descargar(){
+
+        $electores = DB::table('electores')
+        ->orderBy('Orden', 'ASC')
+        ->get();
+
+        $PDF = PDF::loadView('pdf.electores_pdf',["electores"=>$electores]);      
+                
+        return $PDF->download();
 
     }
 

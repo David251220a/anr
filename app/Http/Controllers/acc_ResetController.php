@@ -26,7 +26,7 @@ class acc_ResetController extends Controller
 
         if($request){
 
-            return view('acceso\reset.index',["user"=>$user]);
+            return view('acceso.reset.index',["user"=>$user]);
 
         }
 

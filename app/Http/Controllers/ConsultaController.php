@@ -44,7 +44,7 @@ class ConsultaController extends Controller
             ->orderBy('a.Id_Mesa', 'ASC')
             ->get();
 
-            return view('consulta\votos_intendente.index',["votos_intendente"=>$votos_intendente]);
+            return view('consulta.votos_intendente.index',["votos_intendente"=>$votos_intendente]);
 
         }
 
@@ -86,7 +86,7 @@ class ConsultaController extends Controller
     public function Acta($id){
 
         $votos_intendente = Votacion_Intendente::findOrFail($id);
-        return view('consulta\votos_intendente.acta',["votos_intendente"=>$votos_intendente]);
+        return view('consulta.votos_intendente.acta',["votos_intendente"=>$votos_intendente]);
 
     }
 
