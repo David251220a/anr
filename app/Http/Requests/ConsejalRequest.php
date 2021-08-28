@@ -24,8 +24,6 @@ class ConsejalRequest extends FormRequest
     public function rules()
     {
         $rules = [
-
-            'consejal' => 'required',
             'votos' => 'required',
         ];
 

@@ -55,17 +55,25 @@
               <!-- User Account: style can be found in dropdown.less -->
               <li class="dropdown user user-menu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                  <small class="bg-red">Online</small>
-                  <span class="hidden-xs">{{ Auth::user()->name}}</span>
+                  @if (Auth::user())
+                  
+                    <small class="bg-red">Online</small>
+                    <span class="hidden-xs">{{ Auth::user()->name}}</span>
+
+                  @endif
+                  
                 </a>
                 <ul class="dropdown-menu">
                   <!-- User image -->
                   <li class="user-header">
                     
-                    <p>
-                      {{ Auth::user()->name }}
-                      <small>Sistema Desarrollado</small>
-                    </p>
+                    @if (Auth::user())
+                      <p>
+                        {{ Auth::user()->name }}
+                        <small>Sistema Desarrollado</small>
+                      </p>    
+                    @endif
+                    
                   </li>
                   
                   <!-- Menu Footer-->
@@ -180,7 +188,10 @@
                               <!--Contenido-->
                                 @yield('contenido')
                                 @yield('scripts')
-                                <input type="hidden" id="prol" name="prol"  value="{{Auth::user()->id_rol}}" class="form-control">
+                                @if (Auth::user())
+                                  <input type="hidden" id="prol" name="prol"  value="{{Auth::user()->id_rol}}" class="form-control">    
+                                @endif
+                                
 		                          <!--Fin Contenido-->
                            </div>
                         </div>

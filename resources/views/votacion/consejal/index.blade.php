@@ -2,707 +2,282 @@
 
 @section('contenido')
 
-<div class="rows">
+    <div class="rows">
 
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        @if (session()->has('msj'))
-        
-        <div class="alert alert-danger" role="alert">{{session('msj')}}</div>
-        
-        @else
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            @if (session()->has('msj'))
             
-        @endif
+            <div class="alert alert-danger" role="alert">{{session('msj')}}</div>
+            
+            @else
+                
+            @endif
+        </div>
     </div>
-</div>
 
 {!! Form::open(['route' => 'consejal.store', 'autocomplete' => 'off', 'files' => true]) !!}
 
     <div class="row">
 
-        <div class="panel panel-danger">
+        <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
 
-            <div class="panel panel-heading">
-
-                <h3 style="text-align: center; color: red"><b>Consejal</b></h3>
-
+            <div class="alert alert-danger" style="text-align: center" role="alert">
+                CONSEJAL
             </div>
 
-            <div class="panel-body">
+        </div>
 
-                <div class="row">
+    </div>
 
-                    <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
+    <div class="row">
 
-                        <div class="form-group">
-            
-                            <label form="id_local" >Local Votacion</label>
-                            <select name="id_local" id="id_local" class="form-control selectpicker"  data-live-search="true">
-    
-                                @foreach ($local_votacion as $vot)
-                                    
-                                    <option value="{{$vot->Id_Local}}">{{$vot->Desc_Local}} </option>
-            
-                                @endforeach
-            
-                            </select>
-            
-                        </div>
-            
-                    </div>
-    
-                    <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
-    
-                        <div class="form-group">
-            
-                            <label form="id_mesa" >Mesa</label>
-                            <select name="id_mesa" id="id_mesa" class="form-control selectpicker"  data-live-search="true">
-    
-                                @foreach ($mesa as $me)
-                                    
-                                    <option value="{{$me->Id_Mesa}}">{{$me->Mesa}} </option>
-            
-                                @endforeach
-            
-                            </select>
-            
-                        </div>
-            
-                    </div>
+        <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
 
-                </div>
+            <div class="form-group">
 
-                <hr style="width: 100% ; border: 1px solid red; height: 2px;">
-                
-                <div class="steps-form">
+                <label form="id_local" >Local Votacion</label>
+                <select name="id_local" id="id_local" class="form-control selectpicker"  data-live-search="true">
 
-                    <div class="steps-row setup-panel">
-            
-                        <div class="steps-step">
+                    @foreach ($local_votacion as $vot)
                         
-                            <a href="#step-1" type="button" class="btn btn-indigo btn-circle">1</a>            
-                            <p>Paso 1</p>
-                        
-                        </div>
-                        
-                        <div class="steps-step">
-                        
-                            <a href="#step-2" type="button" class="btn btn-default btn-circle" disabled="disabled">2</a>            
-                            <p>Paso 2</p>
-                        
-                        </div>
-        
-                        <div class="steps-step">
-                        
-                            <a href="#step-3" type="button" class="btn btn-default btn-circle" disabled="disabled">3</a>            
-                            <p>Paso 3</p>
-                        
-                        </div>
-        
-                        <div class="steps-step">
-                        
-                            <a href="#step-4" type="button" class="btn btn-default btn-circle" disabled="disabled">4</a>            
-                            <p>Paso 4</p>
-                        
-                        </div>
-        
-                        <div class="steps-step">
-                        
-                            <a href="#step-5" type="button" class="btn btn-default btn-circle" disabled="disabled">5</a>
-                            <p>Paso 5</p>
-                        
-                        </div>
-
-                        <div class="steps-step">
-                        
-                            <a href="#step-6" type="button" class="btn btn-default btn-circle" disabled="disabled">6</a>
-                            <p>Paso 6</p>
-                        
-                        </div>
-                    
-                    </div>                    
-
-                </div>
-                
-                <br>
-
-                <div class="row setup-content" id="step-1">
-                    
-                    <div class="row">
-                        
-                        <div class="col-lg-4 col-sm-4 col-md-4 col-xs-6">                        
-                            
-                            <div class="form-group md-form mt-3" style="text-align: center">
-                
-                                <label for="consejal" data-error="wrong">CONSEJAL</label>
-                
-                            </div>
-                
-                        </div>
-
-                        <div class="col-lg-4 col-sm-4 col-md-4 col-xs-6">
-                            
-                            <div class="form-group md-form mt-3" style="text-align: center">
-                                            
-                                <label for="consejal" data-error="wrong">VOTOS</label>
-                
-                            </div>                        
-                            
-                
-                        </div>
-
-                    </div>
-
-                    @foreach ($primero as $primer)
-
-                        <div class="row">
-                            
-                            <div class="col-lg-4 col-sm-4 col-md-4 col-xs-6">                        
-                                
-                                <div class="form-group md-form mt-3" style="text-align: right">
-                    
-                                    <label for="consejal" data-error="wrong">{{$primer->Consejal}}</label>
-                                    <input type="hidden" name="consejal[]" id="consejal" class="form-control" value={{$primer->Id_Consejal}}>
-                    
-                                </div>
-                    
-                            </div>
-
-                            <div class="col-lg-4 col-sm-4 col-md-4 col-xs-6">
-                                
-                                <div class="form-group md-form mt-3">
-                                                
-                                    <input id="votos" name="votos[]" type="number" required="required" value="0" class="form-control validate Can_Produc primer">
-                    
-                                </div>                        
-                                
-                    
-                            </div>
-
-                        </div>
+                        <option value="{{$vot->Id_Local}}">{{$vot->Desc_Local}} </option>
 
                     @endforeach
 
-                    <div class="row">
-                        
-                        <div class="col-lg-4 col-sm-4 col-md-4 col-xs-6">                        
-                            
-                            <div class="form-group md-form mt-3" style="text-align: right">
-                                                            
-                                <label for="consejal" data-error="wrong">TOTAL:</label>
-                
-                            </div>
-                
-                        </div>
-
-                        <div class="col-lg-4 col-sm-4 col-md-4 col-xs-6">
-                            
-                            <div class="form-group md-form mt-3">
-                                                                            
-                                <input id="primer_total" type="number" required="required" readonly value="0" class="form-control validate">
-                
-                            </div>                        
-                            
-                
-                        </div>
-
-                    </div>
-
-
-                    <div class="form-row text-center">
-                        
-                        <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
-
-                            <button class="btn btn-primary btn-indigobtn-rounded nextBtn float-right" type="button">Siguiente</button>
-
-                        </div>
-                    
-                    </div>
-            
-                </div>
-
-                <div class="row setup-content" id="step-2">
-                    
-                    <div class="row">
-                        
-                        <div class="col-lg-4 col-sm-4 col-md-4 col-xs-6">                        
-                            
-                            <div class="form-group md-form mt-3" style="text-align: center">
-                
-                                <label for="consejal" data-error="wrong">CONSEJAL</label>
-                
-                            </div>
-                
-                        </div>
-
-                        <div class="col-lg-4 col-sm-4 col-md-4 col-xs-6">
-                            
-                            <div class="form-group md-form mt-3" style="text-align: center">
-                                            
-                                <label for="consejal" data-error="wrong">VOTOS</label>
-                
-                            </div>                        
-                            
-                
-                        </div>
-
-                    </div>
-
-                    @foreach ($segundo as $segund)
-
-                        <div class="row">
-                            
-                            <div class="col-lg-4 col-sm-4 col-md-4 col-xs-6">                        
-                                
-                                <div class="form-group md-form mt-3" style="text-align: right">
-                    
-                                    <label for="consejal" data-error="wrong">{{$segund->Consejal}}</label>
-                                    <input type="hidden" name="consejal[]" id="consejal" class="form-control" value={{$segund->Id_Consejal}}>
-                    
-                                </div>
-                    
-                            </div>
-
-                            <div class="col-lg-4 col-sm-4 col-md-4 col-xs-6">
-                                
-                                <div class="form-group md-form mt-3">
-                                                
-                                    <input id="votos" name="votos[]" type="number" required="required" value="0" class="form-control validate Can_Produc segundo">
-                    
-                                </div>                        
-                                
-                    
-                            </div>
-
-                        </div>
-
-                    @endforeach
-
-                    <div class="row">
-                        
-                        <div class="col-lg-4 col-sm-4 col-md-4 col-xs-6">                        
-                            
-                            <div class="form-group md-form mt-3" style="text-align: right">
-                                                            
-                                <label for="consejal" data-error="wrong">TOTAL:</label>
-                
-                            </div>
-                
-                        </div>
-
-                        <div class="col-lg-4 col-sm-4 col-md-4 col-xs-6">
-                            
-                            <div class="form-group md-form mt-3">
-                                                                            
-                                <input id="segundo_total" type="number" required="required" readonly value="0" class="form-control validate">
-                
-                            </div>                        
-                            
-                
-                        </div>
-
-                    </div>
-
-
-                    <div class="form-row text-center">
-                        
-                        <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
-
-                            <button class="btn btn-primary btn-indigo btn-rounded prevBtn float-left" type="button">Atras</button>
-                            <button class="btn btn-primary btn-indigo btn-rounded nextBtn float-right" type="button">Siguiente</button>
-
-                        </div>
-                    
-                    </div>
-            
-                </div>
-
-                <div class="row setup-content" id="step-3">
-                    
-                    <div class="row">
-                        
-                        <div class="col-lg-4 col-sm-4 col-md-4 col-xs-6">                        
-                            
-                            <div class="form-group md-form mt-3" style="text-align: center">
-                
-                                <label for="consejal" data-error="wrong">CONSEJAL</label>
-                
-                            </div>
-                
-                        </div>
-
-                        <div class="col-lg-4 col-sm-4 col-md-4 col-xs-6">
-                            
-                            <div class="form-group md-form mt-3" style="text-align: center">
-                                            
-                                <label for="consejal" data-error="wrong">VOTOS</label>
-                
-                            </div>                        
-                            
-                
-                        </div>
-
-                    </div>
-
-                    @foreach ($tercero as $tercer)
-
-                        <div class="row">
-                            
-                            <div class="col-lg-4 col-sm-4 col-md-4 col-xs-6">                        
-                                
-                                <div class="form-group md-form mt-3" style="text-align: right">
-                    
-                                    <label for="consejal" data-error="wrong">{{$tercer->Consejal}}</label>
-                                    <input type="hidden" name="consejal[]" id="consejal" class="form-control" value={{$tercer->Id_Consejal}}>
-                    
-                                </div>
-                    
-                            </div>
-
-                            <div class="col-lg-4 col-sm-4 col-md-4 col-xs-6">
-                                
-                                <div class="form-group md-form mt-3">
-                                                
-                                    <input id="votos" name="votos[]" type="number" required="required" value="0" class="form-control validate Can_Produc tercero">
-                    
-                                </div>                        
-                                
-                    
-                            </div>
-
-                        </div>
-
-                    @endforeach
-
-                    <div class="row">
-                        
-                        <div class="col-lg-4 col-sm-4 col-md-4 col-xs-6">                        
-                            
-                            <div class="form-group md-form mt-3" style="text-align: right">
-                                                            
-                                <label for="consejal" data-error="wrong">TOTAL:</label>
-                
-                            </div>
-                
-                        </div>
-
-                        <div class="col-lg-4 col-sm-4 col-md-4 col-xs-6">
-                            
-                            <div class="form-group md-form mt-3">
-                                                                            
-                                <input id="tercer_total" type="number" required="required" readonly value="0" class="form-control validate">
-                
-                            </div>                        
-                            
-                
-                        </div>
-
-                    </div>
-
-
-                    <div class="form-row text-center">
-                        
-                        <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
-
-                            <button class="btn btn-primary btn-indigo btn-rounded prevBtn float-left" type="button">Atras</button>
-                            <button class="btn btn-primary btn-indigo btn-rounded nextBtn float-right" type="button">Siguiente</button>
-
-                        </div>
-                    
-                    </div>
-            
-                </div>
-
-                <div class="row setup-content" id="step-4">
-                    
-                    <div class="row">
-                        
-                        <div class="col-lg-4 col-sm-4 col-md-4 col-xs-6">                        
-                            
-                            <div class="form-group md-form mt-3" style="text-align: center">
-                
-                                <label for="consejal" data-error="wrong">CONSEJAL</label>
-                
-                            </div>
-                
-                        </div>
-
-                        <div class="col-lg-4 col-sm-4 col-md-4 col-xs-6">
-                            
-                            <div class="form-group md-form mt-3" style="text-align: center">
-                                            
-                                <label for="consejal" data-error="wrong">VOTOS</label>
-                
-                            </div>                        
-                            
-                
-                        </div>
-
-                    </div>
-
-                    @foreach ($cuarto as $cuart)
-
-                        <div class="row">
-                            
-                            <div class="col-lg-4 col-sm-4 col-md-4 col-xs-6">                        
-                                
-                                <div class="form-group md-form mt-3" style="text-align: right">
-                    
-                                    <label for="consejal" data-error="wrong">{{$cuart->Consejal}}</label>
-                                    <input type="hidden" name="consejal[]" id="consejal" class="form-control" value={{$cuart->Id_Consejal}}>
-                    
-                                </div>
-                    
-                            </div>
-
-                            <div class="col-lg-4 col-sm-4 col-md-4 col-xs-6">
-                                
-                                <div class="form-group md-form mt-3">
-                                                
-                                    <input id="votos" name="votos[]" type="number" required="required" value="0" class="form-control validate Can_Produc cuarto">
-                    
-                                </div>                        
-                                
-                    
-                            </div>
-
-                        </div>
-
-                    @endforeach
-
-                    <div class="row">
-                        
-                        <div class="col-lg-4 col-sm-4 col-md-4 col-xs-6">                        
-                            
-                            <div class="form-group md-form mt-3" style="text-align: right">
-                                                            
-                                <label for="consejal" data-error="wrong">TOTAL:</label>
-                
-                            </div>
-                
-                        </div>
-
-                        <div class="col-lg-4 col-sm-4 col-md-4 col-xs-6">
-                            
-                            <div class="form-group md-form mt-3">
-                                                                            
-                                <input id="cuarto_total" type="number" required="required" readonly value="0" class="form-control validate">
-                
-                            </div>                        
-                            
-                
-                        </div>
-
-                    </div>
-
-                    <div class="form-row text-center">
-                        
-                        <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
-
-                            <button class="btn btn-primary btn-indigo btn-rounded prevBtn float-left" type="button">Atras</button>
-                            <button class="btn btn-primary btn-indigo btn-rounded nextBtn float-right" type="button">Siguiente</button>
-
-                        </div>
-                    
-                    </div>
-            
-                </div>
-
-                <div class="row setup-content" id="step-5">
-                    
-                    <div class="row">
-                        
-                        <div class="col-lg-4 col-sm-4 col-md-4 col-xs-6">                        
-                            
-                            <div class="form-group md-form mt-3" style="text-align: center">
-                
-                                <label for="consejal" data-error="wrong">CONSEJAL</label>
-                
-                            </div>
-                
-                        </div>
-
-                        <div class="col-lg-4 col-sm-4 col-md-4 col-xs-6">
-                            
-                            <div class="form-group md-form mt-3" style="text-align: center">
-                                            
-                                <label for="consejal" data-error="wrong">VOTOS</label>
-                
-                            </div>                        
-                            
-                
-                        </div>
-
-                    </div>
-
-                    @foreach ($quinto as $quint)
-
-                        <div class="row">
-                            
-                            <div class="col-lg-4 col-sm-4 col-md-4 col-xs-6">                        
-                                
-                                <div class="form-group md-form mt-3" style="text-align: right">
-                    
-                                    <label for="consejal" data-error="wrong">{{$quint->Consejal}}</label>
-                                    <input type="hidden" name="consejal[]" id="consejal" class="form-control" value={{$quint->Id_Consejal}}>
-                    
-                                </div>
-                    
-                            </div>
-
-                            <div class="col-lg-4 col-sm-4 col-md-4 col-xs-6">
-                                
-                                <div class="form-group md-form mt-3">
-                                                
-                                    <input id="votos" name="votos[]" type="number" required="required" value="0" class="form-control validate Can_Produc quinto">
-                    
-                                </div>                        
-                                
-                    
-                            </div>
-
-                        </div>
-
-                    @endforeach
-
-                    <div class="row">
-                        
-                        <div class="col-lg-4 col-sm-4 col-md-4 col-xs-6">                        
-                            
-                            <div class="form-group md-form mt-3" style="text-align: right">
-                                                            
-                                <label for="consejal" data-error="wrong">TOTAL:</label>
-                
-                            </div>
-                
-                        </div>
-
-                        <div class="col-lg-4 col-sm-4 col-md-4 col-xs-6">
-                            
-                            <div class="form-group md-form mt-3">
-                                                                            
-                                <input id="quinto_total" type="number" required="required" readonly value="0" class="form-control validate">
-                
-                            </div>                        
-                            
-                
-                        </div>
-
-                    </div>
-
-                    <div class="form-row text-center">
-                        
-                        <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
-
-                            <button class="btn btn-primary btn-indigo btn-rounded prevBtn float-left" type="button">Atras</button>
-                            <button class="btn btn-primary btn-indigo btn-rounded nextBtn float-right" type="button">Siguiente</button>
-
-                        </div>
-                    
-                    </div>
-            
-                </div>
-
-                <div class="row setup-content" id="step-6">
-
-                    <div class="row">
-                        
-                        <div class="col-lg-4 col-sm-4 col-md-4 col-xs-6">                        
-                            
-                            <div class="form-group md-form mt-3" style="text-align: right">
-                                                            
-                                <label for="consejal" data-error="wrong">VOTOS NULOS:</label>
-                                <input type="hidden" name="consejal[]" id="consejal" class="form-control" value="99">
-                
-                            </div>
-                
-                        </div>
-
-                        <div class="col-lg-4 col-sm-4 col-md-4 col-xs-6">
-                            
-                            <div class="form-group md-form mt-3">
-                                                                            
-                                <input id="votos" name="votos[]" type="number" required="required" value="0" class="form-control validate Can_Produc">
-                
-                            </div>                        
-                            
-                
-                        </div>
-
-                    </div>
-
-                    <div class="row">
-                        
-                        <div class="col-lg-4 col-sm-4 col-md-4 col-xs-6">                        
-                            
-                            <div class="form-group md-form mt-3" style="text-align: right">
-                                                            
-                                <label for="consejal" data-error="wrong">TOTAL GENERAL DE VOTOS:</label>                                
-                
-                            </div>
-                
-                        </div>
-
-                        <div class="col-lg-4 col-sm-4 col-md-4 col-xs-6">
-                            
-                            <div class="form-group md-form mt-3">
-                                                                            
-                                <input id="total_general" type="number" required="required" readonly value="0" class="form-control validate">
-                
-                            </div>                        
-                            
-                
-                        </div>
-
-                    </div>
-
-                    <div class="row">
-                        
-                        <div class="col-lg-4 col-sm-4 col-md-4 col-xs-6">                        
-                            
-                            <div class="form-group md-form mt-3" style="text-align: right">
-                                                            
-                                <label form="acta" ><b>ACTA:</b> </label>
-                
-                            </div>
-                
-                        </div>
-
-                        <div class="col-lg-4 col-sm-4 col-md-4 col-xs-6">
-                            
-                            <div class="form-group md-form mt-3">
-                                
-                                <input type="file" name="acta" id="acta" accept="image/*" class="form-control" placeholder="Acta.." >
-                                @error('acta')
-
-                                    <span class="text-danger">{{$message}}</span>
-
-                                @enderror
-                
-                            </div>                        
-                            
-                
-                        </div>
-
-                    </div>
-
-
-                    <div class="form-row text-center">
-                        
-                        <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
-
-                            <button class="btn btn-primary btn-indigo btn-rounded prevBtn float-left" type="button">Atras</button>
-                            <button class="btn btn-success btn-default btn-rounded float-right" type="submit">Procesar</button>
-
-                        </div>
-                    
-                    </div>
-            
-                </div>
+                </select>
 
             </div>
 
         </div>
 
+        <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
+
+            <div class="form-group">
+
+                <label form="id_mesa" >Mesa</label>
+                <select name="id_mesa" id="id_mesa" class="form-control selectpicker"  data-live-search="true">
+
+                    @foreach ($mesa as $me)
+                        
+                        <option value="{{$me->Id_Mesa}}">{{$me->Mesa}} </option>
+
+                    @endforeach
+
+                </select>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="row">
+
+        <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
+
+            <div class="table-responsive">
+
+                <table id="detalles" class="table table-striped table-condensed table-bordered table-hover table-responsive">
+
+                    <thead style="background-color:#f71808a8">
+
+                        <th style="text-align: center; font-size: 1.2rem"><i class="fa fa-arrow-down" aria-hidden="true"></i>Orden / <i class="fa fa-arrow-right" aria-hidden="true"></i>Lista</th>
+                        @foreach ($listas as $lista)
+                        
+                            <th style="text-align: center; font-size: 1.2rem">{{$lista->numero_lista}}</th>
+                            <input type="hidden" name="lista[]" value="{{$lista->Id_Lista}}">
+
+                        @endforeach
+                        
+                    </thead>
+                    
+                    <tbody>
+
+                        @foreach ($ordenes as $orden)
+
+                            <tr style="align-items: center">
+
+                                <td style="text-align: right">{{$orden->Orden}} <input type="hidden" name="orden[]" value="{{$orden->Orden}}"></td>
+                                <td style="text-align: right"> <input type="number" style="text-align: right" class="form-control Can_Produc primer_11"  name="votos[]" value="0"> </td>
+                                <td style="text-align: right"> <input type="number" style="text-align: right" class="form-control Can_Produc primer_12" name="votos[]" value="0"> </td>
+                                <td style="text-align: right"> <input type="number" style="text-align: right" class="form-control Can_Produc primer_13" name="votos[]" value="0"> </td>
+                                <td style="text-align: right"> <input type="number" style="text-align: right" class="form-control Can_Produc primer_15" name="votos[]" value="0"> </td>
+                                <td style="text-align: right"> <input type="number" style="text-align: right" class="form-control Can_Produc primer_16" name="votos[]" value="0"> </td>
+                                <td style="text-align: right"> <input type="number" style="text-align: right" class="form-control Can_Produc primer_17" name="votos[]" value="0"> </td>
+                                <td style="text-align: right"> <input type="number" style="text-align: right" class="form-control Can_Produc primer_18" name="votos[]" value="0"> </td>
+
+                            </tr>
+                            
+                        @endforeach
+
+                    </tbody>
+
+                    <tfoot>
+                        
+                        <tr>
+
+                            <td style="text-align: right">TOTAL:</td>
+                            <td style="text-align: right"> <input type="number" id="total_11" style="text-align: right" class="form-control" value="0" readonly> </td>
+                            <td style="text-align: right"> <input type="number" id="total_12" style="text-align: right" class="form-control" value="0" readonly> </td>
+                            <td style="text-align: right"> <input type="number" id="total_13" style="text-align: right" class="form-control" value="0" readonly> </td>
+                            <td style="text-align: right"> <input type="number" id="total_15" style="text-align: right" class="form-control" value="0" readonly> </td>
+                            <td style="text-align: right"> <input type="number" id="total_16" style="text-align: right" class="form-control" value="0" readonly> </td>
+                            <td style="text-align: right"> <input type="number" id="total_17" style="text-align: right" class="form-control" value="0" readonly> </td>
+                            <td style="text-align: right"> <input type="number" id="total_18" style="text-align: right" class="form-control" value="0" readonly> </td>
+
+                        </tr>
+
+                    </tfoot>
+                    
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="row">
+                    
+        <div class="col-lg-4 col-sm-4 col-md-4 col-xs-6">                        
+            
+            <div class="form-group md-form mt-3" style="text-align: right">
+                                            
+                <label for="consejal" data-error="wrong">VOTOS NULOS:</label>
+                <input type="hidden" name="id_lista[]" id="consejal" class="form-control" value="999">
+
+            </div>
+
+        </div>
+
+        <div class="col-lg-4 col-sm-4 col-md-4 col-xs-6">
+            
+            <div class="form-group md-form mt-3">
+                                                            
+                <input id="votos" name="votos_varios[]" type="number" required="required" value="0" class="form-control Can_Produc">
+
+            </div>                        
+            
+
+        </div>
+
+    </div>
+
+    <div class="row">
+                    
+        <div class="col-lg-4 col-sm-4 col-md-4 col-xs-6">                        
+            
+            <div class="form-group md-form mt-3" style="text-align: right">
+                                            
+                <label for="consejal" data-error="wrong">VOTOS EN BLANCO:</label>
+                <input type="hidden" name="id_lista[]" id="consejal" class="form-control" value="998">
+
+            </div>
+
+        </div>
+
+        <div class="col-lg-4 col-sm-4 col-md-4 col-xs-6">
+            
+            <div class="form-group md-form mt-3">
+                                                            
+                <input id="votos" name="votos_varios[]" type="number" required="required" value="0" class="form-control Can_Produc">
+
+            </div>                        
+            
+
+        </div>
+
+    </div>
+
+    <div class="row">
+                    
+        <div class="col-lg-4 col-sm-4 col-md-4 col-xs-6">                        
+            
+            <div class="form-group md-form mt-3" style="text-align: right">
+                                            
+                <label for="consejal" data-error="wrong">VOTOS A COMPUTAR:</label>
+                <input type="hidden" name="id_lista[]" id="consejal" class="form-control" value="997">
+
+            </div>
+
+        </div>
+
+        <div class="col-lg-4 col-sm-4 col-md-4 col-xs-6">
+            
+            <div class="form-group md-form mt-3">
+                                                            
+                <input id="votos" name="votos_varios[]" type="number" required="required" value="0" class="form-control Can_Produc">
+
+            </div>                        
+            
+
+        </div>
+
+    </div>
+
+    <div class="row">
+                    
+        <div class="col-lg-4 col-sm-4 col-md-4 col-xs-6">                        
+            
+            <div class="form-group md-form mt-3" style="text-align: right">
+                                            
+                <label for="consejal" data-error="wrong">TOTAL DE VOTOS:</label>
+
+            </div>
+
+        </div>
+
+        <div class="col-lg-4 col-sm-4 col-md-4 col-xs-6">
+            
+            <div class="form-group md-form mt-3">
+                                                            
+                <input id="total_votos" type="number" required="required" value="0" class="form-control">
+
+            </div>                        
+            
+
+        </div>
+
+    </div>
+
+    <div class="row">
+                        
+        <div class="col-lg-4 col-sm-4 col-md-4 col-xs-6">                        
+            
+            <div class="form-group md-form mt-3" style="text-align: right">
+                                            
+                <label form="acta" ><b>ACTA:</b> </label>
+
+            </div>
+
+        </div>
+
+        <div class="col-lg-4 col-sm-4 col-md-4 col-xs-6">
+            
+            <div class="form-group md-form mt-3">
+                
+                <input type="file" name="acta" id="acta" accept="image/*" class="form-control" placeholder="Acta.." >
+                @error('acta')
+
+                    <span class="text-danger">{{$message}}</span>
+
+                @enderror
+
+            </div>                        
+            
+
+        </div>
+
+    </div>
+
+    <div class="form-row text-center">
+                        
+        <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
+
+            <button class="btn btn-success btn-default btn-rounded float-right" type="submit">Procesar</button>
+
+        </div>
+    
     </div>
 
 {!! Form::close() !!}
@@ -712,55 +287,6 @@
     <script type="text/javascript">
 
         $(document).ready(function () {
-            var navListItems = $('div.setup-panel div a'),
-            allWells = $('.setup-content'),
-            allNextBtn = $('.nextBtn'),
-            allPrevBtn = $('.prevBtn');
-
-            allWells.hide();
-
-            navListItems.click(function (e) {
-                e.preventDefault();
-                var $target = $($(this).attr('href')),
-                $item = $(this);
-
-                if (!$item.hasClass('disabled')) {
-                    navListItems.removeClass('btn-indigo').addClass('btn-default');
-                    $item.addClass('btn-indigo');
-                    allWells.hide();
-                    $target.show();
-                    $target.find('input:eq(0)').focus();
-                }
-            });
-
-            allPrevBtn.click(function(){
-            var curStep = $(this).closest(".setup-content"),
-            curStepBtn = curStep.attr("id"),
-            prevStepSteps = $('div.setup-panel div a[href="#' + curStepBtn + '"]').parent().prev().children("a");
-
-            prevStepSteps.removeAttr('disabled').trigger('click');
-        });
-
-        allNextBtn.click(function(){
-            var curStep = $(this).closest(".setup-content"),
-            curStepBtn = curStep.attr("id"),
-            nextStepWizard = $('div.setup-panel div a[href="#' + curStepBtn + '"]').parent().next().children("a"),
-            curInputs = curStep.find("input[type='text'],input[type='url']"),
-            isValid = true;
-
-            $(".form-group").removeClass("has-error");
-            for(var i=0; i< curInputs.length; i++){
-                if (!curInputs[i].validity.valid){
-                    isValid = false;
-                    $(curInputs[i]).closest(".form-group").addClass("has-error");
-                }
-            }            
-
-            if (isValid)
-                nextStepWizard.removeAttr('disabled').trigger('click');
-            });
-
-            $('div.setup-panel div a.btn-indigo').trigger('click');
 
             $('.Can_Produc').keyup(function() {
                     
@@ -775,16 +301,16 @@
                     }
                 );
 
-                $("#total_general").val(importe_total);
+                $("#total_votos").val(importe_total);
 
             });
 
-            $('.primer').keyup(function() {
+            $('.primer_11').keyup(function() {
                     
                 var nuevo_valor =  $(this).val();
-                var importe_total = 0;
+                var importe_total = 0;                    
 
-                $(".primer").each(
+                $(".primer_11").each(
                     function(index, value) {
                         if ( $.isNumeric($(this).val()) ){
                             importe_total += parseInt($(this).val());
@@ -792,16 +318,16 @@
                     }
                 );
 
-                $("#primer_total").val(importe_total);
-                
+                $("#total_11").val(importe_total);
+    
             });
 
-            $('.segundo').keyup(function() {
+            $('.primer_12').keyup(function() {
                     
                 var nuevo_valor =  $(this).val();
-                var importe_total = 0;
+                var importe_total = 0;                    
 
-                $(".segundo").each(
+                $(".primer_12").each(
                     function(index, value) {
                         if ( $.isNumeric($(this).val()) ){
                             importe_total += parseInt($(this).val());
@@ -809,16 +335,16 @@
                     }
                 );
 
-                $("#segundo_total").val(importe_total);
-                
+                $("#total_12").val(importe_total);
+    
             });
-
-            $('.tercero').keyup(function() {
+            
+            $('.primer_13').keyup(function() {
                     
                 var nuevo_valor =  $(this).val();
-                var importe_total = 0;
+                var importe_total = 0;                    
 
-                $(".tercero").each(
+                $(".primer_13").each(
                     function(index, value) {
                         if ( $.isNumeric($(this).val()) ){
                             importe_total += parseInt($(this).val());
@@ -826,16 +352,33 @@
                     }
                 );
 
-                $("#tercer_total").val(importe_total);
-                
+                $("#total_13").val(importe_total);
+    
             });
 
-            $('.cuarto').keyup(function() {
+            // $('.primer_14').keyup(function() {
+                    
+            //     var nuevo_valor =  $(this).val();
+            //     var importe_total = 0;                    
+
+            //     $(".primer_14").each(
+            //         function(index, value) {
+            //             if ( $.isNumeric($(this).val()) ){
+            //                 importe_total += parseInt($(this).val());
+            //             }
+            //         }
+            //     );
+
+            //     $("#total_14").val(importe_total);
+    
+            // });
+
+            $('.primer_15').keyup(function() {
                     
                 var nuevo_valor =  $(this).val();
-                var importe_total = 0;
+                var importe_total = 0;                    
 
-                $(".cuarto").each(
+                $(".primer_15").each(
                     function(index, value) {
                         if ( $.isNumeric($(this).val()) ){
                             importe_total += parseInt($(this).val());
@@ -843,16 +386,16 @@
                     }
                 );
 
-                $("#cuarto_total").val(importe_total);
-                
+                $("#total_15").val(importe_total);
+    
             });
 
-            $('.quinto').keyup(function() {
+            $('.primer_16').keyup(function() {
                     
                 var nuevo_valor =  $(this).val();
-                var importe_total = 0;
+                var importe_total = 0;                    
 
-                $(".quinto").each(
+                $(".primer_16").each(
                     function(index, value) {
                         if ( $.isNumeric($(this).val()) ){
                             importe_total += parseInt($(this).val());
@@ -860,8 +403,42 @@
                     }
                 );
 
-                $("#quinto_total").val(importe_total);
-                
+                $("#total_16").val(importe_total);
+    
+            });
+
+            $('.primer_17').keyup(function() {
+                    
+                var nuevo_valor =  $(this).val();
+                var importe_total = 0;                    
+
+                $(".primer_17").each(
+                    function(index, value) {
+                        if ( $.isNumeric($(this).val()) ){
+                            importe_total += parseInt($(this).val());
+                        }
+                    }
+                );
+
+                $("#total_17").val(importe_total);
+    
+            });
+
+            $('.primer_18').keyup(function() {
+                    
+                var nuevo_valor =  $(this).val();
+                var importe_total = 0;                    
+
+                $(".primer_18").each(
+                    function(index, value) {
+                        if ( $.isNumeric($(this).val()) ){
+                            importe_total += parseInt($(this).val());
+                        }
+                    }
+                );
+
+                $("#total_18").val(importe_total);
+    
             });
 
         });
