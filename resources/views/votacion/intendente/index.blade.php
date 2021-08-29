@@ -33,7 +33,7 @@
 
                     <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
 
-                        <div class="form-group">
+                        {{-- <div class="form-group">
             
                             <label form="id_local" >Local Votacion</label>
                             <select name="id_local" id="id_local" class="form-control selectpicker"  data-live-search="true">
@@ -46,6 +46,13 @@
             
                             </select>
             
+                        </div> --}}
+
+                        <div class="form-group">
+                        
+                            {!! Form::label('id_local', 'Local Votacion') !!}
+                            {!! Form::select('id_local', $local_votacion, null, ['class' => 'form-control selectpicker', 'data-live-search="true"']) !!}
+        
                         </div>
             
                     </div>
@@ -55,13 +62,14 @@
                         <div class="form-group">
             
                             <label form="id_mesa" >Mesa</label>
-                            <select name="id_mesa" id="id_mesa" class="form-control selectpicker"  data-live-search="true">
-    
-                                @foreach ($mesa as $me)
+                            <select name="id_mesa" id="id_mesa" class="form-control selectpicker" data-live-search="true">
+                                
+                                <option disabled selected>Selecciona una mesa</option>
+                                {{-- @foreach ($mesa as $me)
                                     
                                     <option value="{{$me->Id_Mesa}}">{{$me->Mesa}} </option>
             
-                                @endforeach
+                                @endforeach --}}
             
                             </select>
             

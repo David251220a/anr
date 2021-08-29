@@ -223,6 +223,9 @@
     <script src="{{asset('js/bootstrap.min.js')}}"></script>
     <script src="{{asset('js/bootstrap-select.min.js')}}"></script>
 
+    {{-- {!! Html::script('js/dropdown.js') !!}  --}}
+    <script src="{{asset('js/dropdown.js')}}"></script>
+
    
     
     <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.2/js/bootstrap-select.min.js"></script>-->

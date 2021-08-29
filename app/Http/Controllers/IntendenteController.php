@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\IntendenteRequest;
+use App\Local_Mesa_Votacion;
 use App\Votacion_Intendente;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -32,9 +33,12 @@ class IntendenteController extends Controller
             ->orderBy('Id_Lista', 'ASC')
             ->get();
 
+            // $local_votacion = DB::table('local_votacion')
+            // ->orderBy('Id_Local', 'ASC')
+            // ->get();
+
             $local_votacion = DB::table('local_votacion')
-            ->orderBy('Id_Local', 'ASC')
-            ->get();
+            ->pluck('Desc_Local', 'Id_Local');
 
             $mesa = DB::table('mesa')
             ->orderBy('Id_Mesa', 'ASC')
@@ -104,6 +108,19 @@ class IntendenteController extends Controller
 
         return redirect()->route('intendente.index');
         
+    }
+
+    public function getmesas($id){
+
+        // $mesas = DB::table('local_mesa_votacion')
+        // ->where('Id_Local', $id)
+        // ->where('Activo', 1)
+        // ->get();
+
+        return Local_Mesa_Votacion::where('Id_Local', $id)
+        ->where('Activo', 1)
+        ->get();
+
     }
 
 }
