@@ -2,130 +2,75 @@
 
 @section('contenido')
 
-<div class="rows">
+    <div class="rows">
 
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        
-        <LEGEND><b> <i> <u><h3>Votos Intendente</h3></u></i></b> </LEGEND>
-
-    </div>
-</div>
-
-<div class="rows">
-
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        @if (session()->has('msj'))
-        
-        <div class="alert alert-danger" role="alert">{{session('msj')}}</div>
-        
-        @else
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             
-        @endif
-    </div>
-</div>
+            <LEGEND><b> <i> <u><h3>Ultimos votos cargados - Intendente</h3></u></i></b> </LEGEND>
 
-<br>
-
-<div class="rows">
-
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-
-        <div class="table table-responsive">
-
-            <table id="detalles"  class="table table-striped table-bordered table-condensed table-hover">                
-                
-                <thead style="background-color:#f20a0ade">
-                    
-                    <th style="text-align: center">Lista</th>                                                
-                    <th colspan="2" style="text-align: center">Intendente</th>
-                    <th style="text-align: center">Local</th>
-                    <th style="text-align: center">Mesa</th>
-                    <th style="text-align: center">Votos</th>
-                    <th style="text-align: center">Opcion</th>
-                    <th style="text-align: center">Acta</th>
-
-                </thead>                
-                @foreach ($votos_intendente as $vot)
-
-                    <tr style="vertical-align: middle ; text-align: center">
-                                            
-                        <td>{{$vot->Desc_Lista}}</td>                    
-                        <td>{{$vot->Nombre}}</td>
-                        <td>{{$vot->Apellido}}</td>
-                        <td>{{$vot->Desc_Local}}</td>
-                        <td>{{$vot->Mesa}}</td>
-                        <td style="text-align: right">{{number_format($vot->Votos,0, ".", ".")}}</td>
-                        <td>
-                            <a href="" data-target="#modal-edit-{{$vot->Id_Votacion}}" data-toggle="modal">
-                                 <button class="btn btn-danger">Editar</button>
-                            </a>                        
-                           
-                        </td> 
-
-                        <td>
-
-                            @if(empty($vot->imagen))
-
-                                <button class="btn btn-danger">NO</button>
-
-                            @else
-
-                                <button class="btn btn-info">SI</button>
-                                <a href="{{URL::action('ConsultaController@Acta', $vot->Id_Votacion)}}" target="_blank">
-                                    <button class="btn btn-info">Ver</button>
-                               </a>
-
-                            @endif                                                                                                                      
-
-                        </td>               
-                    
-                    </tr>
-                    
-                    @include('consulta.votos_intendente.modal')
-                
-                @endforeach
-
-            </table>
-
-        </div>        
-
+        </div>
+        
     </div>
 
-</div>
+    {!! Form::open(['route' => 'consulta_intendente.index','method'=>'GET', 'autocomplete' => 'off', 'role'=>'search']) !!}
 
-@push('scripts')
+        <div class="row">
+
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+            
+                <div class="form-group">
+
+                    <select name="id_local" id="id_local" class="form-control selectpicker"  data-live-search="true">
+                                
+                        <option value="99" @if(99 == $local) selected="selected" @endif>TODOS LOS LOCALES</option>
+
+                        @foreach ($local_votacion as $vot)
+                            
+                            <option value="{{$vot->Id_Local}}" @if($vot->Id_Local == $local) selected="selected" @endif>{{$vot->Desc_Local}} </option>
+    
+                        @endforeach
+    
+                    </select>
+                    
+
+                </div>
+            
+            </div>
+
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+            
+                <div class="form-group">
+
+                    <div class="input-group">
+                        
+                        <select name="id_mesa" id="id_mesa" class="form-control selectpicker"  data-live-search="true">
+                        
+                            <option value="99" @if(99 == $mesa) selected="selected" @endif>TODAS LAS MESAS</option>
+
+                            @foreach ($mesas as $me)
+                                
+                                <option value="{{$me->Id_Mesa}}"  @if($me->Id_Mesa == $mesa) selected="selected" @endif>{{$me->Mesa}} </option>
+        
+                            @endforeach
+        
+                        </select>
+                        <span class="input-group-btn">
+                            <button type="submit" class="btn btn-primary">Buscar </button>
+                        </span>
+
+                    </div>
+
+                </div>
+            
+            </div>
+
+        </div>
+
+    {{Form::close() }}
+
 
 <script type="text/javascript">
 
-        $(document).ready(function() {
-            var dataTable = $('#detalles').dataTable({
-                //$("#detalles_.dataTables_filter").hide();                
-                language: {
-                    "decimal": "",
-                    "emptyTable": "No hay información",
-                    "info": "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
-                    "infoEmpty": "Mostrando 0 to 0 of 0 Entradas",
-                    "infoFiltered": "(Filtrado de _MAX_ total entradas)",
-                    "infoPostFix": "",
-                    "thousands": ",",
-                    "lengthMenu": "Mostrar _MENU_ Entradas",
-                    "loadingRecords": "Cargando...",
-                    "processing": "Procesando...",
-                    "search": "Buscar:",                    
-                    "zeroRecords": "Sin resultados encontrados",
-                    "paginate": {
-                        "first": "Primero",
-                        "last": "Ultimo",
-                        "next": "Siguiente",
-                        "previous": "Anterior"
-                    }
-                }
-                        
-            });
-        
-        });
 </script>
-
-@endpush
 
 @endsection
