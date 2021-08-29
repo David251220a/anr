@@ -2,211 +2,78 @@
 
 @section('contenido')
 
-<div class="rows">
+    <div class="rows">
 
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 
-        @if (session()->has('msj'))
-        
-            <div class="alert alert-danger" role="alert">{{session('msj')}}</div>
+            @if (session()->has('msj'))
             
-        @endif        
+                <div class="alert alert-danger" role="alert">{{session('msj')}}</div>
+                
+            @endif        
+
+        </div>
 
     </div>
 
-</div>
+    {{-- {!! Form::open(array('url'=>'votacion/intendente', 'method'=>'POST', 'autocomplete'=>'off', 'file'=>'true', 'enctype'=>"multipart/form-data"))!!} --}}
+    {!! Form::open(['route' => 'intendente.store', 'autocomplete' => 'off', 'files' => true]) !!}
 
-{{-- {!! Form::open(array('url'=>'votacion/intendente', 'method'=>'POST', 'autocomplete'=>'off', 'file'=>'true', 'enctype'=>"multipart/form-data"))!!} --}}
-{!! Form::open(['route' => 'intendente.store', 'autocomplete' => 'off', 'files' => true]) !!}
+        <div class="row">
 
-    <div class="row">
+            <div class="panel panel-danger">
 
-        <div class="panel panel-danger">
-
-            <div class="panel panel-heading">
-                <h3 style="text-align: center; color: red"><b>Intendente</b></h3>
-            </div>
-
-            <div class="panel-body">
-            
-                <div class="row">
-
-                    <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
-
-                        <div class="form-group">
-            
-                            <label form="id_local" >Local Votacion</label>
-                            <select name="id_local" id="id_local" class="form-control ">
-                                
-                                <option value="">Seleccione un local</option>
-
-                                @foreach ($local_votacion as $vot)
-                                    
-                                    <option value="{{$vot->Id_Local}}">{{$vot->Desc_Local}} </option>
-            
-                                @endforeach
-            
-                            </select>
-            
-                        </div>
-
-                        {{-- <div class="form-group">
-                        
-                            {!! Form::label('id_local', 'Local Votacion') !!}
-                            {!! Form::select('id_local', $local_votacion, null, ['class' => 'form-control selectpicker', 'data-live-search="true"']) !!}
-        
-                        </div> --}}
-            
-                    </div>
-    
-                    <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
-    
-                        <div class="form-group">
-            
-                            <label form="id_mesa" >Mesa</label>
-                            <select name="id_mesa" id="id_mesa" class="form-control">
-                                
-                                {{-- @foreach ($mesa as $me)
-                                    
-                                    <option value="{{$me->Id_Mesa}}">{{$me->Mesa}} </option>
-            
-                                @endforeach --}}
-            
-                            </select>
-                            @error('id_mesa')
-
-                                <span class="text-danger">{{$message}}</span>
-
-                            @enderror
-            
-                        </div>
-            
-                    </div>
-
+                <div class="panel panel-heading">
+                    <h3 style="text-align: center; color: red"><b>Intendente</b></h3>
                 </div>
 
-                <hr style="width: 100% ; border: 1px solid red; height: 2px;">
-
-                <div class="container">
-                    
+                <div class="panel-body">
+                
                     <div class="row">
 
-                        <div class="col-lg-4 col-sm-4 col-md-4 col-xs-4">
+                        <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
 
-                            <div class="form-group md-form mt-3" style="text-align: center">
+                            <div class="form-group">
                 
-                                <label form="intendente" ><b><h3>LISTA</h3></b> </label>                                    
+                                <label form="id_local" >Local Votacion</label>
+                                <select name="id_local" id="id_local" class="form-control ">
+                                    
+                                    <option value="">Seleccione un local</option>
+
+                                    @foreach ($local_votacion as $vot)
+                                        
+                                        <option value="{{$vot->Id_Local}}">{{$vot->Desc_Local}} </option>
+                
+                                    @endforeach
+                
+                                </select>
                 
                             </div>
+
+                            {{-- <div class="form-group">
+                            
+                                {!! Form::label('id_local', 'Local Votacion') !!}
+                                {!! Form::select('id_local', $local_votacion, null, ['class' => 'form-control selectpicker', 'data-live-search="true"']) !!}
+            
+                            </div> --}}
                 
                         </div>
-
-                        <div class="col-lg-4 col-sm-4 col-md-4 col-xs-4">
-
-                            <div class="form-group mt-3" style="text-align: center">
+        
+                        <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
+        
+                            <div class="form-group">
                 
-                                <label form="intendente" ><b><h3>VOTOS</h3></b> </label>                                    
+                                <label form="id_mesa" >Mesa</label>
+                                <select name="id_mesa" id="id_mesa" class="form-control">
+                                    
+                                    {{-- @foreach ($mesa as $me)
+                                        
+                                        <option value="{{$me->Id_Mesa}}">{{$me->Mesa}} </option>
                 
-                            </div>
+                                    @endforeach --}}
                 
-                        </div>
-
-                    </div>
-
-                    @php
-                        $cont = 0;
-                    @endphp
-
-                    @foreach ($intendentes as $intendente)                        
-
-                        <div class="row">
-
-                            <div class="col-lg-4 col-sm-4 col-md-4 col-xs-6">
-
-                                <div class="form-group mt-3" style="text-align: center">
-                    
-                                    <label form="intendente" ><b>  </b> </label>
-                                    <input type="hidden" name="intendente[]" id="intendente" class="form-control" value={{$intendente->Id_Intendente}}>
-                                    <br>
-                                    <h5>{{$intendente->Intendente}}</h5>
-                                    @error('intendente')
-
-                                        <span class="text-danger">{{$message}}</span>
-
-                                    @enderror
-                    
-                                </div>
-                    
-                            </div>
-
-                            <div class="col-lg-4 col-sm-4 col-md-4 col-xs-6">
-
-                                <div class="form-group mt-3">
-                    
-                                    <label form="votos" ></label>
-                                    <input type="number" name="votos[]" id="votos[]" class="form-control Can_Produc" value="{{old('votos.'.$cont, 0)}}">
-                                    @php
-                                        $cont = $cont + 1;
-                                    @endphp
-                                    @error('votos[]')
-
-                                        <span class="text-danger">{{$message}}</span>
-
-                                    @enderror
-                                </div>
-                    
-                            </div>
-
-                        </div>
-                    
-                    @endforeach
-
-                    <div class="row">
-
-                        <div class="col-lg-4 col-sm-4 col-md-4 col-xs-6">
-
-                            <div class="form-group mt-3" style="text-align: center">                                
-                                
-                                <br>
-                                <label form="intendente" ><b>TOTAL DE VOTOS</b> </label>
-                
-                            </div>
-                
-                        </div>
-
-                        <div class="col-lg-4 col-sm-4 col-md-4 col-xs-6">
-
-                            <div class="form-group" style="text-align: center">
-                                
-                                <label for="total_votos"></label>
-                                <input type="number"  readonly id="total_votos" name="total_votos" class="form-control" value="{{old('total_votos', 0)}}">
-                
-                            </div>
-                
-                        </div>
-
-                    </div>
-
-                    <div class="row">
-
-                        <div class="col-lg-4 col-sm-4 col-md-4 col-xs-6">
-
-                            <div class="form-group" style="text-align: center">                                
-                                
-                                <br>
-                                <label form="acta" ><b>ACTA</b> </label>
-                
-                            </div>
-                
-                        </div>
-
-                        <div class="col-lg-4 col-sm-4 col-md-4 col-xs-6">
-
-                            <div class="form-group" style="text-align: center">
-                                
-                                <label for="file"></label>
-                                <input type="file" name="acta" id="acta" accept="image/*" class="form-control" placeholder="Acta.." >
-                                @error('acta')
+                                </select>
+                                @error('id_mesa')
 
                                     <span class="text-danger">{{$message}}</span>
 
@@ -218,31 +85,162 @@
 
                     </div>
 
-                    <div class="form-row text-center">
+                    <hr style="width: 100% ; border: 1px solid red; height: 2px;">
 
-                        <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12" id="guardar">
-
-                            <div class="form-group">
-                                
-                                <button class="btn btn-primary" type="submit" style="align-items: center">Guardar</button>
+                    <div class="container">
                         
+                        <div class="row">
+
+                            <div class="col-lg-4 col-sm-4 col-md-4 col-xs-4">
+
+                                <div class="form-group md-form mt-3" style="text-align: center">
+                    
+                                    <label form="intendente" ><b><h3>LISTA</h3></b> </label>                                    
+                    
+                                </div>
+                    
+                            </div>
+
+                            <div class="col-lg-4 col-sm-4 col-md-4 col-xs-4">
+
+                                <div class="form-group mt-3" style="text-align: center">
+                    
+                                    <label form="intendente" ><b><h3>VOTOS</h3></b> </label>                                    
+                    
+                                </div>
+                    
+                            </div>
+
+                        </div>
+
+                        @php
+                            $cont = 0;
+                        @endphp
+
+                        @foreach ($intendentes as $intendente)                        
+
+                            <div class="row">
+
+                                <div class="col-lg-4 col-sm-4 col-md-4 col-xs-6">
+
+                                    <div class="form-group mt-3" style="text-align: center">
+                        
+                                        <label form="intendente" ><b>  </b> </label>
+                                        <input type="hidden" name="intendente[]" id="intendente" class="form-control" value={{$intendente->Id_Intendente}}>
+                                        <br>
+                                        <h5>{{$intendente->Intendente}}</h5>
+                                        @error('intendente')
+
+                                            <span class="text-danger">{{$message}}</span>
+
+                                        @enderror
+                        
+                                    </div>
+                        
+                                </div>
+
+                                <div class="col-lg-4 col-sm-4 col-md-4 col-xs-6">
+
+                                    <div class="form-group mt-3">
+                        
+                                        <label form="votos" ></label>
+                                        <input type="number" name="votos[]" id="votos[]" class="form-control Can_Produc" value="{{old('votos.'.$cont, 0)}}">
+                                        @php
+                                            $cont = $cont + 1;
+                                        @endphp
+                                        @error('votos[]')
+
+                                            <span class="text-danger">{{$message}}</span>
+
+                                        @enderror
+                                    </div>
+                        
+                                </div>
+
                             </div>
                         
+                        @endforeach
+
+                        <div class="row">
+
+                            <div class="col-lg-4 col-sm-4 col-md-4 col-xs-6">
+
+                                <div class="form-group mt-3" style="text-align: center">                                
+                                    
+                                    <br>
+                                    <label form="intendente" ><b>TOTAL DE VOTOS</b> </label>
+                    
+                                </div>
+                    
+                            </div>
+
+                            <div class="col-lg-4 col-sm-4 col-md-4 col-xs-6">
+
+                                <div class="form-group" style="text-align: center">
+                                    
+                                    <label for="total_votos"></label>
+                                    <input type="number"  readonly id="total_votos" name="total_votos" class="form-control" value="{{old('total_votos', 0)}}">
+                    
+                                </div>
+                    
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+
+                            <div class="col-lg-4 col-sm-4 col-md-4 col-xs-6">
+
+                                <div class="form-group" style="text-align: center">                                
+                                    
+                                    <br>
+                                    <label form="acta" ><b>ACTA</b> </label>
+                    
+                                </div>
+                    
+                            </div>
+
+                            <div class="col-lg-4 col-sm-4 col-md-4 col-xs-6">
+
+                                <div class="form-group" style="text-align: center">
+                                    
+                                    <label for="file"></label>
+                                    <input type="file" name="acta" id="acta" accept="image/*" class="form-control" placeholder="Acta.." >
+                                    @error('acta')
+
+                                        <span class="text-danger">{{$message}}</span>
+
+                                    @enderror
+                    
+                                </div>
+                    
+                            </div>
+
+                        </div>
+
+                        <div class="form-row text-center">
+
+                            <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12" id="guardar">
+
+                                <div class="form-group">
+                                    
+                                    <button class="btn btn-primary" type="submit" style="align-items: center">Guardar</button>
+                            
+                                </div>
+                            
+                            </div>
+
                         </div>
 
                     </div>
 
                 </div>
-
+        
             </div>
-    
+
         </div>
 
-    </div>
-
-    
-
-{!! Form::close() !!}
+    {!! Form::close() !!}
 
 
     @push('scripts')

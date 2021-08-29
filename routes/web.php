@@ -24,11 +24,14 @@ Route::resource('votacion/consejal', 'ConsejalController')->names('consejal');
 
 Route::resource('consulta/votos_intendente', 'ConsultaController')->names('consulta_intendente');
 
+Route::get('consulta/votos_intendente/{id1}/{id2}/editar', 'ConsultaController@editar')->name('consulta_intendente.editar');
+Route::get('consulta/votos_intendente/{id1}/{id2}/eliminar', 'ConsultaController@eliminar')->name('consulta_intendente.eliminar');
+
 Route::resource('consulta/votante', 'BuscarController')->names('consulta');
 
 Route::resource('consulta/votos_consejal', 'Consulta_ConsejalController');
-Route::get('consulta/votos_consejal/Acta/{id}', 'Consulta_ConsejalController@Acta');
-Route::get('consulta/votos_intendente/Acta/{id}', 'ConsultaController@Acta');
+Route::get('consulta/votos_consejal/Acta/{id1}/{id2}', 'Consulta_ConsejalController@Acta');
+Route::get('consulta/votos_intendente/Acta/{id1}/{id2}', 'ConsultaController@Acta')->name('consulta_intendente.acta');
 
 Route::resource('acceso/usuario', 'acc_UsuarioController');
 Route::resource('acceso/reset', 'acc_ResetController');

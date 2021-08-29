@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\IntendenteRequest;
+use App\Local_Mesa_Votacion;
 use Illuminate\Http\Request;
 use App\Votacion_Intendente;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class ConsultaController extends Controller
 {
@@ -20,19 +24,48 @@ class ConsultaController extends Controller
         if($request){
             
             $id_user = auth()->id();
-            $searchtext=trim($request->get('searchtext'));
             $local=trim($request->get('id_local'));
-            $mesa=trim($request->get('id_mesa'));
+
+            if((empty($local)) || ($local == 99)){
+
+                $votos = DB::table('votacion_intendente AS a')
+                ->join('mesa AS b','b.Id_Mesa','=','a.Id_Mesa')
+                ->join('local_votacion AS c','c.Id_Local','=','a.Id_Local')
+                ->select('a.Id_Local'
+                , 'c.Desc_Local'
+                , 'a.Id_Mesa'
+                , 'b.Mesa'
+                , DB::raw("SUM(a.`Votos`) AS cont"))
+                ->groupBy('a.Id_Local'
+                , 'c.Desc_Local'
+                , 'b.Mesa'
+                , 'a.Id_Mesa')
+                ->paginate(10);
+
+            }else{
+
+                $votos = DB::table('votacion_intendente AS a')
+                ->join('mesa AS b','b.Id_Mesa','=','a.Id_Mesa')
+                ->join('local_votacion AS c','c.Id_Local','=','a.Id_Local')
+                ->select('a.Id_Local'
+                , 'c.Desc_Local'
+                , 'a.Id_Mesa'
+                , 'b.Mesa'
+                , DB::raw("SUM(a.`Votos`) AS cont"))
+                ->where('a.Id_Local', $local)
+                ->groupBy('a.Id_Local'
+                , 'c.Desc_Local'
+                , 'b.Mesa'
+                , 'a.Id_Mesa')
+                ->paginate(10);
+
+            }
 
             $local_votacion = DB::table('local_votacion')
             ->orderBy('Id_Local', 'ASC')
-            ->get();            
-
-            $mesas = DB::table('mesa')
-            ->orderBy('Id_Mesa', 'ASC')
             ->get();
 
-            return view('consulta.votos_intendente.index', compact('searchtext', 'local_votacion', 'mesas', 'local', 'mesa'));
+            return view('consulta.votos_intendente.index', compact('local_votacion', 'local', 'votos'));
 
         }
 
@@ -44,9 +77,106 @@ class ConsultaController extends Controller
 
     }
 
-    public function Acta($id){
+    public function editar($id1, $id2){
 
-        $votos_intendente = Votacion_Intendente::findOrFail($id);
+        $local_votacion = DB::table('local_votacion')
+        ->where('Id_Local', $id1)
+        ->first();
+
+        $mesas = DB::table('mesa')
+        ->where('Id_Mesa', $id2)
+        ->first();
+
+        $intendentes = DB::table('intendente AS a')
+        ->join('lista AS b','b.Id_Lista','=','a.Id_Lista')
+        ->select('a.*'
+        , DB::raw('CONCAT(a.Nombre, space(1), a.Apellido, " - ", b.Alias) AS Intendente')
+        ,'b.Desc_Lista')
+        ->orderBy('Id_Lista', 'ASC')
+        ->get();
+
+        $votaciones = DB::table('votacion_intendente')
+        ->where('Id_Local', $id1)
+        ->where('Id_Mesa', $id2)
+        ->get();
+
+        return view('consulta.votos_intendente.edit', compact('local_votacion', 'mesas', 'votaciones', 'intendentes'));
+
+    }
+
+    public function eliminar($id1, $id2){
+        
+        $votacion = DB::table('votacion_intendente')
+        ->where('Id_Local', $id1)
+        ->where('Id_Mesa', $id2)
+        ->delete();
+
+        $id = Local_Mesa_Votacion::where('Id_Local', $id1)
+        ->where('Id_mesa', $id2)
+        ->where('Tipo_Carga', 1)
+        ->first();
+
+        $id->Activo = 1;
+        $id->save();
+
+        return redirect()->route('consulta_intendente.index')->with('msj', 'Se elimino registro con exito');
+
+    }
+
+    public function update(Request $request, $votos_intendente){
+
+        $id_mesa = $request->id_mesa;
+        $id_local = $votos_intendente;
+        $id_user = auth()->id();
+
+        $intendente = $request->get('intendente');
+        $votos = $request->get('Votos');
+
+        $cont = 0;
+        $url="";
+
+        if ($request->file('acta')) {
+            
+            $request->validate([
+                'acta' => 'image',
+            ]);
+            
+            $imagen = $request->file('acta')->store('public/documentos');
+            $url = Storage::url($imagen);
+
+        }
+
+        while ($cont < count($intendente)) {
+            # code...
+            $votacion_intendente = Votacion_Intendente::where('Id_Local', $id_local)
+            ->where('Id_Mesa', $id_mesa)
+            ->where('Id_Intendente', $intendente[$cont])
+            ->first();
+            
+            $votacion_intendente->Votos = $votos[$cont];
+            $votacion_intendente->Fecha_Actualizacion =  Carbon::now();
+            $votacion_intendente->Id_User = $id_user;
+            if ($request->file('acta')) {
+            
+                $votacion_intendente->imagen = $url;    
+    
+            }
+            
+            $votacion_intendente->save();
+            $cont = $cont + 1 ;  
+
+        }
+
+        return redirect()->route('consulta_intendente.editar', [$id_local, $id_mesa])->with('msj', 'Se actualizo con exito.');
+
+    }
+
+    public function Acta($id1, $id2){
+
+        $votos_intendente = Votacion_Intendente::where('Id_Local', $id1)
+        ->where('Id_Mesa', $id2)
+        ->first();
+
         return view('consulta.votos_intendente.acta',["votos_intendente"=>$votos_intendente]);
 
     }

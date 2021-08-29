@@ -9,7 +9,6 @@ use App\Votacion_Intendente;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
-use Barryvdh\DomPDF\Facade as PDF;
 
 class IntendenteController extends Controller
 {
