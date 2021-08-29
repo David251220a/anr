@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,4 +19,7 @@ use Illuminate\Support\Facades\Route;
 //    return $request->user();
 //});
 
- Route::get('mesas/{id}/intendente', 'IntendenteController@getmesas');
+// Route::get('mesas/{id}/intendente', 'IntendenteController@getmesas');
+// Route::group(["middleware"=>"auth:api"],function(){
+//     Route::get('mesas/{id}/intendente', 'IntendenteController@getmesas');    
+// });

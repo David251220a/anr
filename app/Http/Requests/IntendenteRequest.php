@@ -27,6 +27,7 @@ class IntendenteRequest extends FormRequest
 
             'intendente' => 'required',
             'votos' => 'required',
+            'id_mesa' => 'required',
         ];
 
         if(!(empty($this->acta))){            

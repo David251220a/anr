@@ -33,12 +33,12 @@ class IntendenteController extends Controller
             ->orderBy('Id_Lista', 'ASC')
             ->get();
 
-            // $local_votacion = DB::table('local_votacion')
-            // ->orderBy('Id_Local', 'ASC')
-            // ->get();
-
             $local_votacion = DB::table('local_votacion')
-            ->pluck('Desc_Local', 'Id_Local');
+            ->orderBy('Id_Local', 'ASC')
+            ->get();
+
+            // $local_votacion = DB::table('local_votacion')
+            // ->pluck('Desc_Local', 'Id_Local');
 
             $mesa = DB::table('mesa')
             ->orderBy('Id_Mesa', 'ASC')
@@ -104,7 +104,15 @@ class IntendenteController extends Controller
             $votacion_intendente->save();
             $cont = $cont + 1 ;  
 
-        }        
+        }
+
+        $id = Local_Mesa_Votacion::where('Id_Local', $request->id_local)
+        ->where('Id_mesa', $request->id_mesa)
+        ->where('Tipo_Carga', 1)
+        ->first();
+
+        $id->Activo = 0;
+        $id->save();
 
         return redirect()->route('intendente.index');
         
@@ -112,14 +120,18 @@ class IntendenteController extends Controller
 
     public function getmesas($id){
 
-        // $mesas = DB::table('local_mesa_votacion')
-        // ->where('Id_Local', $id)
+        $mesas = DB::table('local_mesa_votacion AS a')
+        ->join('mesa AS b','b.Id_Mesa','=','a.Id_Mesa')
+        ->select('a.*', 'b.Mesa')
+        ->where('Id_Local', $id)
+        ->where('Activo', 1)
+        ->where('Tipo_Carga', 1)
+        ->get();
+
+        // return Local_Mesa_Votacion::where('Id_Local', $id)
         // ->where('Activo', 1)
         // ->get();
-
-        return Local_Mesa_Votacion::where('Id_Local', $id)
-        ->where('Activo', 1)
-        ->get();
+        return $mesas;
 
     }
 

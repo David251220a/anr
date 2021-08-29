@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\Validator;
-use DB;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
+
 use App\User;
 
 class acc_ResetController extends Controller
@@ -36,7 +36,8 @@ class acc_ResetController extends Controller
     public function update(Request $request, $id){        
 
         $user = User::findOrFail($id);        
-        $user->password = bcrypt($request->get('contraseña'));        
+        $user->password = bcrypt($request->get('contraseña'));
+        $user->api_token=Str::random(60);
         $user->update();
                 
         return redirect('acceso/reset')->with('msj', 'Se cambio correctamente la constraseña.!!');;

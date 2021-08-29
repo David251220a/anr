@@ -3,10 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\Validator;
-use DB;
 use App\User;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class acc_UsuarioController extends Controller
 {
@@ -67,12 +66,13 @@ class acc_UsuarioController extends Controller
 
             }
 
-            $user = new User();
-
+            $user = new User();            
+            
             $user->name = $request->get('name');
             $user->email = $request->get('email');
             $user->password =  bcrypt($request->get('contraseña'));
             $user->id_rol = 2;
+            $user->api_token=Str::random(60);
 
             $user->save();
 
@@ -106,10 +106,13 @@ class acc_UsuarioController extends Controller
 
             }
 
+            $random = Str::random(40);
+
             $user = User::findOrFail($id);
             $user->name = $request->get('name');
             $user->email = $request->get('email');
-            $user->password = bcrypt($request->get('contraseña'));            
+            $user->password = bcrypt($request->get('contraseña'));     
+            $user->api_token=$random;       
             $user->update();
 
             return redirect('acceso/usuario');

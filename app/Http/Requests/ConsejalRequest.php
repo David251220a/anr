@@ -25,6 +25,7 @@ class ConsejalRequest extends FormRequest
     {
         $rules = [
             'votos' => 'required',
+            'id_mesa_consejal' => 'required',
         ];
 
         if(!(empty($this->acta))){            

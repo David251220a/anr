@@ -33,11 +33,13 @@
 
                     <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
 
-                        {{-- <div class="form-group">
+                        <div class="form-group">
             
                             <label form="id_local" >Local Votacion</label>
-                            <select name="id_local" id="id_local" class="form-control selectpicker"  data-live-search="true">
-    
+                            <select name="id_local" id="id_local" class="form-control ">
+                                
+                                <option value="">Seleccione un local</option>
+
                                 @foreach ($local_votacion as $vot)
                                     
                                     <option value="{{$vot->Id_Local}}">{{$vot->Desc_Local}} </option>
@@ -46,14 +48,14 @@
             
                             </select>
             
-                        </div> --}}
+                        </div>
 
-                        <div class="form-group">
+                        {{-- <div class="form-group">
                         
                             {!! Form::label('id_local', 'Local Votacion') !!}
                             {!! Form::select('id_local', $local_votacion, null, ['class' => 'form-control selectpicker', 'data-live-search="true"']) !!}
         
-                        </div>
+                        </div> --}}
             
                     </div>
     
@@ -62,9 +64,8 @@
                         <div class="form-group">
             
                             <label form="id_mesa" >Mesa</label>
-                            <select name="id_mesa" id="id_mesa" class="form-control selectpicker" data-live-search="true">
+                            <select name="id_mesa" id="id_mesa" class="form-control">
                                 
-                                <option disabled selected>Selecciona una mesa</option>
                                 {{-- @foreach ($mesa as $me)
                                     
                                     <option value="{{$me->Id_Mesa}}">{{$me->Mesa}} </option>
@@ -72,6 +73,11 @@
                                 @endforeach --}}
             
                             </select>
+                            @error('id_mesa')
+
+                                <span class="text-danger">{{$message}}</span>
+
+                            @enderror
             
                         </div>
             
@@ -107,6 +113,10 @@
 
                     </div>
 
+                    @php
+                        $cont = 0;
+                    @endphp
+
                     @foreach ($intendentes as $intendente)                        
 
                         <div class="row">
@@ -134,8 +144,11 @@
                                 <div class="form-group mt-3">
                     
                                     <label form="votos" ></label>
-                                    <input type="number" name="votos[]" id="votos" class="form-control Can_Produc" value=0>
-                                    @error('votos')
+                                    <input type="number" name="votos[]" id="votos[]" class="form-control Can_Produc" value="{{old('votos.'.$cont, 0)}}">
+                                    @php
+                                        $cont = $cont + 1;
+                                    @endphp
+                                    @error('votos[]')
 
                                         <span class="text-danger">{{$message}}</span>
 
@@ -166,7 +179,7 @@
                             <div class="form-group" style="text-align: center">
                                 
                                 <label for="total_votos"></label>
-                                <input type="number"  readonly id="total_votos" class="form-control" value=0>
+                                <input type="number"  readonly id="total_votos" name="total_votos" class="form-control" value="{{old('total_votos', 0)}}">
                 
                             </div>
                 

@@ -34,7 +34,8 @@ Route::resource('acceso/usuario', 'acc_UsuarioController');
 Route::resource('acceso/reset', 'acc_ResetController');
 Route::resource('acceso/auditoria', 'AuditoriaController');
 
-// Route::get('mesas/{id}/intendente', 'IntendenteController@getmesas');
+Route::get('votacion/mesas/{id}/intendente', 'IntendenteController@getmesas');
+Route::get('votacion/mesas/{id}/consejal', 'ConsejalController@getmesas_consejal');
 
 Auth::routes();
 Route::get('/logout', 'Auth\LoginController@logout');

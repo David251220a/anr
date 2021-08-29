@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Votacion_Consejal;
 use App\Http\Requests\ConsejalRequest;
+use App\Local_Mesa_Votacion;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
@@ -118,18 +119,18 @@ class ConsejalController extends Controller
         $id_user = auth()->id();
 
         $existe_registro = DB::table('votacion_consejal')
-        ->where('Id_Local', $request->id_local)
-        ->where('Id_Mesa', $request->id_mesa)
+        ->where('Id_Local', $request->id_local_consejal)
+        ->where('Id_Mesa', $request->id_mesa_consejal)
         ->first();
         
         if ($existe_registro) {
             
             $aux_mesa = DB::table('mesa')
-            ->where('Id_Mesa', $request->id_mesa)
+            ->where('Id_Mesa', $request->id_mesa_consejal)
             ->first();
 
             $aux_local = DB::table('local_votacion')
-            ->where('Id_Local', $request->id_local)
+            ->where('Id_Local', $request->id_local_consejal)
             ->first();
 
             return redirect()->route('consejal.index')->with('msj', 'Ya existe registro en este local: '.$aux_local->Desc_Local.' y en este mesa: '.$aux_mesa->Mesa);
@@ -170,8 +171,8 @@ class ConsejalController extends Controller
                 ->first();
 
                 $votacion_consejal = new Votacion_Consejal();
-                $votacion_consejal->Id_Local = $request->id_local;
-                $votacion_consejal->Id_Mesa = $request->id_mesa;
+                $votacion_consejal->Id_Local = $request->id_local_consejal;
+                $votacion_consejal->Id_Mesa = $request->id_mesa_consejal;
                 $votacion_consejal->Id_Consejal = $consejal->Id_Consejal;
                 $votacion_consejal->Votos = $votos[$cont_votos];
                 $votacion_consejal->Fecha_Alta =  Carbon::now();
@@ -192,8 +193,8 @@ class ConsejalController extends Controller
         while($cont_varios < count($id_consejal)){
 
             $votacion_consejal = new Votacion_Consejal();
-            $votacion_consejal->Id_Local = $request->id_local;
-            $votacion_consejal->Id_Mesa = $request->id_mesa;
+            $votacion_consejal->Id_Local = $request->id_local_consejal;
+            $votacion_consejal->Id_Mesa = $request->id_mesa_consejal;
             $votacion_consejal->Id_Consejal = $id_consejal[$cont_varios];
             $votacion_consejal->Votos = $votos_varios[$cont_varios];
             $votacion_consejal->Fecha_Alta =  Carbon::now();
@@ -221,7 +222,29 @@ class ConsejalController extends Controller
 
         // }
         
+        $id = Local_Mesa_Votacion::where('Id_Local', $request->id_local_consejal)
+        ->where('Id_mesa', $request->id_mesa_consejal)
+        ->where('Tipo_Carga', 2)
+        ->first();
+
+        $id->Activo = 0;
+        $id->save();
+
         return redirect()->route('consejal.index');
+
+    }
+
+    public function getmesas_consejal($id){
+
+        $mesas = DB::table('local_mesa_votacion AS a')
+        ->join('mesa AS b','b.Id_Mesa','=','a.Id_Mesa')
+        ->select('a.*', 'b.Mesa')
+        ->where('Id_Local', $id)
+        ->where('Activo', 1)
+        ->where('Tipo_Carga', 2)
+        ->get();
+
+        return $mesas;
 
     }
 
