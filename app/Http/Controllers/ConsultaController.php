@@ -6,6 +6,7 @@ use App\Http\Requests\IntendenteRequest;
 use App\Local_Mesa_Votacion;
 use Illuminate\Http\Request;
 use App\Votacion_Intendente;
+use App\Aporedados;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -226,6 +227,35 @@ class ConsultaController extends Controller
         }
 
         return view('consulta.referente', compact('comprometidos', 'referentes', 'referente'));
+
+    }
+
+    public function aporedado(Request $request){
+
+        $aporedados = DB::table('aporedado_local')
+        ->get();
+
+        return view('consulta.aporedado', compact('aporedados'));
+    
+    }
+
+    public function store_aporedado(Request $request, $id){
+        
+        $aporedados  = Aporedados::where('Id_Aporedado', $id)
+        ->first();
+
+        $aporedados->Apoderado1 = $request->get('aporedado_1');
+        $aporedados->Apo1_Telefono = $request->get('telefono_1');
+        $aporedados->Apoderado2 = $request->get('aporedado_2');
+        $aporedados->Apo2_Telefono = $request->get('telefono_2');
+        $aporedados->Apoderado3 = $request->get('aporedado_3');
+        $aporedados->Apo3_Telefono = $request->get('telefono_3');
+        $aporedados->Apoderado4 = $request->get('aporedado_4');
+        $aporedados->Apo4_Telefono = $request->get('telefono_4');
+
+        $aporedados->save();
+
+        return redirect()->route('consulta.aporedado');
 
     }
 
