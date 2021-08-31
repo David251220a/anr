@@ -80,7 +80,8 @@
 
             </div>
 
-            {{$votante-> render()}}
+            {{-- {{$votante-> links()}} --}}
+            {{$votante->appends(['searchtext' => $searchtext])->links()}}
 
         </div>
     </div>

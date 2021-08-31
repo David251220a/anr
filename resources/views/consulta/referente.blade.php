@@ -72,7 +72,7 @@
                         <th style="text-align: center">Orden</th>
                         <th style="text-align: center">Com.</th>
                         <th style="text-align: center">Referente</th>
-                        <th style="text-align: center">PDF></th>
+                        <th style="text-align: center">PDF</th>
 
                     </thead>
 
@@ -110,7 +110,8 @@
                 
             </div>
 
-            {{$comprometidos-> render()}}
+            {{-- {{$comprometidos-> links()}} --}}
+            {{$comprometidos->appends(['referente' => $referente])->links()}}
 
         </div>
 

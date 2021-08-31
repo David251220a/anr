@@ -115,7 +115,8 @@
 
             </div>
 
-            {{$votos-> render()}}
+            {{-- {{$votos-> links()}} --}}
+            {{$votante->appends(['votos' => $votos])->links()}}
 
         </div>
 

@@ -14,6 +14,7 @@ class BuscarController extends Controller
     public function index(Request $request){
 
         $searchtext=trim($request->get('searchtext'));
+        $cCodTab=trim($request->get('cCodTab'));
         $votante="";
 
         if($searchtext){
