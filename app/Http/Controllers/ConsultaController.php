@@ -181,4 +181,52 @@ class ConsultaController extends Controller
 
     }
 
+    public function referente(Request $request){
+
+        $id_user = auth()->id();
+        $referente=trim($request->get('referente'));
+        
+        
+        $referentes = DB::table('padron')
+        ->select('referente')
+        ->where('referente', '<>', '')
+        ->groupBy('referente')
+        ->get();
+
+
+        if((empty($referente)) || ($referente == 99)){
+        
+            $comprometidos = DB::table('padron AS a')
+            ->join('mesa AS b','b.Id_Mesa','=','a.mesa')
+            ->join('local_votacion AS c','c.Id_Local','=','a.local')
+            ->select('a.*'
+            , 'c.Desc_Local'
+            , 'b.Mesa')
+            ->where('a.voto',  1)            
+            ->orderBy('a.local', 'ASC')
+            ->orderBy('a.mesa', 'ASC')
+            ->paginate(50);
+
+            $referente = 99;
+
+        }else{
+
+            $comprometidos = DB::table('padron AS a')
+            ->join('mesa AS b','b.Id_Mesa','=','a.mesa')
+            ->join('local_votacion AS c','c.Id_Local','=','a.local')
+            ->select('a.*'
+            , 'c.Desc_Local'
+            , 'b.Mesa')
+            ->where('a.voto',  1)
+            ->where('a.referente',  $referente)
+            ->orderBy('a.local', 'ASC')
+            ->orderBy('a.mesa', 'ASC')
+            ->paginate(50);
+
+        }
+
+        return view('consulta.referente', compact('comprometidos', 'referentes', 'referente'));
+
+    }
+
 }

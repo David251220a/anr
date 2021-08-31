@@ -331,7 +331,7 @@ class PDFController extends Controller
 
         $PDF = PDF::loadView('pdf.electores_pdf',["electores"=>$electores]);      
                 
-        return $PDF->stream();        
+        return $PDF->stream();
 
     }
 
@@ -344,6 +344,26 @@ class PDFController extends Controller
         $PDF = PDF::loadView('pdf.electores_pdf',["electores"=>$electores]);      
                 
         return $PDF->download();
+
+    }
+
+    public function referentes($id){
+
+        $comprometidos = DB::table('padron AS a')
+        ->join('mesa AS b','b.Id_Mesa','=','a.mesa')
+        ->join('local_votacion AS c','c.Id_Local','=','a.local')
+        ->select('a.*'
+        , 'c.Desc_Local'
+        , 'b.Mesa')
+        ->where('a.voto',  1)
+        ->where('a.referente',  $id)
+        ->orderBy('a.local', 'ASC')
+        ->orderBy('a.mesa', 'ASC')
+        ->get();        
+
+        $PDF = PDF::loadView('pdf.referentes', compact('comprometidos', 'id'));
+                
+        return $PDF->stream();
 
     }
 

@@ -33,6 +33,8 @@ Route::resource('consulta/votos_consejal', 'Consulta_ConsejalController');
 Route::get('consulta/votos_consejal/Acta/{id1}/{id2}', 'Consulta_ConsejalController@Acta');
 Route::get('consulta/votos_intendente/Acta/{id1}/{id2}', 'ConsultaController@Acta')->name('consulta_intendente.acta');
 
+Route::get('consulta/referente', 'ConsultaController@referente')->name('consulta.referente');
+
 Route::resource('acceso/usuario', 'acc_UsuarioController');
 Route::resource('acceso/reset', 'acc_ResetController');
 Route::resource('acceso/auditoria', 'AuditoriaController');
@@ -49,6 +51,7 @@ Route::get('pdf/intendente_resumen', 'PDFController@Resumen_General');
 Route::get('pdf/intendente_local_resumen', 'PDFController@Resumen_Local');
 Route::get('pdf/intendente_mesa_resumen', 'PDFController@Resumen_Mesa');
 Route::get('pdf/intendente/{id}', 'PDFController@Intendente');
+Route::get('pdf/referente/{id}', 'PDFController@referentes')->name('referente_pdf');
 Route::get('pdf/electores', 'PDFController@electores')->name('electores');
 Route::get('pdf/electores_pdf', 'PDFController@electores_pdf')->name('electores_pdf');
 

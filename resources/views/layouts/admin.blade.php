@@ -124,6 +124,7 @@
               <ul class="treeview-menu">
 
                 <li><a href="{{ route('consulta.index') }}"><i class="fa fa-circle-o"></i> Padron</a></li>
+                <li><a href="{{ route('consulta.referente') }}"><i class="fa fa-circle-o"></i>Referentes</a></li>
                 <li><a href="{{ route('electores') }}"><i class="fa fa-circle-o"></i> Mesa Habilitadas</a></li>
                 <li><a href="{{url('consulta/votos_intendente')}}"><i class="fa fa-circle-o"></i> Votos Intendente</a></li>                
                 <li><a href="{{url('consulta/votos_consejal')}}"><i class="fa fa-circle-o"></i> Votos Consejal</a></li>

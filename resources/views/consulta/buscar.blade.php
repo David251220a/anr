@@ -4,19 +4,19 @@
 
     {!! Form::open(array('route' => 'consulta.index', 'method'=>'GET', 'autocomplete'=>'off', 'role'=>'search')) !!}
         
-    <div class="form-group">
+        <div class="form-group">
 
-        <div class="input-group">
+            <div class="input-group">
 
-            <input type="search" class="form-control" name="searchtext"  placeholder="Buscar.." value="{{$searchtext}}">        
-            <span class="input-group-btn">
-            <button type="submit" class="btn btn-primary">Buscar</button>
+                <input type="search" class="form-control" name="searchtext"  placeholder="Buscar.." value="{{$searchtext}}">        
+                <span class="input-group-btn">
+                <button type="submit" class="btn btn-primary">Buscar</button>
 
-        </span>
+            </span>
+
+            </div>
 
         </div>
-
-    </div>
 
     {{Form::close() }}
 
@@ -41,7 +41,7 @@
                         
                     </thead>
 
-                    @if ($votante)
+                    @if (count($votante))
 
                         <tbody>
 
@@ -62,8 +62,18 @@
 
                             @endforeach
 
-                        </tbody>
+                        </tbody>                    
                         
+                    @else
+
+                        <tfoot>
+
+                            <tr style="background-color:#ede7e6a8">
+
+                                <td colspan="8" style="text-align: center"><h3><b> "No figura en la Ciudad de Limpio" </b></h3></td>
+                            </tr>
+                        </tfoot>
+                    
                     @endif
 
                 </table>
