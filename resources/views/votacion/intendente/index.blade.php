@@ -23,9 +23,7 @@
 
             <div class="panel panel-danger">
 
-                <div class="panel panel-heading">
-                    <h3 style="text-align: center; color: red"><b>Intendente</b></h3>
-                </div>
+            
 
                 <div class="panel-body">
                 
