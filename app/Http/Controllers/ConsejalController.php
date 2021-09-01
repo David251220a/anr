@@ -25,17 +25,12 @@ class ConsejalController extends Controller
             
             $id_user = auth()->id();
 
-            // $listas = DB::table('lista')
-            // ->whereBetween('Id_Lista', [11, 90])
-            // ->orderBy('Id_Lista')
-            // ->get();
-
             $listas = DB::table('consejal AS a')
             ->join('lista AS b','b.Id_Lista','=','a.Id_Lista')
             ->select('a.Id_Lista', 'b.numero_lista')
             ->whereBetween('a.Id_Lista', [11, 90])
             ->groupBy('a.Id_Lista', 'b.numero_lista')
-            ->orderBy('a.Id_Lista')
+            ->orderBy('b.numero_lista')
             ->get();
 
             $ordenes = DB::table('consejal')
@@ -44,51 +39,6 @@ class ConsejalController extends Controller
             ->groupBy('Orden')
             ->orderBy('Orden')
             ->get();
-
-            // $primero = DB::table('consejal AS a')
-            // ->join('lista AS b','b.Id_Lista','=','a.Id_Lista')
-            // ->select('a.*'
-            // , DB::raw('CONCAT(a.Nombre, space(1), a.Apellido, " - ", b.Alias, " - Orden: ", a.Orden) AS Consejal')
-            // ,'b.Desc_Lista')
-            // ->where('a.Id_Lista', 11)            
-            // ->orderBy('a.Orden', 'ASC')
-            // ->get();
-
-            // $segundo = DB::table('consejal AS a')
-            // ->join('lista AS b','b.Id_Lista','=','a.Id_Lista')
-            // ->select('a.*'
-            // , DB::raw('CONCAT(a.Nombre, space(1), a.Apellido, " - ", b.Alias, " - Orden: ", a.Orden) AS Consejal')
-            // ,'b.Desc_Lista')
-            // ->where('a.Id_Lista', 12)            
-            // ->orderBy('a.Orden', 'ASC')
-            // ->get();
-
-            // $tercero = DB::table('consejal AS a')
-            // ->join('lista AS b','b.Id_Lista','=','a.Id_Lista')
-            // ->select('a.*'
-            // , DB::raw('CONCAT(a.Nombre, space(1), a.Apellido, " - ", b.Alias, " - Orden: ", a.Orden) AS Consejal')
-            // ,'b.Desc_Lista')
-            // ->where('a.Id_Lista', 13)            
-            // ->orderBy('a.Orden', 'ASC')
-            // ->get();
-
-            // $cuarto = DB::table('consejal AS a')
-            // ->join('lista AS b','b.Id_Lista','=','a.Id_Lista')
-            // ->select('a.*'
-            // , DB::raw('CONCAT(a.Nombre, space(1), a.Apellido, " - ", b.Alias, " - Orden: ", a.Orden) AS Consejal')
-            // ,'b.Desc_Lista')
-            // ->where('a.Id_Lista', 14)            
-            // ->orderBy('a.Orden', 'ASC')
-            // ->get();
-
-            // $quinto = DB::table('consejal AS a')
-            // ->join('lista AS b','b.Id_Lista','=','a.Id_Lista')
-            // ->select('a.*'
-            // , DB::raw('CONCAT(a.Nombre, space(1), a.Apellido, " - ", b.Alias, " - Orden: ", a.Orden) AS Consejal')
-            // ,'b.Desc_Lista')
-            // ->where('a.Id_Lista', 15)
-            // ->orderBy('a.Orden', 'ASC')
-            // ->get();
 
             $local_votacion = DB::table('local_votacion')
             ->orderBy('Id_Local', 'ASC')
@@ -102,14 +52,6 @@ class ConsejalController extends Controller
             , "ordenes"=>$ordenes
             , "local_votacion"=>$local_votacion
             , "mesa"=>$mesa]);
-
-            // return view('votacion.consejal.index',["primero"=>$primero
-            // , "segundo"=>$segundo
-            // , "tercero"=>$tercero
-            // , "cuarto"=>$cuarto
-            // , "quinto"=>$quinto
-            // , "local_votacion"=>$local_votacion
-            // , "mesa"=>$mesa]);
         }
 
     }
@@ -205,22 +147,6 @@ class ConsejalController extends Controller
             $cont_varios = $cont_varios + 1 ;
 
         }
-
-        // while ($cont < count($consejal)) {
-        //     # code...
-        //     $votacion_consejal = new Votacion_Consejal();
-        //     $votacion_consejal->Id_Local = $request->id_local;
-        //     $votacion_consejal->Id_Mesa = $request->id_mesa;
-        //     $votacion_consejal->Id_Consejal = $consejal[$cont];
-        //     $votacion_consejal->Votos = $votos[$cont];
-        //     $votacion_consejal->Fecha_Alta =  Carbon::now();
-        //     $votacion_consejal->Id_User = $id_user;
-        //     $votacion_consejal->imagen = $url;
-            
-        //     $votacion_consejal->save();
-        //     $cont = $cont + 1 ;  
-
-        // }
         
         $id = Local_Mesa_Votacion::where('Id_Local', $request->id_local_consejal)
         ->where('Id_mesa', $request->id_mesa_consejal)

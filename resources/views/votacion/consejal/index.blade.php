@@ -129,6 +129,31 @@
                                 @php
                                     $cont = $cont + 1;
                                 @endphp
+                                
+                                <td style="text-align: right"> <input type="number" style="text-align: right" class="form-control Can_Produc primer_19" name="votos[]" value="{{old('votos.'.$cont, 0)}}"> </td>
+                                @php
+                                    $cont = $cont + 1;
+                                @endphp
+
+                                <td style="text-align: right"> <input type="number" style="text-align: right" class="form-control Can_Produc primer_20" name="votos[]" value="{{old('votos.'.$cont, 0)}}"> </td>
+                                @php
+                                    $cont = $cont + 1;
+                                @endphp
+
+                                <td style="text-align: right"> <input type="number" style="text-align: right" class="form-control Can_Produc primer_21" name="votos[]" value="{{old('votos.'.$cont, 0)}}"> </td>
+                                @php
+                                    $cont = $cont + 1;
+                                @endphp
+
+                                <td style="text-align: right"> <input type="number" style="text-align: right" class="form-control Can_Produc primer_22" name="votos[]" value="{{old('votos.'.$cont, 0)}}"> </td>
+                                @php
+                                    $cont = $cont + 1;
+                                @endphp
+
+                                <td style="text-align: right"> <input type="number" style="text-align: right" class="form-control Can_Produc primer_23" name="votos[]" value="{{old('votos.'.$cont, 0)}}"> </td>
+                                @php
+                                    $cont = $cont + 1;
+                                @endphp
                             </tr>
                             
                         @endforeach
@@ -147,6 +172,12 @@
                             <td style="text-align: right"> <input type="number" id="total_16" name="total_16" style="text-align: right" class="form-control" value="{{old('total_16', 0)}}" readonly> </td>
                             <td style="text-align: right"> <input type="number" id="total_17" name="total_17" style="text-align: right" class="form-control" value="{{old('total_17', 0)}}" readonly> </td>
                             <td style="text-align: right"> <input type="number" id="total_18" name="total_18" style="text-align: right" class="form-control" value="{{old('total_18', 0)}}" readonly> </td>
+
+                            <td style="text-align: right"> <input type="number" id="total_19" name="total_19" style="text-align: right" class="form-control" value="{{old('total_19', 0)}}" readonly> </td>
+                            <td style="text-align: right"> <input type="number" id="total_20" name="total_20" style="text-align: right" class="form-control" value="{{old('total_20', 0)}}" readonly> </td>
+                            <td style="text-align: right"> <input type="number" id="total_21" name="total_21" style="text-align: right" class="form-control" value="{{old('total_21', 0)}}" readonly> </td>
+                            <td style="text-align: right"> <input type="number" id="total_22" name="total_22" style="text-align: right" class="form-control" value="{{old('total_22', 0)}}" readonly> </td>
+                            <td style="text-align: right"> <input type="number" id="total_23" name="total_23" style="text-align: right" class="form-control" value="{{old('total_23', 0)}}" readonly> </td>
 
                         </tr>
 
@@ -305,169 +336,237 @@
 
 {!! Form::close() !!}
 
-@push('scripts')
+    @push('scripts')
 
-    <script type="text/javascript">
+        <script type="text/javascript">
 
-        $(document).ready(function () {
+            $(document).ready(function () {
 
-            $('.Can_Produc').keyup(function() {
-                    
-                var nuevo_valor =  $(this).val();
-                var importe_total = 0;
+                $('.Can_Produc').keyup(function() {
+                        
+                    var nuevo_valor =  $(this).val();
+                    var importe_total = 0;
 
-                $(".Can_Produc").each(
-                    function(index, value) {
-                        if ( $.isNumeric($(this).val()) ){
-                            importe_total += parseInt($(this).val());
+                    $(".Can_Produc").each(
+                        function(index, value) {
+                            if ( $.isNumeric($(this).val()) ){
+                                importe_total += parseInt($(this).val());
+                            }
                         }
-                    }
-                );
+                    );
 
-                $("#total_votos").val(importe_total);
+                    $("#total_votos").val(importe_total);
+
+                });
+
+                $('.primer_11').keyup(function() {
+                        
+                    var nuevo_valor =  $(this).val();
+                    var importe_total = 0;                    
+
+                    $(".primer_11").each(
+                        function(index, value) {
+                            if ( $.isNumeric($(this).val()) ){
+                                importe_total += parseInt($(this).val());
+                            }
+                        }
+                    );
+
+                    $("#total_11").val(importe_total);
+        
+                });
+
+                $('.primer_12').keyup(function() {
+                        
+                    var nuevo_valor =  $(this).val();
+                    var importe_total = 0;                    
+
+                    $(".primer_12").each(
+                        function(index, value) {
+                            if ( $.isNumeric($(this).val()) ){
+                                importe_total += parseInt($(this).val());
+                            }
+                        }
+                    );
+
+                    $("#total_12").val(importe_total);
+        
+                });
+                
+                $('.primer_13').keyup(function() {
+                        
+                    var nuevo_valor =  $(this).val();
+                    var importe_total = 0;                    
+
+                    $(".primer_13").each(
+                        function(index, value) {
+                            if ( $.isNumeric($(this).val()) ){
+                                importe_total += parseInt($(this).val());
+                            }
+                        }
+                    );
+
+                    $("#total_13").val(importe_total);
+        
+                });
+
+                $('.primer_15').keyup(function() {
+                        
+                    var nuevo_valor =  $(this).val();
+                    var importe_total = 0;                    
+
+                    $(".primer_15").each(
+                        function(index, value) {
+                            if ( $.isNumeric($(this).val()) ){
+                                importe_total += parseInt($(this).val());
+                            }
+                        }
+                    );
+
+                    $("#total_15").val(importe_total);
+        
+                });
+
+                $('.primer_16').keyup(function() {
+                        
+                    var nuevo_valor =  $(this).val();
+                    var importe_total = 0;                    
+
+                    $(".primer_16").each(
+                        function(index, value) {
+                            if ( $.isNumeric($(this).val()) ){
+                                importe_total += parseInt($(this).val());
+                            }
+                        }
+                    );
+
+                    $("#total_16").val(importe_total);
+        
+                });
+
+                $('.primer_17').keyup(function() {
+                        
+                    var nuevo_valor =  $(this).val();
+                    var importe_total = 0;                    
+
+                    $(".primer_17").each(
+                        function(index, value) {
+                            if ( $.isNumeric($(this).val()) ){
+                                importe_total += parseInt($(this).val());
+                            }
+                        }
+                    );
+
+                    $("#total_17").val(importe_total);
+        
+                });
+
+                $('.primer_18').keyup(function() {
+                        
+                    var nuevo_valor =  $(this).val();
+                    var importe_total = 0;                    
+
+                    $(".primer_18").each(
+                        function(index, value) {
+                            if ( $.isNumeric($(this).val()) ){
+                                importe_total += parseInt($(this).val());
+                            }
+                        }
+                    );
+
+                    $("#total_18").val(importe_total);
+        
+                });
+
+                $('.primer_19').keyup(function() {
+                        
+                    var nuevo_valor =  $(this).val();
+                    var importe_total = 0;                    
+
+                    $(".primer_19").each(
+                        function(index, value) {
+                            if ( $.isNumeric($(this).val()) ){
+                                importe_total += parseInt($(this).val());
+                            }
+                        }
+                    );
+
+                    $("#total_19").val(importe_total);
+        
+                });            
+
+                $('.primer_20').keyup(function() {
+                        
+                    var nuevo_valor =  $(this).val();
+                    var importe_total = 0;                    
+
+                    $(".primer_20").each(
+                        function(index, value) {
+                            if ( $.isNumeric($(this).val()) ){
+                                importe_total += parseInt($(this).val());
+                            }
+                        }
+                    );
+
+                    $("#total_20").val(importe_total);
+        
+                }); 
+
+                $('.primer_21').keyup(function() {
+                        
+                    var nuevo_valor =  $(this).val();
+                    var importe_total = 0;                    
+
+                    $(".primer_21").each(
+                        function(index, value) {
+                            if ( $.isNumeric($(this).val()) ){
+                                importe_total += parseInt($(this).val());
+                            }
+                        }
+                    );
+
+                    $("#total_21").val(importe_total);
+        
+                }); 
+
+                $('.primer_22').keyup(function() {
+                        
+                    var nuevo_valor =  $(this).val();
+                    var importe_total = 0;                    
+
+                    $(".primer_22").each(
+                        function(index, value) {
+                            if ( $.isNumeric($(this).val()) ){
+                                importe_total += parseInt($(this).val());
+                            }
+                        }
+                    );
+
+                    $("#total_22").val(importe_total);
+        
+                }); 
+
+                $('.primer_23').keyup(function() {
+                        
+                    var nuevo_valor =  $(this).val();
+                    var importe_total = 0;                    
+
+                    $(".primer_23").each(
+                        function(index, value) {
+                            if ( $.isNumeric($(this).val()) ){
+                                importe_total += parseInt($(this).val());
+                            }
+                        }
+                    );
+
+                    $("#total_23").val(importe_total);
+        
+                }); 
 
             });
 
-            $('.primer_11').keyup(function() {
-                    
-                var nuevo_valor =  $(this).val();
-                var importe_total = 0;                    
+        </script>
 
-                $(".primer_11").each(
-                    function(index, value) {
-                        if ( $.isNumeric($(this).val()) ){
-                            importe_total += parseInt($(this).val());
-                        }
-                    }
-                );
-
-                $("#total_11").val(importe_total);
-    
-            });
-
-            $('.primer_12').keyup(function() {
-                    
-                var nuevo_valor =  $(this).val();
-                var importe_total = 0;                    
-
-                $(".primer_12").each(
-                    function(index, value) {
-                        if ( $.isNumeric($(this).val()) ){
-                            importe_total += parseInt($(this).val());
-                        }
-                    }
-                );
-
-                $("#total_12").val(importe_total);
-    
-            });
-            
-            $('.primer_13').keyup(function() {
-                    
-                var nuevo_valor =  $(this).val();
-                var importe_total = 0;                    
-
-                $(".primer_13").each(
-                    function(index, value) {
-                        if ( $.isNumeric($(this).val()) ){
-                            importe_total += parseInt($(this).val());
-                        }
-                    }
-                );
-
-                $("#total_13").val(importe_total);
-    
-            });
-
-            // $('.primer_14').keyup(function() {
-                    
-            //     var nuevo_valor =  $(this).val();
-            //     var importe_total = 0;                    
-
-            //     $(".primer_14").each(
-            //         function(index, value) {
-            //             if ( $.isNumeric($(this).val()) ){
-            //                 importe_total += parseInt($(this).val());
-            //             }
-            //         }
-            //     );
-
-            //     $("#total_14").val(importe_total);
-    
-            // });
-
-            $('.primer_15').keyup(function() {
-                    
-                var nuevo_valor =  $(this).val();
-                var importe_total = 0;                    
-
-                $(".primer_15").each(
-                    function(index, value) {
-                        if ( $.isNumeric($(this).val()) ){
-                            importe_total += parseInt($(this).val());
-                        }
-                    }
-                );
-
-                $("#total_15").val(importe_total);
-    
-            });
-
-            $('.primer_16').keyup(function() {
-                    
-                var nuevo_valor =  $(this).val();
-                var importe_total = 0;                    
-
-                $(".primer_16").each(
-                    function(index, value) {
-                        if ( $.isNumeric($(this).val()) ){
-                            importe_total += parseInt($(this).val());
-                        }
-                    }
-                );
-
-                $("#total_16").val(importe_total);
-    
-            });
-
-            $('.primer_17').keyup(function() {
-                    
-                var nuevo_valor =  $(this).val();
-                var importe_total = 0;                    
-
-                $(".primer_17").each(
-                    function(index, value) {
-                        if ( $.isNumeric($(this).val()) ){
-                            importe_total += parseInt($(this).val());
-                        }
-                    }
-                );
-
-                $("#total_17").val(importe_total);
-    
-            });
-
-            $('.primer_18').keyup(function() {
-                    
-                var nuevo_valor =  $(this).val();
-                var importe_total = 0;                    
-
-                $(".primer_18").each(
-                    function(index, value) {
-                        if ( $.isNumeric($(this).val()) ){
-                            importe_total += parseInt($(this).val());
-                        }
-                    }
-                );
-
-                $("#total_18").val(importe_total);
-    
-            });
-
-        });
-
-    </script>
-
-@endpush
+    @endpush
 
 @endsection
