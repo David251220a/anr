@@ -33,10 +33,10 @@
 
   </head>
   <body class="hold-transition skin-red sidebar-mini">
+
     <div class="wrapper">
-
-      <header class="main-header">
-
+      
+      <header class="main-header ">
         <!-- Logo -->
         <a href="#" class="logo">
           <!-- mini logo for sidebar mini 50x50 pixels -->
@@ -53,6 +53,7 @@
           </a>
           <!-- Navbar Right Menu -->
           <div class="navbar-custom-menu">
+            
             <ul class="nav navbar-nav">
               <!-- Messages: style can be found in dropdown.less-->
               
@@ -94,82 +95,96 @@
           </div>
 
         </nav>
+          
+        
       </header>
-      <!-- Left side column. contains the logo and sidebar -->
-      <aside class="main-sidebar">
-        <!-- sidebar: style can be found in sidebar.less -->
-        <section class="sidebar">
-          <!-- Sidebar user panel -->
+      <!-- Left side column. contains the logo and sidebar -->      
+      @if (Auth::user())
 
-          <!-- sidebar menu: : style can be found in sidebar.less -->          
-          <ul class="sidebar-menu">
-            <li class="header"></li>
-            
-            <li id="pvotacion" name="pvotacion" class="treeview">
-              <a href="#">
-                <i class="fa fa-user-o"></i>
-                <span>Votacion</span>
-                <i class="fa fa-angle-left pull-right"></i>
-              </a>
-              <ul class="treeview-menu">
-                <li><a href="{{url('votacion/intendente')}}"><i class="fa fa-circle-o"></i> Intendente</a></li>
-                <li><a href="{{url('votacion/consejal')}}"><i class="fa fa-circle-o"></i> Consejal</a></li>
-              </ul>
-            </li>
+        <aside class="main-sidebar">
+          <!-- sidebar: style can be found in sidebar.less -->
+          <section class="sidebar">
+            <!-- Sidebar user panel -->
 
-            <li id="pconsulta" name="pconsulta" class="treeview">
-              <a href="#">
-                <i class="fa fa-inbox"></i>
-                <span>Consulta</span>
-                <i class="fa fa-angle-left pull-right"></i>
-              </a>
-              <ul class="treeview-menu">
+            <!-- sidebar menu: : style can be found in sidebar.less -->          
+            <ul class="sidebar-menu">
+              <li class="header"></li>
+              
+              <li id="votacion" name="votacion" class="treeview">
+                <a href="#">
+                  <i class="fa fa-user-o"></i>
+                  <span>Votacion</span>
+                  <i class="fa fa-angle-left pull-right"></i>
+                </a>
+                <ul class="treeview-menu">
+                  <li><a href="{{url('votacion/intendente')}}"><i class="fa fa-circle-o"></i> Intendente</a></li>
+                  <li><a href="{{url('votacion/consejal')}}"><i class="fa fa-circle-o"></i> Consejal</a></li>
+                </ul>
+              </li>
 
-                <li><a href="{{ route('consulta.index') }}"><i class="fa fa-circle-o"></i> Padron</a></li>
-                <li><a href="{{ route('consulta.referente') }}"><i class="fa fa-circle-o"></i>Referentes</a></li>
-                <li><a href=" {{ route('consulta.aporedado') }} "><i class="fa fa-circle-o"></i>Aporedados</a></li>
-                <li><a href="{{ route('electores') }}"><i class="fa fa-circle-o"></i> Mesa Habilitadas</a></li>
-                <li><a href="{{url('consulta/votos_intendente')}}"><i class="fa fa-circle-o"></i> Votos Intendente</a></li>                
-                <li><a href="{{url('consulta/votos_consejal')}}"><i class="fa fa-circle-o"></i> Votos Consejal</a></li>
-                
-              </ul>
-            </li>                       
+              <li id="consulta" name="consulta" class="treeview">
+                <a href="#">
+                  <i class="fa fa-inbox"></i>
+                  <span>Consulta</span>
+                  <i class="fa fa-angle-left pull-right"></i>
+                </a>
+                <ul class="treeview-menu">
 
-            <li id="pAcceso1" name="pAcceso1" class="treeview">
-              <a href="#">
-                <i class="fa fa-folder"></i> <span>Acceso</span>
-                <i class="fa fa-angle-left pull-right"></i>
-              </a>
-              <ul class="treeview-menu">
-                <li id="#"><a href="{{url('acceso/usuario')}}"><i class="fa fa-circle-o"></i> Usuarios</a></li>
-                <li id="#"><a href="{{url('acceso/reset')}}"><i class="fa fa-refresh"></i> Cambio de Contraseña</a></li>
-                <li id="#"><a href="{{url('acceso/auditoria')}}"><i class="fa fa-cogs"></i> Auditoria</a></li>
-                
-              </ul>
-            </li>
+                  <li id="padron"><a href="{{ route('consulta.index') }}"><i class="fa fa-circle-o"></i> Padron</a></li>
+                  <li id="padron_ver"><a href="{{ route('consulta.padron') }}"><i class="fa fa-circle-o"></i>Padron</a></li>
+                  <li id="referente"><a href="{{ route('consulta.referente') }}"><i class="fa fa-circle-o"></i>Referentes</a></li>
+                  <li id="aporedados"><a href=" {{ route('consulta.aporedado') }} "><i class="fa fa-circle-o"></i>Aporedados</a></li>
+                  <li id="mesa"><a href="{{ route('electores') }}"><i class="fa fa-circle-o"></i> Mesa Habilitadas</a></li>
+                  <li id="voto_intendente"><a href="{{url('consulta/votos_intendente')}}"><i class="fa fa-circle-o"></i> Votos Intendente</a></li>                
+                  <li id="voto_consejal"><a href="{{url('consulta/votos_consejal')}}"><i class="fa fa-circle-o"></i> Votos Consejal</a></li>
+                  
+                </ul>
+              </li>                       
 
-            <li id="#" name="#" class="treeview">
-              <a href="{{url('acceso/reset')}}">
-                <i class="fa fa-refresh"></i> <span>Cambio Contraseña</span>                
-              </a>              
-            </li>
+              <li id="reportes" name="reportes" class="treeview">
+                <a href="#">
+                  <i class="fa fa-folder"></i> <span>Reportes</span>
+                  <i class="fa fa-angle-left pull-right"></i>
+                </a>
+                <ul class="treeview-menu">
+                  <li id="#"><a href="{{route('reportes.consejal_resumen')}}"><i class="fa fa-circle-o"></i> Consejal - General</a></li>
+                  
+                </ul>
+              </li>
 
-            <li>
-              <a href="{{url('acceso/auditoria')}}">
-                <i class="fa fa-cogs"></i> <span>Auditoria</span>                
-              </a>              
-            </li>
-                        
-          </ul>
-        </section>
-        <!-- /.sidebar -->
-      </aside>
+              <li id="acceso" name="acceso" class="treeview">
+                <a href="#">
+                  <i class="fa fa-folder"></i> <span>Acceso</span>
+                  <i class="fa fa-angle-left pull-right"></i>
+                </a>
+                <ul class="treeview-menu">
+                  <li id="#"><a href="{{url('acceso/usuario')}}"><i class="fa fa-circle-o"></i> Usuarios</a></li>
+                  <li id="#"><a href="{{url('acceso/reset')}}"><i class="fa fa-refresh"></i> Cambio de Contraseña</a></li>
+                  <li id="#"><a href="{{url('acceso/auditoria')}}"><i class="fa fa-cogs"></i> Auditoria</a></li>
+                  
+                </ul>
+              </li>
 
+              <li id="reset" name="reset" class="treeview">
+                <a href="{{url('acceso/reset')}}">
+                  <i class="fa fa-refresh"></i> <span>Cambio Contraseña</span>                
+                </a>              
+              </li>
 
+              <li id="auditoria">
+                <a href="{{url('acceso/auditoria')}}">
+                  <i class="fa fa-cogs"></i> <span>Auditoria</span>                
+                </a>              
+              </li>
+                          
+            </ul>
+          </section>
+          <!-- /.sidebar -->
+        </aside>    
+      
+      @endif
 
-
-
-       <!--Contenido-->
+      <!--Contenido-->
       <!-- Content Wrapper. Contains page content -->
       <div class="content-wrapper">
         
@@ -222,26 +237,23 @@
       
     <!-- jQuery 2.1.4 -->
    
-    <script src="{{asset('js/jQuery-2.1.4.min.js')}}"></script>
-    <script src="{{asset('js/jquery-3.5.1.min.js')}}"></script>
-    <script src="https://cdn.datatables.net/1.11.0/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.11.0/js/dataTables.bootstrap4.min.js"></script>
-    <script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
-        <script src="https://cdn.datatables.net/responsive/2.2.9/js/responsive.bootstrap4.min.js"></script>
-    @stack('scripts')
-    <!-- Bootstrap 3.3.5 -->
-    <script src="{{asset('js/bootstrap.min.js')}}"></script>
-    <script src="{{asset('js/bootstrap-select.min.js')}}"></script>
+      <script src="{{asset('js/jQuery-2.1.4.min.js')}}"></script>
+      <script src="{{asset('js/jquery-3.5.1.min.js')}}"></script>
+      <script src="https://cdn.datatables.net/1.11.0/js/jquery.dataTables.min.js"></script>
+      <script src="https://cdn.datatables.net/1.11.0/js/dataTables.bootstrap4.min.js"></script>
+      <script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
+      <script src="https://cdn.datatables.net/responsive/2.2.9/js/responsive.bootstrap4.min.js"></script>
+      @stack('scripts')
+      <!-- Bootstrap 3.3.5 -->
+      <script src="{{asset('js/bootstrap.min.js')}}"></script>
+      <script src="{{asset('js/bootstrap-select.min.js')}}"></script>
 
-    {{-- {!! Html::script('js/dropdown.js') !!}  --}}
-    <script src="{{asset('js/dropdown.js')}}"></script>
-
-   
-    
-    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.2/js/bootstrap-select.min.js"></script>-->
-    <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> -->
-    <!-- AdminLTE App -->
-    <script src="{{asset('js/app.min.js')}}"></script>
+      {{-- {!! Html::script('js/dropdown.js') !!}  --}}
+      <script src="{{asset('js/dropdown.js')}}"></script>  
+      <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.2/js/bootstrap-select.min.js"></script>-->
+      <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> -->
+      <!-- AdminLTE App -->
+      <script src="{{asset('js/app.min.js')}}"></script>
     
   </body>
 
@@ -264,9 +276,24 @@
 
     if (id_rol == 2){
             
-      $("#pAcceso1").remove();
-      $("#pvotacion").remove();
-    }    
+      $("#acceso").remove();
+      $("#votacion").remove();
+    }
+
+    if (id_rol == 3){
+            
+      $("#acceso").remove();
+      $("#votacion").remove();
+      $("#reset").remove();
+      $("#aporedados").remove();
+      $("#mesa").remove();
+      $("#auditoria").remove();
+      $("#votacion").remove();
+      $("#reportes").remove();
+      $("#voto_intendente").remove();
+      $("#voto_consejal").remove();
+      $("#padron_ver").remove();
+    }
   
   }
     

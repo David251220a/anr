@@ -18,37 +18,47 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', 'HomeController@index')->middleware('auth');
 
 Route::get('inicio', 'InicioController@index');
-
+/********************************************
+ *  VOTACION
+ ********************************************/
 Route::resource('votacion/intendente', 'IntendenteController')->names('intendente');
 Route::resource('votacion/consejal', 'ConsejalController')->names('consejal');
-
+Route::get('votacion/mesas/{id}/intendente', 'IntendenteController@getmesas');
+Route::get('votacion/mesas/{id}/consejal', 'ConsejalController@getmesas_consejal');
+/******************************************
+ *  CONSULTA
+ ******************************************/
 Route::resource('consulta/votos_intendente', 'ConsultaController')->names('consulta_intendente');
-
 Route::get('consulta/votos_intendente/{id1}/{id2}/editar', 'ConsultaController@editar')->name('consulta_intendente.editar');
 Route::get('consulta/votos_intendente/{id1}/{id2}/eliminar', 'ConsultaController@eliminar')->name('consulta_intendente.eliminar');
-
-Route::resource('consulta/votante', 'BuscarController')->names('consulta');
-
+Route::resource('consulta/padron', 'BuscarController')->names('consulta');
 Route::resource('consulta/votos_consejal', 'Consulta_ConsejalController');
 Route::get('consulta/votos_consejal/Acta/{id1}/{id2}', 'Consulta_ConsejalController@Acta');
 Route::get('consulta/votos_intendente/Acta/{id1}/{id2}', 'ConsultaController@Acta')->name('consulta_intendente.acta');
-
 Route::get('consulta/referente', 'ConsultaController@referente')->name('consulta.referente');
 Route::get('consulta/aporedado', 'ConsultaController@aporedado')->name('consulta.aporedado');
 Route::put('consulta/aporedado/{id1}', 'ConsultaController@store_aporedado')->name('consulta.store_aporedado');
-
+Route::get('consulta/ver_padron', 'BuscarController@padron_ver')->name('consulta.padron');
+/*****************************************
+ *  ACCESO
+ *****************************************/
 Route::resource('acceso/usuario', 'acc_UsuarioController');
 Route::resource('acceso/reset', 'acc_ResetController');
 Route::resource('acceso/auditoria', 'AuditoriaController');
-
-Route::get('votacion/mesas/{id}/intendente', 'IntendenteController@getmesas');
-Route::get('votacion/mesas/{id}/consejal', 'ConsejalController@getmesas_consejal');
+/*****************************************
+ *  AUTH
+ ****************************************/
 
 Auth::routes();
 Route::get('/logout', 'Auth\LoginController@logout');
-
 Route::get('/home', 'HomeController@index')->name('home');
-
+/********************************************************
+ *  REPORTES                                            
+ * ******************************************************/
+Route::get('reportes/consejal_resumen', 'ReporteConsejalController@general_consejal')->name('reportes.consejal_resumen');
+/*******************************************
+ *  PDF
+ ******************************************/
 Route::get('pdf/intendente_resumen', 'PDFController@Resumen_General');
 Route::get('pdf/intendente_local_resumen', 'PDFController@Resumen_Local');
 Route::get('pdf/intendente_mesa_resumen', 'PDFController@Resumen_Mesa');
@@ -56,8 +66,6 @@ Route::get('pdf/intendente/{id}', 'PDFController@Intendente');
 Route::get('pdf/referente/{id}', 'PDFController@referentes')->name('referente_pdf');
 Route::get('pdf/electores', 'PDFController@electores')->name('electores');
 Route::get('pdf/electores_pdf', 'PDFController@electores_pdf')->name('electores_pdf');
-
-
 Route::get('pdf/consejal_resumen', 'PDFController@Resumen_General_Consejal');
 Route::get('pdf/consejal_local_resumen', 'PDFController@Resumen_Local_Consejal');
 Route::get('pdf/consejal_mesa_resumen', 'PDFController@Resumen_Mesa_Consejal');

@@ -2,21 +2,7 @@
 
 @section('contenido')
 
-    <div class="rows">
-
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-
-            @if (session()->has('msj'))
-            
-                <div class="alert alert-danger" role="alert">{{session('msj')}}</div>
-                
-            @endif        
-
-        </div>
-
-    </div>
-
-    {!! Form::open(array('route' => 'consulta.index', 'method'=>'GET', 'autocomplete'=>'off', 'role'=>'search')) !!}
+    {!! Form::open(array('route' => 'consulta.padron', 'method'=>'GET', 'autocomplete'=>'off', 'role'=>'search')) !!}
         
         <div class="form-group">
 
@@ -49,10 +35,6 @@
                         <th style="text-align: center; font-size: 1.2rem">Local</th>
                         <th style="text-align: center; font-size: 1.2rem">M</th>
                         <th style="text-align: center; font-size: 1.2rem">O</th>
-                        <th style="text-align: center; font-size: 1.2rem">C</th>
-                        <th style="text-align: center; font-size: 1.2rem; display: none">V</th>
-                        <th style="text-align: center; font-size: 1.2rem">Referente</th>
-                        <th style="text-align: center; font-size: 1.2rem">OK</th>
                         
                     </thead>
 
@@ -63,17 +45,13 @@
                             @foreach ($votante as $vota)
                             
                                 <tr>
-                                    {!! Form::open(['route' => 'consulta.store', 'autocomplete' => 'off', 'files' => true]) !!}
+                                    
                                     <td style="text-align: right; font-size: 1.2rem">{{number_format($vota->cedula, 0, ".", ".")}} <input type="hidden" name="codpadron" value="{{$vota->CodPadron}}"></td>
                                     <td style="text-align: center; font-size: 1.2rem">{{$vota->apellido_nombre}}</td>
                                     <td style="text-align: center; font-size: 1.2rem">{{$vota->Desc_Local}}</td>
                                     <td style="text-align: right; font-size: 1.2rem">{{$vota->mesa}}</td>
-                                    <td style="text-align: right; font-size: 1.2rem">{{$vota->orden}}</td>
-                                    <td style="text-align: center; font-size: 1.2rem"> {!! Form::checkbox('comprometido', null, $vota->comprometido) !!} </td>
-                                    <td style="text-align: center; font-size: 1.2rem ; display: none"> {!! Form::checkbox('voto', null, $vota->voto) !!} </td>
-                                    <td style="text-align: center; font-size: 1.2rem"><input type="text" class="form-control" name="referente" value="{{$vota->referente}}"></td>
-                                    <td style="text-align: center"> <button style="font-size: 1.2rem" class="btn btn-success btn-sm float-right" type="submit">OK</button> </td>
-                                    {!! Form::close() !!}
+                                    <td style="text-align: right; font-size: 1.2rem">{{$vota->orden}}</td>                                    
+                                    
                                 </tr>
 
                             @endforeach

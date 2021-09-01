@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 
-class UsuarioConsulta
+class NivelTres
 {
     /**
      * Handle an incoming request.
@@ -17,13 +17,12 @@ class UsuarioConsulta
     {
         $id_rol = auth()->user()->id_rol;
         
-        if($id_rol == 2){
+        if($id_rol == 3){
             
-            return redirect()->route('consulta_intendente.index');
+            return redirect()->route('consulta.index');
         
         }        
 
         return $next($request);
-        
     }
 }

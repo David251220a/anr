@@ -15,326 +15,326 @@
         </div>
     </div>
 
-{!! Form::open(['route' => 'consejal.store', 'autocomplete' => 'off', 'files' => true]) !!}
+    {!! Form::open(['route' => 'consejal.store', 'autocomplete' => 'off', 'files' => true]) !!}
 
-    <div class="row">
+        <div class="row">
 
-        <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
+            <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
 
-            <div class="alert alert-danger" style="text-align: center" role="alert">
-                CONSEJAL
-            </div>
-
-        </div>
-
-    </div>
-
-    <div class="row">
-
-        <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
-
-            <div class="form-group">
-
-                <label form="id_local_consejal" >Local Votacion</label>
-                <select name="id_local_consejal" id="id_local_consejal" class="form-control">
-
-                    <option value="">Seleccione un local</option>
-
-                    @foreach ($local_votacion as $vot)
-                        
-                        <option value="{{$vot->Id_Local}}">{{$vot->Desc_Local}} </option>
-
-                    @endforeach
-
-                </select>
+                <div class="alert alert-danger" style="text-align: center" role="alert">
+                    CONSEJAL
+                </div>
 
             </div>
 
         </div>
 
-        <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
+        <div class="row">
 
-            <div class="form-group">
+            <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
 
-                <label form="id_mesa_consejal" >Mesa</label>
-                <select name="id_mesa_consejal" id="id_mesa_consejal" class="form-control">
+                <div class="form-group">
 
-                </select>
-                @error('id_mesa_consejal')
+                    <label form="id_local_consejal" >Local Votacion</label>
+                    <select name="id_local_consejal" id="id_local_consejal" class="form-control">
 
-                    <span class="text-danger">{{$message}}</span>
+                        <option value="">Seleccione un local</option>
 
-                @enderror
-
-            </div>
-
-        </div>
-
-    </div>
-
-    <div class="row">
-
-        <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
-
-            <div class="table-responsive">
-
-                <table id="detalles" class="table table-striped table-condensed table-bordered table-hover table-responsive">
-
-                    <thead style="background-color:#f71808a8">
-
-                        <th style="text-align: center; font-size: 1.2rem"><i class="fa fa-arrow-down" aria-hidden="true"></i>Orden / <i class="fa fa-arrow-right" aria-hidden="true"></i>Lista</th>
-                        @foreach ($listas as $lista)
-                        
-                            <th style="text-align: center; font-size: 1.2rem">{{$lista->numero_lista}}</th>
-                            <input type="hidden" name="lista[]" value="{{$lista->Id_Lista}}">
-
-                        @endforeach
-                        
-                    </thead>
-                    
-                    <tbody>
-                        @php
-                            $cont = 0;
-                        @endphp
-                        @foreach ($ordenes as $orden)
-
-                            <tr style="align-items: center">
-
-                                <td style="text-align: right">{{$orden->Orden}} <input type="hidden" name="orden[]" value="{{$orden->Orden}}"></td>
-                                <td style="text-align: right"> <input type="number" style="text-align: right" class="form-control Can_Produc primer_11"  name="votos[]" value="{{old('votos.'.$cont, 0)}}"> </td>
-                                @php
-                                    $cont = $cont + 1;
-                                @endphp
-                                <td style="text-align: right"> <input type="number" style="text-align: right" class="form-control Can_Produc primer_12" name="votos[]" value="{{old('votos.'.$cont, 0)}}"> </td>
-                                @php
-                                    $cont = $cont + 1;
-                                @endphp
-                                <td style="text-align: right"> <input type="number" style="text-align: right" class="form-control Can_Produc primer_13" name="votos[]" value="{{old('votos.'.$cont, 0)}}"> </td>
-                                @php
-                                    $cont = $cont + 1;
-                                @endphp
-                                <td style="text-align: right"> <input type="number" style="text-align: right" class="form-control Can_Produc primer_15" name="votos[]" value="{{old('votos.'.$cont, 0)}}"> </td>
-                                @php
-                                    $cont = $cont + 1;
-                                @endphp
-                                <td style="text-align: right"> <input type="number" style="text-align: right" class="form-control Can_Produc primer_16" name="votos[]" value="{{old('votos.'.$cont, 0)}}"> </td>
-                                @php
-                                    $cont = $cont + 1;
-                                @endphp
-                                <td style="text-align: right"> <input type="number" style="text-align: right" class="form-control Can_Produc primer_17" name="votos[]" value="{{old('votos.'.$cont, 0)}}"> </td>
-                                @php
-                                    $cont = $cont + 1;
-                                @endphp
-                                <td style="text-align: right"> <input type="number" style="text-align: right" class="form-control Can_Produc primer_18" name="votos[]" value="{{old('votos.'.$cont, 0)}}"> </td>
-                                @php
-                                    $cont = $cont + 1;
-                                @endphp
-                                
-                                <td style="text-align: right"> <input type="number" style="text-align: right" class="form-control Can_Produc primer_19" name="votos[]" value="{{old('votos.'.$cont, 0)}}"> </td>
-                                @php
-                                    $cont = $cont + 1;
-                                @endphp
-
-                                <td style="text-align: right"> <input type="number" style="text-align: right" class="form-control Can_Produc primer_20" name="votos[]" value="{{old('votos.'.$cont, 0)}}"> </td>
-                                @php
-                                    $cont = $cont + 1;
-                                @endphp
-
-                                <td style="text-align: right"> <input type="number" style="text-align: right" class="form-control Can_Produc primer_21" name="votos[]" value="{{old('votos.'.$cont, 0)}}"> </td>
-                                @php
-                                    $cont = $cont + 1;
-                                @endphp
-
-                                <td style="text-align: right"> <input type="number" style="text-align: right" class="form-control Can_Produc primer_22" name="votos[]" value="{{old('votos.'.$cont, 0)}}"> </td>
-                                @php
-                                    $cont = $cont + 1;
-                                @endphp
-
-                                <td style="text-align: right"> <input type="number" style="text-align: right" class="form-control Can_Produc primer_23" name="votos[]" value="{{old('votos.'.$cont, 0)}}"> </td>
-                                @php
-                                    $cont = $cont + 1;
-                                @endphp
-                            </tr>
+                        @foreach ($local_votacion as $vot)
                             
+                            <option value="{{$vot->Id_Local}}">{{$vot->Desc_Local}} </option>
+
                         @endforeach
 
-                    </tbody>
+                    </select>
 
-                    <tfoot>
+                </div>
+
+            </div>
+
+            <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
+
+                <div class="form-group">
+
+                    <label form="id_mesa_consejal" >Mesa</label>
+                    <select name="id_mesa_consejal" id="id_mesa_consejal" class="form-control">
+
+                    </select>
+                    @error('id_mesa_consejal')
+
+                        <span class="text-danger">{{$message}}</span>
+
+                    @enderror
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="row">
+
+            <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
+
+                <div class="table-responsive">
+
+                    <table id="detalles" class="table table-striped table-condensed table-bordered table-hover table-responsive">
+
+                        <thead style="background-color:#f71808a8">
+
+                            <th style="text-align: center; font-size: 1.2rem"><i class="fa fa-arrow-down" aria-hidden="true"></i>Orden / <i class="fa fa-arrow-right" aria-hidden="true"></i>Lista</th>
+                            @foreach ($listas as $lista)
+                            
+                                <th style="text-align: center; font-size: 1.2rem">{{$lista->numero_lista}}</th>
+                                <input type="hidden" name="lista[]" value="{{$lista->Id_Lista}}">
+
+                            @endforeach
+                            
+                        </thead>
                         
-                        <tr>
+                        <tbody>
+                            @php
+                                $cont = 0;
+                            @endphp
+                            @foreach ($ordenes as $orden)
 
-                            <td style="text-align: right">TOTAL:</td>
-                            <td style="text-align: right"> <input type="number" id="total_11" name="total_11" style="text-align: right" class="form-control" value="{{old('total_11', 0)}}" readonly> </td>
-                            <td style="text-align: right"> <input type="number" id="total_12" name="total_12" style="text-align: right" class="form-control" value="{{old('total_12', 0)}}" readonly> </td>
-                            <td style="text-align: right"> <input type="number" id="total_13" name="total_13" style="text-align: right" class="form-control" value="{{old('total_13', 0)}}" readonly> </td>
-                            <td style="text-align: right"> <input type="number" id="total_15" name="total_15" style="text-align: right" class="form-control" value="{{old('total_15', 0)}}" readonly> </td>
-                            <td style="text-align: right"> <input type="number" id="total_16" name="total_16" style="text-align: right" class="form-control" value="{{old('total_16', 0)}}" readonly> </td>
-                            <td style="text-align: right"> <input type="number" id="total_17" name="total_17" style="text-align: right" class="form-control" value="{{old('total_17', 0)}}" readonly> </td>
-                            <td style="text-align: right"> <input type="number" id="total_18" name="total_18" style="text-align: right" class="form-control" value="{{old('total_18', 0)}}" readonly> </td>
+                                <tr style="align-items: center">
 
-                            <td style="text-align: right"> <input type="number" id="total_19" name="total_19" style="text-align: right" class="form-control" value="{{old('total_19', 0)}}" readonly> </td>
-                            <td style="text-align: right"> <input type="number" id="total_20" name="total_20" style="text-align: right" class="form-control" value="{{old('total_20', 0)}}" readonly> </td>
-                            <td style="text-align: right"> <input type="number" id="total_21" name="total_21" style="text-align: right" class="form-control" value="{{old('total_21', 0)}}" readonly> </td>
-                            <td style="text-align: right"> <input type="number" id="total_22" name="total_22" style="text-align: right" class="form-control" value="{{old('total_22', 0)}}" readonly> </td>
-                            <td style="text-align: right"> <input type="number" id="total_23" name="total_23" style="text-align: right" class="form-control" value="{{old('total_23', 0)}}" readonly> </td>
+                                    <td style="text-align: right">{{$orden->Orden}} <input type="hidden" name="orden[]" value="{{$orden->Orden}}"></td>
+                                    <td style="text-align: right"> <input type="number" style="text-align: right" class="form-control Can_Produc primer_11"  name="votos[]" value="{{old('votos.'.$cont, 0)}}"> </td>
+                                    @php
+                                        $cont = $cont + 1;
+                                    @endphp
+                                    <td style="text-align: right"> <input type="number" style="text-align: right" class="form-control Can_Produc primer_12" name="votos[]" value="{{old('votos.'.$cont, 0)}}"> </td>
+                                    @php
+                                        $cont = $cont + 1;
+                                    @endphp
+                                    <td style="text-align: right"> <input type="number" style="text-align: right" class="form-control Can_Produc primer_13" name="votos[]" value="{{old('votos.'.$cont, 0)}}"> </td>
+                                    @php
+                                        $cont = $cont + 1;
+                                    @endphp
+                                    <td style="text-align: right"> <input type="number" style="text-align: right" class="form-control Can_Produc primer_15" name="votos[]" value="{{old('votos.'.$cont, 0)}}"> </td>
+                                    @php
+                                        $cont = $cont + 1;
+                                    @endphp
+                                    <td style="text-align: right"> <input type="number" style="text-align: right" class="form-control Can_Produc primer_16" name="votos[]" value="{{old('votos.'.$cont, 0)}}"> </td>
+                                    @php
+                                        $cont = $cont + 1;
+                                    @endphp
+                                    <td style="text-align: right"> <input type="number" style="text-align: right" class="form-control Can_Produc primer_17" name="votos[]" value="{{old('votos.'.$cont, 0)}}"> </td>
+                                    @php
+                                        $cont = $cont + 1;
+                                    @endphp
+                                    <td style="text-align: right"> <input type="number" style="text-align: right" class="form-control Can_Produc primer_18" name="votos[]" value="{{old('votos.'.$cont, 0)}}"> </td>
+                                    @php
+                                        $cont = $cont + 1;
+                                    @endphp
+                                    
+                                    <td style="text-align: right"> <input type="number" style="text-align: right" class="form-control Can_Produc primer_19" name="votos[]" value="{{old('votos.'.$cont, 0)}}"> </td>
+                                    @php
+                                        $cont = $cont + 1;
+                                    @endphp
 
-                        </tr>
+                                    <td style="text-align: right"> <input type="number" style="text-align: right" class="form-control Can_Produc primer_20" name="votos[]" value="{{old('votos.'.$cont, 0)}}"> </td>
+                                    @php
+                                        $cont = $cont + 1;
+                                    @endphp
 
-                    </tfoot>
-                    
-                </table>
+                                    <td style="text-align: right"> <input type="number" style="text-align: right" class="form-control Can_Produc primer_21" name="votos[]" value="{{old('votos.'.$cont, 0)}}"> </td>
+                                    @php
+                                        $cont = $cont + 1;
+                                    @endphp
 
-            </div>
+                                    <td style="text-align: right"> <input type="number" style="text-align: right" class="form-control Can_Produc primer_22" name="votos[]" value="{{old('votos.'.$cont, 0)}}"> </td>
+                                    @php
+                                        $cont = $cont + 1;
+                                    @endphp
 
-        </div>
+                                    <td style="text-align: right"> <input type="number" style="text-align: right" class="form-control Can_Produc primer_23" name="votos[]" value="{{old('votos.'.$cont, 0)}}"> </td>
+                                    @php
+                                        $cont = $cont + 1;
+                                    @endphp
+                                </tr>
+                                
+                            @endforeach
 
-    </div>
+                        </tbody>
 
-    <div class="row">
-                    
-        <div class="col-lg-4 col-sm-4 col-md-4 col-xs-6">                        
-            
-            <div class="form-group md-form mt-3" style="text-align: right">
-                                            
-                <label for="consejal" data-error="wrong">VOTOS NULOS:</label>
-                <input type="hidden" name="id_lista[]" id="consejal" class="form-control" value="999">
+                        <tfoot>
+                            
+                            <tr>
 
-            </div>
+                                <td style="text-align: right">TOTAL:</td>
+                                <td style="text-align: right"> <input type="number" id="total_11" name="total_11" style="text-align: right" class="form-control" value="{{old('total_11', 0)}}" readonly> </td>
+                                <td style="text-align: right"> <input type="number" id="total_12" name="total_12" style="text-align: right" class="form-control" value="{{old('total_12', 0)}}" readonly> </td>
+                                <td style="text-align: right"> <input type="number" id="total_13" name="total_13" style="text-align: right" class="form-control" value="{{old('total_13', 0)}}" readonly> </td>
+                                <td style="text-align: right"> <input type="number" id="total_15" name="total_15" style="text-align: right" class="form-control" value="{{old('total_15', 0)}}" readonly> </td>
+                                <td style="text-align: right"> <input type="number" id="total_16" name="total_16" style="text-align: right" class="form-control" value="{{old('total_16', 0)}}" readonly> </td>
+                                <td style="text-align: right"> <input type="number" id="total_17" name="total_17" style="text-align: right" class="form-control" value="{{old('total_17', 0)}}" readonly> </td>
+                                <td style="text-align: right"> <input type="number" id="total_18" name="total_18" style="text-align: right" class="form-control" value="{{old('total_18', 0)}}" readonly> </td>
 
-        </div>
+                                <td style="text-align: right"> <input type="number" id="total_19" name="total_19" style="text-align: right" class="form-control" value="{{old('total_19', 0)}}" readonly> </td>
+                                <td style="text-align: right"> <input type="number" id="total_20" name="total_20" style="text-align: right" class="form-control" value="{{old('total_20', 0)}}" readonly> </td>
+                                <td style="text-align: right"> <input type="number" id="total_21" name="total_21" style="text-align: right" class="form-control" value="{{old('total_21', 0)}}" readonly> </td>
+                                <td style="text-align: right"> <input type="number" id="total_22" name="total_22" style="text-align: right" class="form-control" value="{{old('total_22', 0)}}" readonly> </td>
+                                <td style="text-align: right"> <input type="number" id="total_23" name="total_23" style="text-align: right" class="form-control" value="{{old('total_23', 0)}}" readonly> </td>
 
-        <div class="col-lg-4 col-sm-4 col-md-4 col-xs-6">
-            
-            <div class="form-group md-form mt-3">
-                                                            
-                <input id="votos" name="votos_varios[]" type="number" required="required" value="{{old('votos_varios.0', 0)}}" class="form-control Can_Produc">
+                            </tr>
 
-            </div>                        
-            
-
-        </div>
-
-    </div>
-
-    <div class="row">
-                    
-        <div class="col-lg-4 col-sm-4 col-md-4 col-xs-6">                        
-            
-            <div class="form-group md-form mt-3" style="text-align: right">
-                                            
-                <label for="consejal" data-error="wrong">VOTOS EN BLANCO:</label>
-                <input type="hidden" name="id_lista[]" id="consejal" class="form-control" value="998">
-
-            </div>
-
-        </div>
-
-        <div class="col-lg-4 col-sm-4 col-md-4 col-xs-6">
-            
-            <div class="form-group md-form mt-3">
-                                                            
-                <input id="votos" name="votos_varios[]" type="number" required="required" value="{{old('votos_varios.1', 0)}}" class="form-control Can_Produc">
-
-            </div>                        
-            
-
-        </div>
-
-    </div>
-
-    <div class="row">
-                    
-        <div class="col-lg-4 col-sm-4 col-md-4 col-xs-6">                        
-            
-            <div class="form-group md-form mt-3" style="text-align: right">
-                                            
-                <label for="consejal" data-error="wrong">VOTOS A COMPUTAR:</label>
-                <input type="hidden" name="id_lista[]" id="consejal" class="form-control" value="997">
-
-            </div>
-
-        </div>
-
-        <div class="col-lg-4 col-sm-4 col-md-4 col-xs-6">
-            
-            <div class="form-group md-form mt-3">
-                                                            
-                <input id="votos" name="votos_varios[]" type="number" required="required" value="{{old('votos_varios.2', 0)}}" class="form-control Can_Produc">
-
-            </div>                        
-            
-
-        </div>
-
-    </div>
-
-    <div class="row">
-                    
-        <div class="col-lg-4 col-sm-4 col-md-4 col-xs-6">                        
-            
-            <div class="form-group md-form mt-3" style="text-align: right">
-                                            
-                <label for="consejal" data-error="wrong">TOTAL DE VOTOS:</label>
-
-            </div>
-
-        </div>
-
-        <div class="col-lg-4 col-sm-4 col-md-4 col-xs-6">
-            
-            <div class="form-group md-form mt-3">
-                                                            
-                <input id="total_votos" name="total_votos" type="number" required="required" value="{{old('total_votos', 0)}}" class="form-control">
-
-            </div>                        
-            
-
-        </div>
-
-    </div>
-
-    <div class="row">
+                        </tfoot>
                         
-        <div class="col-lg-4 col-sm-4 col-md-4 col-xs-6">                        
-            
-            <div class="form-group md-form mt-3" style="text-align: right">
-                                            
-                <label form="acta" ><b>ACTA:</b> </label>
+                    </table>
+
+                </div>
 
             </div>
 
         </div>
 
-        <div class="col-lg-4 col-sm-4 col-md-4 col-xs-6">
-            
-            <div class="form-group md-form mt-3">
+        <div class="row">
+                        
+            <div class="col-lg-4 col-sm-4 col-md-4 col-xs-6">                        
                 
-                <input type="file" name="acta" id="acta" accept="image/*" class="form-control" placeholder="Acta.." >
-                @error('acta')
+                <div class="form-group md-form mt-3" style="text-align: right">
+                                                
+                    <label for="consejal" data-error="wrong">VOTOS NULOS:</label>
+                    <input type="hidden" name="id_lista[]" id="consejal" class="form-control" value="999">
 
-                    <span class="text-danger">{{$message}}</span>
+                </div>
 
-                @enderror
+            </div>
 
-            </div>                        
-            
+            <div class="col-lg-4 col-sm-4 col-md-4 col-xs-6">
+                
+                <div class="form-group md-form mt-3">
+                                                                
+                    <input id="votos" name="votos_varios[]" type="number" required="required" value="{{old('votos_varios.0', 0)}}" class="form-control Can_Produc">
+
+                </div>                        
+                
+
+            </div>
 
         </div>
 
-    </div>
-
-    <div class="form-row text-center">
+        <div class="row">
                         
-        <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
+            <div class="col-lg-4 col-sm-4 col-md-4 col-xs-6">                        
+                
+                <div class="form-group md-form mt-3" style="text-align: right">
+                                                
+                    <label for="consejal" data-error="wrong">VOTOS EN BLANCO:</label>
+                    <input type="hidden" name="id_lista[]" id="consejal" class="form-control" value="998">
 
-            <button class="btn btn-success btn-default btn-rounded float-right" type="submit">Procesar</button>
+                </div>
+
+            </div>
+
+            <div class="col-lg-4 col-sm-4 col-md-4 col-xs-6">
+                
+                <div class="form-group md-form mt-3">
+                                                                
+                    <input id="votos" name="votos_varios[]" type="number" required="required" value="{{old('votos_varios.1', 0)}}" class="form-control Can_Produc">
+
+                </div>                        
+                
+
+            </div>
 
         </div>
-    
-    </div>
 
-{!! Form::close() !!}
+        <div class="row">
+                        
+            <div class="col-lg-4 col-sm-4 col-md-4 col-xs-6">                        
+                
+                <div class="form-group md-form mt-3" style="text-align: right">
+                                                
+                    <label for="consejal" data-error="wrong">VOTOS A COMPUTAR:</label>
+                    <input type="hidden" name="id_lista[]" id="consejal" class="form-control" value="997">
+
+                </div>
+
+            </div>
+
+            <div class="col-lg-4 col-sm-4 col-md-4 col-xs-6">
+                
+                <div class="form-group md-form mt-3">
+                                                                
+                    <input id="votos" name="votos_varios[]" type="number" required="required" value="{{old('votos_varios.2', 0)}}" class="form-control Can_Produc">
+
+                </div>                        
+                
+
+            </div>
+
+        </div>
+
+        <div class="row">
+                        
+            <div class="col-lg-4 col-sm-4 col-md-4 col-xs-6">                        
+                
+                <div class="form-group md-form mt-3" style="text-align: right">
+                                                
+                    <label for="consejal" data-error="wrong">TOTAL DE VOTOS:</label>
+
+                </div>
+
+            </div>
+
+            <div class="col-lg-4 col-sm-4 col-md-4 col-xs-6">
+                
+                <div class="form-group md-form mt-3">
+                                                                
+                    <input id="total_votos" name="total_votos" type="number" required="required" value="{{old('total_votos', 0)}}" class="form-control">
+
+                </div>                        
+                
+
+            </div>
+
+        </div>
+
+        <div class="row">
+                            
+            <div class="col-lg-4 col-sm-4 col-md-4 col-xs-6">                        
+                
+                <div class="form-group md-form mt-3" style="text-align: right">
+                                                
+                    <label form="acta" ><b>ACTA:</b> </label>
+
+                </div>
+
+            </div>
+
+            <div class="col-lg-4 col-sm-4 col-md-4 col-xs-6">
+                
+                <div class="form-group md-form mt-3">
+                    
+                    <input type="file" name="acta" id="acta" accept="image/*" class="form-control" placeholder="Acta.." >
+                    @error('acta')
+
+                        <span class="text-danger">{{$message}}</span>
+
+                    @enderror
+
+                </div>                        
+                
+
+            </div>
+
+        </div>
+
+        <div class="form-row text-center">
+                            
+            <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
+
+                <button class="btn btn-success btn-default btn-rounded float-right" type="submit">Procesar</button>
+
+            </div>
+        
+        </div>
+
+    {!! Form::close() !!}
 
     @push('scripts')        
 
