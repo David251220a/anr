@@ -22,17 +22,17 @@
 
                     <thead style="background-color:#f71808a8">
 
-                        <th style="text-align: center">Local</th>
-                        <th style="text-align: center">Cant. Mesa</th>
-                        <th style="text-align: center">Aporedado</th>
-                        <th style="text-align: center">Telefono</th>
-                        <th style="text-align: center">Aporedado</th>
-                        <th style="text-align: center">Telefono</th>
-                        <th style="text-align: center">Aporedado</th>
-                        <th style="text-align: center">Telefono</th>
-                        <th style="text-align: center">Aporedado</th>
-                        <th style="text-align: center">Telefono</th>
-                        <th style="text-align: center">OK</th>
+                        <th style="text-align: center; font-size: 1rem">Local</th>
+                        <th style="text-align: center; font-size: 1rem" width="20px">Cant. Mesa</th>
+                        <th style="text-align: center; font-size: 1rem">Aporedado</th>
+                        <th style="text-align: center; font-size: 1rem">Telefono</th>
+                        <th style="text-align: center; font-size: 1rem">Aporedado</th>
+                        <th style="text-align: center; font-size: 1rem">Telefono</th>
+                        <th style="text-align: center; font-size: 1rem">Aporedado</th>
+                        <th style="text-align: center; font-size: 1rem">Telefono</th>
+                        <th style="text-align: center; font-size: 1rem">Aporedado</th>
+                        <th style="text-align: center; font-size: 1rem">Telefono</th>
+                        <th style="text-align: center; font-size: 1rem">OK</th>
 
                     </thead>
 
@@ -43,17 +43,17 @@
 
                             <tr>
                                 {!! Form::model($aporedado, ['route' => ['consulta.store_aporedado', $aporedado->Id_Aporedado], 'method' => 'put']) !!}
-                                <td style="text-align: right; font-size: 1.2rem"><input type="hidden" class="form-control" name="id" value="{{$aporedado->Id_Aporedado}}">{{$aporedado->Local}}</td>
-                                <td style="text-align: center; font-size: 1.2rem">{{$aporedado->Cant_Mesas}}</td>
-                                <td style="text-align: center; font-size: 1.2rem"><input type="text" class="form-control" name="aporedado_1" value="{{$aporedado->Apoderado1}}"></td>
-                                <td style="text-align: right; font-size: 1.2rem" width="100px"><input type="text" class="form-control" name="telefono_1" value="{{$aporedado->Apo1_Telefono}}"></td>
-                                <td style="text-align: center; font-size: 1.2rem"><input type="text" class="form-control" name="aporedado_2" value="{{$aporedado->Apoderado2}}"></td>
-                                <td style="text-align: right; font-size: 1.2rem" width="100px"><input type="text" class="form-control" name="telefono_2" value="{{$aporedado->Apo2_Telefono}}"></td>
-                                <td style="text-align: center; font-size: 1.2rem"><input type="text" class="form-control" name="aporedado_3" value="{{$aporedado->Apoderado3}}"></td>
-                                <td style="text-align: right; font-size: 1.2rem" width="100px"><input type="text" class="form-control" name="telefono_3" value="{{$aporedado->Apo3_Telefono}}"></td>
-                                <td style="text-align: center; font-size: 1.2rem"><input type="text" class="form-control" name="aporedado_4" value="{{$aporedado->Apoderado4}}"></td>
-                                <td style="text-align: right; font-size: 1.2rem" width="100px"><input type="text" class="form-control" name="telefono_4" value="{{$aporedado->Apo4_Telefono}}"></td>
-                                <td style="text-align: center"> <button style="font-size: 1.2rem" class="btn btn-success btn-sm float-right" type="submit">OK</button> </td>
+                                <td style="text-align: right; font-size: 1rem"><input type="hidden" class="form-control" name="id" value="{{$aporedado->Id_Aporedado}}">{{$aporedado->Local}}</td>
+                                <td style="text-align: center; font-size: 1rem" width="20px">{{$aporedado->Cant_Mesas}}</td>
+                                <td style="text-align: center; font-size: 1rem"><input type="text" style="font-size: 1.1rem" class="form-control" name="aporedado_1" value="{{$aporedado->Apoderado1}}"></td>
+                                <td style="text-align: right; font-size: 1rem" width="80px"><input type="text" style="font-size: 1.1rem" class="form-control" name="telefono_1" value="{{$aporedado->Apo1_Telefono}}"></td>
+                                <td style="text-align: center; font-size: 1rem"><input type="text" style="font-size: 1.1rem" class="form-control" name="aporedado_2" value="{{$aporedado->Apoderado2}}"></td>
+                                <td style="text-align: right; font-size: 1rem" width="80px"><input type="text" style="font-size: 1.1rem" class="form-control" name="telefono_2" value="{{$aporedado->Apo2_Telefono}}"></td>
+                                <td style="text-align: center; font-size: 1rem"><input type="text" style="font-size: 1.1rem" class="form-control" name="aporedado_3" value="{{$aporedado->Apoderado3}}"></td>
+                                <td style="text-align: right; font-size: 1rem" width="80px"><input style="font-size: 1.1rem" type="text" class="form-control" name="telefono_3" value="{{$aporedado->Apo3_Telefono}}"></td>
+                                <td style="text-align: center; font-size: 1rem"><input type="text" style="font-size: 1.1rem" class="form-control" name="aporedado_4" value="{{$aporedado->Apoderado4}}"></td>
+                                <td style="text-align: right; font-size: 1rem" width="80px"><input type="text" style="font-size: 1.1rem" class="form-control" name="telefono_4" value="{{$aporedado->Apo4_Telefono}}"></td>
+                                <td style="text-align: center"> <button style="font-size: 1rem" class="btn btn-success btn-sm float-right" type="submit">OK</button> </td>
                                 {!! Form::close() !!}
                             </tr>
 
@@ -77,6 +77,11 @@
                 $('#example').DataTable({
                     responsive: true,
                     autoWidth: false,
+                    "pageLength": 50,
+                    "paging":   false,
+                    "ordering": false,
+                    "info":     false,
+                    searching: false,                    
                     "language": {
                         "lengthMenu": "Mostrar _MENU_ registros por paginas",
                         "zeroRecords": "No hay coicidencia",

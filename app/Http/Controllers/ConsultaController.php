@@ -233,6 +233,7 @@ class ConsultaController extends Controller
     public function aporedado(Request $request){
 
         $aporedados = DB::table('aporedado_local')
+        ->orderBy('Id_Aporedado', 'ASC')
         ->get();
 
         return view('consulta.aporedado', compact('aporedados'));
