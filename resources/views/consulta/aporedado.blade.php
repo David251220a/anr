@@ -18,7 +18,7 @@
 
             <div class="table-responsive">
 
-                <table id="detalles" class="table table-striped table-condensed table-bordered table-hover table-responsive">
+                <table id="example" class="table table-striped table-condensed table-bordered table-hover table-responsive">
 
                     <thead style="background-color:#f71808a8">
 
@@ -68,5 +68,32 @@
         </div>
 
     </div>
+
+    @push('scripts')
+
+        <script type="text/javascript">
+
+            $(document).ready(function() {
+                $('#example').DataTable({
+                    responsive: true,
+                    autoWidth: false,
+                    "language": {
+                        "lengthMenu": "Mostrar _MENU_ registros por paginas",
+                        "zeroRecords": "No hay coicidencia",
+                        "info": "Mostrando la pagina _PAGE_ de _PAGES_",
+                        "infoEmpty": "No records available",
+                        "infoFiltered": "(Filtrado de _MAX_ registros totales)", 
+                        'search': 'Buscar', 
+                        'paginate': {
+                            'next': 'Siguiente',
+                            'previous': 'Anterior'
+                        }
+                    }
+                });
+            });
+
+        </script>
+        
+    @endpush
 
 @endsection
