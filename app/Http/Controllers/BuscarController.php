@@ -27,16 +27,28 @@ class BuscarController extends Controller
         if($searchtext){
         
             $votante = DB::table('padron AS a')
-            ->join('local_votacion AS b','b.Id_Local','=','a.local')
-            // ->leftjoin('padron_comprometido AS c', function ($join) {
-            //     $join->on('c.Cod_Comprometido', '=', 'c.CodPadron')->On('c.Id_User', '=', $id_user);
-            // })
+            ->join('local_votacion AS b','b.Id_Local','=','a.local')            
             ->select('a.*', 'b.Desc_Local')
+            ->addSelect(['voto' => Padron_Comprometido::select('voto')
+                ->whereColumn('Cod_Comprometido', 'a.CodPadron')
+                ->where('Id_User', $id_user)
+                ->limit(1)
+            ])
+            ->addSelect(['comprometido' => Padron_Comprometido::select('comprometido')
+                ->whereColumn('Cod_Comprometido', 'a.CodPadron')
+                ->where('Id_User', $id_user)
+                ->limit(1)
+            ])
+            ->addSelect(['apellido_nombre_Referente' => Padron_Comprometido::select('apellido_nombre_Referente')
+                ->whereColumn('Cod_Comprometido', 'a.CodPadron')
+                ->where('Id_User', $id_user)
+                ->limit(1)
+            ])
             ->where('a.cedula', 'LIKE', '%'.$searchtext.'%')
             ->orwhere('a.apellido_nombre', 'LIKE', '%'.$searchtext.'%') 
             ->orderBy('a.local', 'ASC')
             ->orderBy('a.mesa', 'ASC')
-            ->paginate(50);
+            ->paginate(50);            
             
             return view('consulta.buscar', compact('searchtext', 'votante'));
 
@@ -44,10 +56,24 @@ class BuscarController extends Controller
 
         $votante = DB::table('padron AS a')
         ->join('local_votacion AS b','b.Id_Local','=','a.local')        
-        // ->leftjoin('padron_comprometido AS c', function ($join) {
-        //     $join->on('c.Cod_Comprometido', '=', 'c.CodPadron')->On('c.Id_User', '=', $id_user);
-        // })
         ->select('a.*', 'b.Desc_Local')
+        ->addSelect(['voto' => Padron_Comprometido::select('voto')
+                ->whereColumn('Cod_Comprometido', 'a.CodPadron')
+                ->where('Id_User', $id_user)
+                ->limit(1)
+            ])
+            ->addSelect(['comprometido' => Padron_Comprometido::select('comprometido')
+                ->whereColumn('Cod_Comprometido', 'a.CodPadron')
+                ->where('Id_User', $id_user)
+                ->limit(1)
+            ])
+            ->addSelect(['apellido_nombre_Referente' => Padron_Comprometido::select('apellido_nombre_Referente')
+                ->whereColumn('Cod_Comprometido', 'a.CodPadron')
+                ->where('Id_User', $id_user)
+                ->limit(1)
+            ])
+        ->where('a.cedula', 'LIKE', '%'.$searchtext.'%')
+        ->orwhere('a.apellido_nombre', 'LIKE', '%'.$searchtext.'%') 
         ->orderBy('a.local', 'ASC')
         ->orderBy('a.mesa', 'ASC')
         ->paginate(50);
