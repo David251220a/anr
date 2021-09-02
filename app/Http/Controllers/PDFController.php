@@ -146,41 +146,20 @@ class PDFController extends Controller
         return $PDF->stream();
     }
  
-    public function Resumen_Mesa_Consejal(){
+    public function Resumen_Mesa_Consejal($id){
 
-        $resumen_mesa = DB::table('votacion_consejal AS a')
-        ->join('consejal AS b','b.Id_Consejal','=','a.Id_Consejal')
-        ->join('mesa AS c','c.Id_Mesa','=','a.Id_Mesa')
-        ->select('a.Id_Consejal'            
-        , DB::raw('SUM(a.`Votos`) AS Votos')
-        , 'b.Apellido'
-        , 'b.Nombre'
-        , 'a.Id_Mesa'
-        , 'c.Mesa')        
-        ->groupBy('a.Id_Consejal'
-        , 'b.Apellido'
-        , 'b.Nombre'
-        , 'a.Id_Mesa'
-        , 'c.Mesa')
+        $consejales = DB::table('consejal AS a')
+        ->join('lista AS b', 'b.Id_Lista', '=', 'a.Id_Lista')
+        ->select('a.Id_Consejal'
+        , DB::raw('CONCAT(a.Nombre, " ", a.Apellido, " ", b.Desc_Lista, " OPCION = ", a.Orden) AS consejal'))
         ->orderBy('a.Id_Consejal', 'ASC' )
         ->get();
 
-        $consejal = DB::table('consejal')
-        ->orderBy('Id_Consejal', 'ASC' )
-        ->get();
+        $sql_Call = 'CALL consejal_mesa(?)';
 
-        $total = DB::table('votacion_consejal')
-        ->select('Id_Consejal'            
-        , DB::raw('SUM(`Votos`) AS Votos')        
-        , 'Id_Mesa')               
-        ->groupBy('Id_Consejal'        
-        , 'Id_Mesa')
-        ->orderBy('Id_Consejal', 'ASC' )
-        ->get();
-
-        $PDF = PDF::loadView('pdf.consejal_mesa_resumen',["resumen_mesa"=>$resumen_mesa
-        , "consejal"=>$consejal
-        , "total"=>$total]);
+        $votacion_consejal = DB::select($sql_Call, array($id)); 
+        
+        $PDF = PDF::loadView('pdf.consejal_mesa_resumen', compact('id', 'votacion_consejal', 'consejales'));
 
         return $PDF->stream();
 

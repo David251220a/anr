@@ -19,17 +19,103 @@
         
         <br>                
         
-        @foreach ($consejal as $int)
+        @if ($id == 9999)        
+        
+            @foreach ($consejales as $consejal)
+
+                <div class="table table-responsive table-bordered">
+                    
+                    <table class="table">
+                                                            
+                        <thead class="thead-light">                    
+
+                            <tr style="text-align: center">
+                                
+                                <th colspan="2">{{$consejal->consejal}}</th>
+                                
+                            </tr>
+                            <tr style="text-align: center">
+
+                                <th scope="col">Mesa</th>                                
+                                <th scope="col">Votos</th>
+
+                            </tr>
+
+                        </thead>
+                        
+                        @php
+                            $total= 0;
+                        @endphp
+                        
+                        <tbody>
+
+                            @foreach ($votacion_consejal as $vot)
+                                
+                                @if($vot->Id_Consejal == $consejal->Id_Consejal)
+                                    
+                                    <tr style="text-align: center">
+                                        
+                                        <th scope="row">{{$vot->Mesa}}</th>                                    
+                                        <td style="text-align: right">{{number_format($vot->votos,0, ".", ".")}}</td>
+                                        @php
+                                            $total = $vot->consejal_votos;
+                                        @endphp 
+                                        
+                                    </tr>
+
+                                @endif
+
+                            @endforeach
+
+
+                        </tbody>
+
+                        <tfoot>
+                            
+                            <tr style="background-color:#f71808a8">
+
+                                <th> <b>Total de Votos</b></th>
+                                <th style="text-align: right"><b>{{number_format($total,0, ".", ".")}} </b></th>
+
+                            </tr>
+                        
+                        </tfoot>
+
+                    </table>
+
+                </div>
+
+            @endforeach
+
+            
+                
+        @else
+
+            @php
+                $consejal_1= "";
+            @endphp
+
+            @foreach ($consejales as $conse)
+                
+                @if ($conse->Id_Consejal == $id_consejal)
+
+                    @php
+                        $consejal_1= $conse->consejal;
+                    @endphp
+                    
+                @endif
+
+            @endforeach
 
             <div class="table table-responsive table-bordered">
-                
+                        
                 <table class="table">
                                                         
                     <thead class="thead-light">                    
 
                         <tr style="text-align: center">
                             
-                            <th colspan="2">{{$int->Nombre}} {{$int->Apellido}}</th>
+                            <th colspan="2">{{$consejal_1}}</th>
                             
                         </tr>
                         <tr style="text-align: center">
@@ -40,63 +126,52 @@
                         </tr>
 
                     </thead>
-
+                    
+                    @php
+                        $total= 0;
+                    @endphp
+                    
                     <tbody>
 
-                        @foreach ($resumen_mesa as $resu)
-                            
-                            @if($int->Id_Consejal == $resu->Id_Consejal)
+                        @foreach ($votacion_consejal as $vot)
                                 
-                                <tr style="text-align: center">
-                                    
-                                    <th scope="row">{{$resu->Mesa}}</th>                                    
-                                    <td style="text-align: right">{{number_format($resu->Votos,0, ".", ".")}}</td>
-                                    
-                                </tr>
-
-                            @endif
+                            <tr style="text-align: center">
+                                
+                                <th scope="row">{{$vot->Mesa}}</th>                                    
+                                <td style="text-align: right">{{number_format($vot->votos,0, ".", ".")}}</td>
+                                @php
+                                    $total = $vot->consejal_votos;
+                                @endphp 
+                                
+                            </tr>
 
                         @endforeach
 
 
                     </tbody>
-                                          
-                    @foreach ($total as $tota)
-                
-                        @if($int->Id_Consejal == $tota->Id_Consejal)
+
+                    <tfoot>
                         
-                            @if(empty($tota->Votos))                                    
-                                
-                            @else
-                            
-                                <tfoot>
+                        <tr style="background-color:#f71808a8">
 
-                                    <tr style="text-align: center">
-                                        <th scope="row">Total de Votos</th>             
-                                        <td style="text-align: right">{{number_format($resu->Votos,0, ".", ".")}}</td>
-                                        
-                                    </tr>
-                                
-                                </tfoot>
-                            
-                            @endif
+                            <th> <b>Total de Votos</b></th>
+                            <th style="text-align: right"><b>{{number_format($total,0, ".", ".")}} </b></th>
 
-                        @endif
-
-                    @endforeach
-
+                        </tr>
                     
-                    
+                    </tfoot>
 
                 </table>
 
             </div>
-            
-            <br>
 
-        @endforeach
+                
+            
+        @endif
+        
 
     </div>    
     
 </body>
+
 </html>
