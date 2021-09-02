@@ -56,6 +56,7 @@ Route::get('/home', 'HomeController@index')->name('home');
  *  REPORTES                                            
  * ******************************************************/
 Route::get('reportes/consejal_resumen', 'ReporteConsejalController@general_consejal')->name('reportes.consejal_resumen');
+Route::get('reportes/consejal_local', 'ReporteConsejalController@consejal_local')->name('reportes.consejal_local');
 /*******************************************
  *  PDF
  ******************************************/
@@ -66,7 +67,7 @@ Route::get('pdf/intendente/{id}', 'PDFController@Intendente');
 Route::get('pdf/referente/{id}', 'PDFController@referentes')->name('referente_pdf');
 Route::get('pdf/electores', 'PDFController@electores')->name('electores');
 Route::get('pdf/electores_pdf', 'PDFController@electores_pdf')->name('electores_pdf');
-Route::get('pdf/consejal_resumen', 'PDFController@Resumen_General_Consejal');
+Route::get('pdf/consejal_resumen', 'PDFController@Resumen_General_Consejal')->name('consejal_resumen');
 Route::get('pdf/consejal_local_resumen', 'PDFController@Resumen_Local_Consejal');
 Route::get('pdf/consejal_mesa_resumen', 'PDFController@Resumen_Mesa_Consejal');
 Route::get('pdf/consejal/{id}', 'PDFController@Consejal');

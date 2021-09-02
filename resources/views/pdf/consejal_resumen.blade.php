@@ -2,13 +2,13 @@
     $total_voto = 0
 @endphp
 
-@if(empty($aux->cont))
+@if(empty($votacion_consejal))
 
 @else
 
     @foreach ($votacion_consejal as $vota)
 
-        @php $total_voto += $vota->Votos  @endphp        
+        @php $total_voto += $vota->votos  @endphp        
         
     @endforeach
 
@@ -35,7 +35,7 @@
         
         <br>        
 
-        @if(empty($aux->cont))
+        @if(empty($votacion_consejal))
 
         @else        
 
@@ -58,8 +58,8 @@
                             <tr style="text-align: center">
                                 
                                 <th scope="row">{{$vot->Desc_Lista}}</th>
-                                <td>{{$vot->Nombre}} {{$vot->Apellido}}</td>
-                                <td style="text-align: right">{{number_format($vot->Votos,0, ".", ".")}}</td>
+                                <td>{{$vot->consejal}}</td>
+                                <td style="text-align: right">{{number_format($vot->votos,0, ".", ".")}}</td>
                                 
                             </tr>
                         

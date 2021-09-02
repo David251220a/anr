@@ -130,7 +130,7 @@
                 </a>
                 <ul class="treeview-menu">
 
-                  <li id="padron"><a href="{{ route('consulta.index') }}"><i class="fa fa-circle-o"></i> Padron</a></li>
+                  <li id="padron"><a href="{{ route('consulta.index') }}"><i class="fa fa-circle-o"></i> Padron Comp</a></li>
                   <li id="padron_ver"><a href="{{ route('consulta.padron') }}"><i class="fa fa-circle-o"></i>Padron</a></li>
                   <li id="referente"><a href="{{ route('consulta.referente') }}"><i class="fa fa-circle-o"></i>Referentes</a></li>
                   <li id="aporedados"><a href=" {{ route('consulta.aporedado') }} "><i class="fa fa-circle-o"></i>Aporedados</a></li>
@@ -148,6 +148,7 @@
                 </a>
                 <ul class="treeview-menu">
                   <li id="#"><a href="{{route('reportes.consejal_resumen')}}"><i class="fa fa-circle-o"></i> Consejal - General</a></li>
+                  <li id="#"><a href="{{route('reportes.consejal_local')}}"><i class="fa fa-circle-o"></i> Consejal - Locales</a></li>
                   
                 </ul>
               </li>

@@ -27,7 +27,7 @@
     
                     <u><h3 align="center" ><strong>Resumen General de Votos</strong></h3></u>
                     <span class="input-group-btn">
-                    <a href=" {{ route('electores_pdf') }}" target="_blank">
+                    <a href=" {{ route('consejal_resumen') }}" target="_blank">
                         <button class="btn btn-info float-right"><li  class="fa fa-file-pdf-o"></li> PDF</button>
                     </a>
     

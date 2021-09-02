@@ -123,30 +123,11 @@ class PDFController extends Controller
 
     public function Resumen_General_Consejal(){        
 
-        $votacion_consejal = DB::table('votacion_consejal AS a')
-        ->join('consejal AS b','b.Id_Consejal','=','a.Id_Consejal')        
-        ->join('lista AS c','c.Id_Lista','=','b.Id_Lista')
-        ->select('a.Id_Consejal'            
-        , DB::raw('SUM(a.`Votos`) AS Votos')
-        , 'b.Apellido'
-        , 'b.Nombre'
-        , 'c.Desc_Lista')            
-        ->groupBy('a.Id_Consejal'
-        , 'b.Apellido'
-        , 'b.Nombre'
-        , 'c.Desc_Lista')
-        ->orderBy('a.Id_Consejal', 'ASC')
-        ->get();
+        $sql_Call = 'CALL consejal_resumen()';
+
+        $votacion_consejal = DB::select($sql_Call);
         
-        $aux = DB::table('votacion_consejal')        
-        ->select('Id_Consejal'            
-        , DB::raw('COUNT(`Votos`) AS cont'))        
-        ->groupBy('Id_Consejal')            
-        ->first();
-        
-        
-        $PDF = PDF::loadView('pdf.consejal_resumen',["votacion_consejal"=>$votacion_consejal
-        , "aux"=>$aux]);      
+        $PDF = PDF::loadView('pdf.consejal_resumen',compact('votacion_consejal'));      
                 
         return $PDF->stream();
     }
