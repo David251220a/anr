@@ -71,7 +71,7 @@
                                     <td style="text-align: right; font-size: 1.2rem">{{$vota->orden}}</td>
                                     <td style="text-align: center; font-size: 1.2rem"> {!! Form::checkbox('comprometido', null, $vota->comprometido) !!} </td>
                                     <td style="text-align: center; font-size: 1.2rem ; display: none"> {!! Form::checkbox('voto', null, $vota->voto) !!} </td>
-                                    <td style="text-align: center; font-size: 1.2rem"><input type="text" class="form-control" name="referente" value="{{$vota->referente}}"></td>
+                                    <td style="text-align: center; font-size: 1.2rem"><input type="text" class="form-control" name="referente" value="{{$vota->apellido_nombre_Referente}}"></td>
                                     <td style="text-align: center"> <button style="font-size: 1.2rem" class="btn btn-success btn-sm float-right" type="submit">OK</button> </td>
                                     {!! Form::close() !!}
                                 </tr>

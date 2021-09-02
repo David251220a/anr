@@ -18,7 +18,7 @@
                         
                             @foreach ($referentes as $refe)
                                 
-                                <option value="{{$refe->referente}}" @if($refe->referente == $referente) selected="selected" @endif>{{$refe->referente}} </option>
+                                <option value="{{$refe->Cod_Referente}}" @if($refe->Cod_Referente == $referente) selected="selected" @endif>{{$refe->apellido_nombre_Referente}} </option>
                         
                             @endforeach
                         
@@ -61,7 +61,7 @@
 
             <div class="table-responsive">
 
-                <table id="detalles" class="table table-striped table-condensed table-bordered table-hover table-responsive">
+                <table id="example" class="table table-striped table-condensed table-bordered table-hover table-responsive">
 
                     <thead style="background-color:#f71808a8">
 
@@ -71,6 +71,7 @@
                         <th style="text-align: center">Mesa</th>
                         <th style="text-align: center">Orden</th>
                         <th style="text-align: center">Com.</th>
+                        <th style="text-align: center; display: none">Voto</th>
                         <th style="text-align: center">Referente</th>
                         <th style="text-align: center">PDF</th>
 
@@ -88,9 +89,10 @@
                                     <td style="text-align: center; font-size: 1.2rem">{{$comprometido->apellido_nombre}}</td>
                                     <td style="text-align: center; font-size: 1.2rem">{{$comprometido->Desc_Local}}</td>
                                     <td style="text-align: right; font-size: 1.2rem">{{$comprometido->mesa}}</td>
-                                    <td style="text-align: right; font-size: 1.2rem">{{$comprometido->orden}}</td>
-                                    <td style="text-align: center; font-size: 1.2rem" width="70px"> {!! Form::checkbox('voto', null, $comprometido->voto) !!} </td>
-                                    <td style="text-align: center; font-size: 1.2rem">{{$comprometido->referente}}</td>
+                                    <td style="text-align: right; font-size: 1.2rem">{{$comprometido->orden}}</td>                                    
+                                    <td style="text-align: center; font-size: 1.2rem" width="70px">{!! Form::checkbox('comprometido', null, $comprometido->comprometido) !!} </td>
+                                    <td style="text-align: center; font-size: 1.2rem; display: none" width="70px"> {!! Form::checkbox('voto', null, $comprometido->voto) !!} </td>
+                                    <td style="text-align: center; font-size: 1.2rem">{{$comprometido->apellido_nombre_Referente}}</td>
                                     <td style="text-align: center" width="50px">
                                         <a href="#">
                                             <button class="btn btn-info btn-sm">PDF</button>
@@ -111,11 +113,38 @@
             </div>
 
             {{-- {{$comprometidos-> links()}} --}}
-            {{$comprometidos->appends(['referente' => $referente])->links()}}
+            {{-- {{$comprometidos->appends(['referente' => $referente])->links()}} --}}
 
         </div>
 
     </div>
+    @push('scripts')
+
+        <script type="text/javascript">
+
+            $(document).ready(function() {
+                $('#example').DataTable({
+                    responsive: true,
+                    autoWidth: false,
+                    "pageLength": 50,                                       
+                    "language": {
+                        "lengthMenu": "Mostrar _MENU_ registros por paginas",
+                        "zeroRecords": "No hay coicidencia",
+                        "info": "Mostrando la pagina _PAGE_ de _PAGES_",
+                        "infoEmpty": "No records available",
+                        "infoFiltered": "(Filtrado de _MAX_ registros totales)", 
+                        'search': 'Buscar', 
+                        'paginate': {
+                            'next': 'Siguiente',
+                            'previous': 'Anterior'
+                        }
+                    }
+                });
+            });
+
+        </script>
+        
+    @endpush
 
 @endsection
 

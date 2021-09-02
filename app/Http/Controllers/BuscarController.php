@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Padron;
 use App\Padron_Comprometido;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
@@ -89,6 +90,7 @@ class BuscarController extends Controller
         $voto = $request->voto;
         $id_user = auth()->id();
         $cedula = trim($request->get('referente'));
+        $fecha = Carbon::now();
 
         if($voto == 'on'){
 
@@ -128,7 +130,8 @@ class BuscarController extends Controller
         $padron_comprometido->Cod_Comprometido = $request->codpadron;
         $padron_comprometido->voto = $voto;
         $padron_comprometido->comprometido = $comprometido;
-        $padron_comprometido->IdUser = $id_user;
+        $padron_comprometido->Id_User = $id_user;
+        $padron_comprometido->Fecha_Comprometido = $fecha;
         $padron_comprometido->save();
 
         return redirect()->route('consulta.index');
@@ -139,7 +142,7 @@ class BuscarController extends Controller
 
         $searchtext=trim($request->get('searchtext'));
         $cCodTab=trim($request->get('cCodTab'));
-        $votante="";
+        $votante="";        
 
         if($searchtext){
         

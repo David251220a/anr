@@ -7,6 +7,7 @@ use App\Local_Mesa_Votacion;
 use Illuminate\Http\Request;
 use App\Votacion_Intendente;
 use App\Aporedados;
+use App\Padron_Comprometido;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -188,41 +189,26 @@ class ConsultaController extends Controller
         $referente=trim($request->get('referente'));
         
         
-        $referentes = DB::table('padron')
-        ->select('referente')
-        ->where('referente', '<>', '')
-        ->groupBy('referente')
+        $referentes = Padron_Comprometido::where('Id_User', $id_user)
+        ->select('Cod_Referente', 'apellido_nombre_Referente')
+        ->groupBy('Cod_Referente')
+        ->groupBy('apellido_nombre_Referente')
         ->get();
 
 
         if((empty($referente)) || ($referente == 99)){
-        
-            $comprometidos = DB::table('padron AS a')
-            ->join('mesa AS b','b.Id_Mesa','=','a.mesa')
-            ->join('local_votacion AS c','c.Id_Local','=','a.local')
-            ->select('a.*'
-            , 'c.Desc_Local'
-            , 'b.Mesa')
-            ->where('a.voto',  1)            
-            ->orderBy('a.local', 'ASC')
-            ->orderBy('a.mesa', 'ASC')
-            ->paginate(50);
+            
+            $sql_Call = 'CALL padron_comprometido(?, ?)';
+
+            $comprometidos = DB::select($sql_Call, array($id_user, 99999));            
 
             $referente = 99;
 
         }else{
+            
+            $sql_Call = 'CALL padron_comprometido(?, ?)';
 
-            $comprometidos = DB::table('padron AS a')
-            ->join('mesa AS b','b.Id_Mesa','=','a.mesa')
-            ->join('local_votacion AS c','c.Id_Local','=','a.local')
-            ->select('a.*'
-            , 'c.Desc_Local'
-            , 'b.Mesa')
-            ->where('a.voto',  1)
-            ->where('a.referente',  $referente)
-            ->orderBy('a.local', 'ASC')
-            ->orderBy('a.mesa', 'ASC')
-            ->paginate(50);
+            $comprometidos = DB::select($sql_Call, array($id_user, $referente)); 
 
         }
 
