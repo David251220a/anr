@@ -167,26 +167,23 @@ class PDFController extends Controller
 
     public function Consejal($id){
         
-        $consejal = DB::table('votacion_consejal AS a')
-        ->join('consejal AS b','b.Id_Consejal','=','a.Id_Consejal')        
-        ->join('mesa AS e','e.Id_Mesa','=','a.Id_Mesa')
-        ->where('a.Id_Consejal', '=', $id)
-        ->orderBy('a.Id_Consejal', 'ASC')
-        ->orderBy('a.Id_Local', 'ASC')
-        ->orderBy('a.Id_Mesa', 'ASC')
-        ->get();
+        $sql_Call = 'CALL consejal(?)';
 
-        $aux_consejal = DB::table('consejal')
-        ->where('Id_Consejal', '=', $id)
-        ->first();
+        $votacion_consejal = DB::select($sql_Call, array($id)); 
 
         $local_votacion = DB::table('local_votacion')
         ->orderBy('Id_Local', 'ASC' )
         ->get();
+        
+        $consejal = DB::table('consejal AS a')
+        ->join('lista AS b', 'b.Id_Lista', '=', 'a.Id_Lista')
+        ->select('a.Id_Consejal'
+        , DB::raw('CONCAT(a.Nombre, " ", a.Apellido, " ", b.Desc_Lista, " OPCION = ", a.Orden) AS consejal'))
+        ->where('Id_Consejal', $id)
+        ->orderBy('a.Id_Consejal', 'ASC' )
+        ->first();
 
-        $PDF = PDF::loadView('pdf.consejal',["local_votacion"=>$local_votacion
-        , "aux_consejal"=>$aux_consejal
-        , "consejal"=>$consejal]);
+        $PDF = PDF::loadView('pdf.consejal', compact('votacion_consejal', 'consejal', 'local_votacion'));
 
         return $PDF->stream();
 

@@ -58,6 +58,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('reportes/consejal_resumen', 'ReporteConsejalController@general_consejal')->name('reportes.consejal_resumen');
 Route::get('reportes/consejal_local', 'ReporteConsejalController@consejal_local')->name('reportes.consejal_local');
 Route::get('reportes/consejal_mesa', 'ReporteConsejalController@consejal_mesa')->name('reportes.consejal_mesa');
+Route::get('reportes/consejal', 'ReporteConsejalController@consejal')->name('reportes.consejal');
 /*******************************************
  *  PDF
  ******************************************/
@@ -71,7 +72,7 @@ Route::get('pdf/electores_pdf', 'PDFController@electores_pdf')->name('electores_
 Route::get('pdf/consejal_resumen', 'PDFController@Resumen_General_Consejal')->name('consejal_resumen');
 Route::get('pdf/local_consejal/{id}', 'PDFController@Resumen_Local_Consejal')->name('consejal_local');
 Route::get('pdf/mesa_consejal/{id}', 'PDFController@Resumen_Mesa_Consejal')->name('consejal_mesa');
-Route::get('pdf/consejal/{id}', 'PDFController@Consejal');
+Route::get('pdf/consejal/{id}', 'PDFController@Consejal')->name('consejal');
 Route::get('pdf/consejal_lista', 'PDFController@Lista');
 
 Route::get('/limpiar', 'LimpiarController@limpiar');

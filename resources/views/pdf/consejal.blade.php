@@ -1,51 +1,3 @@
-@php $local_1 = 0 @endphp
-
-@php $local_2 = 0 @endphp
-
-@php $local_3 = 0 @endphp
-
-@php $local_4 = 0 @endphp
-
-@php $local_5 = 0 @endphp
-
-@php $total_general = 0 @endphp
-
-@foreach ($consejal as $res)
-
-    @if($res->Id_Local == 1)
-
-        @php $local_1 += $res->Votos @endphp           
-
-    @endif
-
-    @if($res->Id_Local == 2)
-
-        @php $local_2 += $res->Votos @endphp           
-
-    @endif
-    
-    @if($res->Id_Local == 3)
-
-        @php $local_3 += $res->Votos @endphp           
-
-    @endif
-
-    @if($res->Id_Local == 4)
-
-        @php $local_4 += $res->Votos @endphp
-
-    @endif
-
-    @if($res->Id_Local == 5)
-
-        @php $local_5 += $res->Votos @endphp           
-
-    @endif
-
-    @php $total_general += $res->Votos @endphp
-
-@endforeach
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -63,7 +15,7 @@
     
     <div class="container">
 
-        <u><h3 align="center" ><strong>Resumen de Votos de: {{$aux_consejal->Nombre}} {{$aux_consejal->Apellido}}</strong></h3></u>
+        <u><h3 align="center" ><strong>Resumen de Votos de: {{$consejal->consejal}}</strong></h3></u>
         
         <br>                
         
@@ -88,10 +40,18 @@
                         </tr>
 
                     </thead>
+                    @php
+                        $total_local= 0;
+                    @endphp
+
+                    @php
+                        $total_general= 0;
+                    @endphp
+
 
                     <tbody>
 
-                        @foreach ($consejal as $conse)
+                        @foreach ($votacion_consejal as $conse)
                             
                             @if($conse->Id_Local == $loca->Id_Local)
                                 
@@ -102,7 +62,15 @@
                                     
                                 </tr>
 
+                                @php
+                                    $total_local = $conse->total_local;
+                                @endphp
+
                             @endif
+
+                            @php
+                                $total_general = $conse->total_general;
+                            @endphp
 
                         @endforeach
 
@@ -110,44 +78,16 @@
                     </tbody>
 
                     <tfoot>
+                        
+                        <tr style="background-color:rgb(145, 143, 143)">
 
-                        <tr>
-
-                            <th scope="row">Total de Votos</th>
-                            
-                            @if($loca->Id_Local == 1)
-                                
-                                <td style="text-align: right"> <b>{{number_format($local_1, 0, ".", ".")}} </b></td>
-
-                            @endif
-                            
-                            @if($loca->Id_Local == 2)
-                                
-                                <td style="text-align: right"> <b>{{number_format($local_2, 0, ".", ".")}} </b></td>
-
-                            @endif
-
-                            @if($loca->Id_Local == 3)
-                                
-                                <td style="text-align: right"> <b>{{number_format($local_3, 0, ".", ".")}} </b></td>
-
-                            @endif
-                            
-                            @if($loca->Id_Local == 4)
-                                
-                                <td style="text-align: right"> <b>{{number_format($local_4, 0, ".", ".")}} </b></td>
-
-                            @endif
-                            
-                            @if($loca->Id_Local == 5)
-                                
-                                <td style="text-align: right"> <b>{{number_format($local_5, 0, ".", ".")}} </b></td>
-
-                            @endif
+                            <td style="text-align: center"> <b>Total de Votos</b></td>
+                            <td style="text-align: right"><b>{{number_format($total_local,0, ".", ".")}} </b></td>
 
                         </tr>
-                    
-                    </tfoot>                    
+                        
+                    </tfoot>
+                   
 
                 </table>
 

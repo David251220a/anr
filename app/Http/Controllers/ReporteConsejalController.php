@@ -70,4 +70,33 @@ class ReporteConsejalController extends Controller{
 
     }
 
+    public function consejal(Request $request){
+
+        $id_consejal=trim($request->get('id_consejal'));
+
+        if(empty($id_consejal)){
+
+            $id_consejal = 1;
+
+        }
+
+        $sql_Call = 'CALL consejal(?)';
+
+        $votacion_consejal = DB::select($sql_Call, array($id_consejal)); 
+
+        $local_votacion = DB::table('local_votacion')
+        ->orderBy('Id_Local', 'ASC' )
+        ->get();
+
+        $consejales = DB::table('consejal AS a')
+        ->join('lista AS b', 'b.Id_Lista', '=', 'a.Id_Lista')
+        ->select('a.Id_Consejal'
+        , DB::raw('CONCAT(a.Nombre, " ", a.Apellido, " ", b.Desc_Lista, " OPCION = ", a.Orden) AS consejal'))
+        ->orderBy('a.Id_Consejal', 'ASC' )
+        ->get();
+
+        return view('reportes.consejal.consejal', compact('votacion_consejal', 'local_votacion', 'id_consejal', 'consejales'));
+
+    }
+
 }

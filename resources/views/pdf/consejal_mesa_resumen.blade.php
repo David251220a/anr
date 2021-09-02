@@ -97,7 +97,7 @@
 
             @foreach ($consejales as $conse)
                 
-                @if ($conse->Id_Consejal == $id_consejal)
+                @if ($conse->Id_Consejal == $id)
 
                     @php
                         $consejal_1= $conse->consejal;

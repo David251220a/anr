@@ -147,6 +147,7 @@
                   <i class="fa fa-angle-left pull-right"></i>
                 </a>
                 <ul class="treeview-menu">
+                  <li id="#"><a href="{{route('reportes.consejal')}}"><i class="fa fa-circle-o"></i> Consejal</a></li>
                   <li id="#"><a href="{{route('reportes.consejal_resumen')}}"><i class="fa fa-circle-o"></i> Consejal - General</a></li>
                   <li id="#"><a href="{{route('reportes.consejal_local')}}"><i class="fa fa-circle-o"></i> Consejal - Locales</a></li>
                   <li id="#"><a href="{{route('reportes.consejal_mesa')}}"><i class="fa fa-circle-o"></i> Consejal - Mesas</a></li>
