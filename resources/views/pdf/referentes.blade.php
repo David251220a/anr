@@ -1,11 +1,17 @@
 @php
     $total = 0;
 @endphp
+@php
+    $nombre_referente= "";
+@endphp
 
 @foreach ($comprometidos as $comprometido)
 
     @php
         $total = $total + 1;
+    @endphp
+    @php
+        $nombre_referente= $comprometido->apellido_nombre_Referente;
     @endphp
 
 @endforeach
@@ -65,7 +71,7 @@
     
     <div class="container">
 
-        <h3 style="text-align: center"><b>REFERENTE: {{$id}}</b></h3>
+        <h3 style="text-align: center"><b>REFERENTE: {{$nombre_referente}}</b></h3>
         
         <br>        
     
@@ -98,7 +104,7 @@
                             <td style="text-align: center">{{$comprometido->Desc_Local}}</td>
                             <td style="text-align: right">{{$comprometido->mesa}}</td>
                             <td style="text-align: right">{{$comprometido->orden}}</td>
-                            <td style="text-align: center"> {!! Form::checkbox('voto', null, $comprometido->voto) !!} </td>
+                            <td style="text-align: center"> {!! Form::checkbox('voto', null, $comprometido->comprometido) !!} </td>
 
                         </tr>
                     @endforeach

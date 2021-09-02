@@ -349,17 +349,22 @@ class PDFController extends Controller
 
     public function referentes($id){
 
-        $comprometidos = DB::table('padron AS a')
-        ->join('mesa AS b','b.Id_Mesa','=','a.mesa')
-        ->join('local_votacion AS c','c.Id_Local','=','a.local')
-        ->select('a.*'
-        , 'c.Desc_Local'
-        , 'b.Mesa')
-        ->where('a.voto',  1)
-        ->where('a.referente',  $id)
-        ->orderBy('a.local', 'ASC')
-        ->orderBy('a.mesa', 'ASC')
-        ->get();        
+        // $comprometidos = DB::table('padron AS a')
+        // ->join('mesa AS b','b.Id_Mesa','=','a.mesa')
+        // ->join('local_votacion AS c','c.Id_Local','=','a.local')
+        // ->select('a.*'
+        // , 'c.Desc_Local'
+        // , 'b.Mesa')
+        // ->where('a.voto',  1)
+        // ->where('a.referente',  $id)
+        // ->orderBy('a.local', 'ASC')
+        // ->orderBy('a.mesa', 'ASC')
+        // ->get();   
+        $id_user = auth()->id();
+
+        $sql_Call = 'CALL padron_comprometido(?, ?)';
+
+        $comprometidos = DB::select($sql_Call, array($id_user, $id)); 
 
         $PDF = PDF::loadView('pdf.referentes', compact('comprometidos', 'id'));
                 
