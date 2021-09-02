@@ -32,7 +32,7 @@
                         <th style="text-align: center; font-size: 1rem">Telefono</th>
                         <th style="text-align: center; font-size: 1rem">Aporedado</th>
                         <th style="text-align: center; font-size: 1rem">Telefono</th>
-                        <th style="text-align: center; font-size: 1rem">OK</th>
+                        <th style="text-align: center; font-size: 1rem">OK</th>                        
 
                     </thead>
 
@@ -54,7 +54,7 @@
                                 <td style="text-align: center; font-size: 1rem"><input type="text" style="font-size: 1.1rem" class="form-control" name="aporedado_4" value="{{$aporedado->Apoderado4}}"></td>
                                 <td style="text-align: right; font-size: 1rem" width="80px"><input type="text" style="font-size: 1.1rem" class="form-control" name="telefono_4" value="{{$aporedado->Apo4_Telefono}}"></td>
                                 <td style="text-align: center"> <button style="font-size: 1rem" class="btn btn-success btn-sm float-right" type="submit">OK</button> </td>
-                                {!! Form::close() !!}
+                                {!! Form::close() !!}                                
                             </tr>
 
                         @endforeach

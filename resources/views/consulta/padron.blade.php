@@ -35,6 +35,7 @@
                         <th style="text-align: center; font-size: 1.2rem">Local</th>
                         <th style="text-align: center; font-size: 1.2rem">M</th>
                         <th style="text-align: center; font-size: 1.2rem">O</th>
+                        <th style="text-align: center; font-size: 1.2rem">PDF</th>
                         
                     </thead>
 
@@ -50,7 +51,13 @@
                                     <td style="text-align: center; font-size: 1.2rem">{{$vota->apellido_nombre}}</td>
                                     <td style="text-align: center; font-size: 1.2rem">{{$vota->Desc_Local}}</td>
                                     <td style="text-align: right; font-size: 1.2rem">{{$vota->mesa}}</td>
-                                    <td style="text-align: right; font-size: 1.2rem">{{$vota->orden}}</td>                                    
+                                    <td style="text-align: right; font-size: 1.2rem">{{$vota->orden}}</td>
+                                    <td style="text-align: center" width="30px">
+                                        <a href=" {{ route('persona_padron', $vota->CodPadron) }}" target="_blank">
+                                            <button class="btn btn-info btn-sm"><li  class="fa fa-file-pdf-o"></li> PDF</button>
+                                        </a>
+                                    </td>
+                                    
                                     
                                 </tr>
 

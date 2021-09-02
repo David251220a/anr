@@ -53,6 +53,7 @@
                         <th style="text-align: center; font-size: 1.2rem; display: none">V</th>
                         <th style="text-align: center; font-size: 1.2rem">Referente</th>
                         <th style="text-align: center; font-size: 1.2rem">OK</th>
+                        <th style="text-align: center; font-size: 1.2rem">PDF</th>
                         
                     </thead>
 
@@ -77,6 +78,11 @@
                                             <button style="font-size: 1.2rem" class="btn btn-success btn-sm float-right" type="submit">OK</button> </td>
                                         @endif 
                                     {!! Form::close() !!}
+                                    <td style="text-align: center" width="30px">
+                                        <a href=" {{ route('persona_padron', $vota->CodPadron) }}" target="_blank">
+                                            <button class="btn btn-info btn-sm"><li  class="fa fa-file-pdf-o"></li> PDF</button>
+                                        </a>
+                                    </td>
                                 </tr>
 
                             @endforeach
