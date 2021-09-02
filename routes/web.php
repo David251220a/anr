@@ -68,7 +68,7 @@ Route::get('pdf/referente/{id}', 'PDFController@referentes')->name('referente_pd
 Route::get('pdf/electores', 'PDFController@electores')->name('electores');
 Route::get('pdf/electores_pdf', 'PDFController@electores_pdf')->name('electores_pdf');
 Route::get('pdf/consejal_resumen', 'PDFController@Resumen_General_Consejal')->name('consejal_resumen');
-Route::get('pdf/consejal_local_resumen', 'PDFController@Resumen_Local_Consejal');
+Route::get('pdf/local_consejal/{id}', 'PDFController@Resumen_Local_Consejal')->name('consejal_local');
 Route::get('pdf/consejal_mesa_resumen', 'PDFController@Resumen_Mesa_Consejal');
 Route::get('pdf/consejal/{id}', 'PDFController@Consejal');
 Route::get('pdf/consejal_lista', 'PDFController@Lista');

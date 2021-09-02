@@ -126,37 +126,22 @@ class PDFController extends Controller
         $sql_Call = 'CALL consejal_resumen()';
 
         $votacion_consejal = DB::select($sql_Call);
-        
+
         $PDF = PDF::loadView('pdf.consejal_resumen',compact('votacion_consejal'));      
                 
         return $PDF->stream();
     }
 
-    public function Resumen_Local_Consejal(){        
+    public function Resumen_Local_Consejal($id){        
 
-        $votacion_consejal = DB::table('votacion_consejal AS a')
-        ->join('consejal AS b','b.Id_Consejal','=','a.Id_Consejal')        
-        ->join('lista AS c','c.Id_Lista','=','b.Id_Lista')
-        ->select('a.Id_Consejal'            
-        , DB::raw('SUM(a.`Votos`) AS Votos')
-        , 'b.Apellido'
-        , 'b.Nombre'
-        , 'c.Desc_Lista'
-        , 'a.Id_Local')
-        ->groupBy('a.Id_Consejal'
-        , 'b.Apellido'
-        , 'b.Nombre'
-        , 'c.Desc_Lista'
-        , 'a.Id_Local')
-        ->orderBy('a.Id_Consejal', 'ASC')        
-        ->get();
+        $sql_Call = 'CALL consejal_local(?)';
+        $votacion_consejal = DB::select($sql_Call, array($id)); 
         
         $local_votacion = DB::table('local_votacion')
         ->orderBy('Id_Local', 'ASC' )
         ->get();        
         
-        $PDF = PDF::loadView('pdf.consejal_local_resumen',["votacion_consejal"=>$votacion_consejal
-        , "local_votacion"=>$local_votacion]);      
+        $PDF = PDF::loadView('pdf.consejal_local_resumen', compact('votacion_consejal', 'local_votacion', 'id'));
                 
         return $PDF->stream();
     }

@@ -19,17 +19,130 @@
         
         <br>                
         
-        @foreach ($local_votacion as $loca)
+        @if ($id == 99)
+
+            @foreach ($local_votacion as $loca)
+
+                <div class="table table-responsive table-bordered">
+                    
+                    <table class="table">
+                                                            
+                        <thead class="thead-light">                    
+
+                            <tr style="text-align: center">
+                                
+                                <th colspan="3">{{$loca->Id_Local}}-{{$loca->Desc_Local}}</th>
+                                
+                            </tr>
+
+                            <tr style="text-align: center">
+
+                                <th scope="col">Lista</th>
+                                <th scope="col">Consejal</th>
+                                <th scope="col">Votos</th>
+
+                            </tr>
+
+                        </thead>
+
+                        @php
+                            $total_local=0;
+                        @endphp
+                        @php
+                            $total_general = 0;
+                        @endphp
+
+                        <tbody>
+
+                            @foreach ($votacion_consejal as $vot)
+                                
+                                @if($vot->Id_Local == $loca->Id_Local)
+                                    
+                                    <tr style="text-align: center">
+                                        
+                                        <th scope="row">{{$vot->Desc_Lista}}</th>
+                                        <th scope="row">{{$vot->consejal}}</th>
+                                        <td style="text-align: right">{{number_format($vot->votos,0, ".", ".")}}</td>
+                                        @php
+                                            $total_local = $vot->total_general_local;
+                                        @endphp
+                                        
+                                    </tr>
+
+                                @endif
+
+                                @php
+                                    $total_general = $vot->total_general;
+                                @endphp
+
+                            @endforeach
+
+
+                        </tbody>
+
+                        <tfoot>
+
+                            <tr style="background-color:#f71808a8">
+
+                                <th  colspan="2"> <b>Total de Votos</b></th>
+                                <th style="text-align: right"><b>{{number_format($total_local,0, ".", ".")}} </b></th>
+
+                            </tr>
+
+                        </tfoot>
+
+                    </table>
+
+                </div>
+
+            @endforeach
 
             <div class="table table-responsive table-bordered">
-                
+
                 <table class="table">
-                                                        
+
+                    <thead style="background-color:#f71808a8">
+                        
+                        <tr style="text-align: center">
+                        
+                            <th scope="row"><b>TOTAL GENERAL DE VOTOS</b></th>
+                            <th scope="row"><b>{{$total_general}}</b></th>
+
+                        </tr>
+                        
+                    </thead>
+
+                </table>
+
+            </div>
+            
+        @else
+            
+            @php
+                $local1= "";
+            @endphp
+
+            @foreach ($local_votacion as $loca1)
+                
+                @if ($loca1->Id_Local == $id)
+
+                    @php
+                        $local1=$loca1->Id_Local. "-".$loca1->Desc_Local;
+                    @endphp
+                    
+                @endif
+
+            @endforeach
+            
+            <div class="table table-responsive table-bordered">
+
+                <table class="table">
+                                                                
                     <thead class="thead-light">                    
 
                         <tr style="text-align: center">
                             
-                            <th colspan="3">{{$loca->Desc_Local}}</th>
+                            <th colspan="3">{{$local1}}</th>
                             
                         </tr>
                         <tr style="text-align: center">
@@ -42,21 +155,31 @@
 
                     </thead>
 
+                    @php
+                        $total_local=0;
+                    @endphp
+                    @php
+                        $total_general = 0;
+                    @endphp
+
                     <tbody>
 
                         @foreach ($votacion_consejal as $vot)
-                            
-                            @if($vot->Id_Local == $loca->Id_Local)
                                 
-                                <tr style="text-align: center">
-                                    
-                                    <th scope="row">{{$vot->Desc_Lista}}</th>
-                                    <th scope="row">{{$vot->Nombre}} {{$vot->Apellido}}</th>
-                                    <td style="text-align: right">{{number_format($vot->Votos,0, ".", ".")}}</td>
-                                    
-                                </tr>
+                            <tr style="text-align: center">
+                                
+                                <th scope="row">{{$vot->Desc_Lista}}</th>
+                                <th scope="row">{{$vot->consejal}}</th>
+                                <td style="text-align: right">{{number_format($vot->votos,0, ".", ".")}}</td>
+                                @php
+                                    $total_local = $vot->total_general_local;
+                                @endphp
+                                
+                            </tr>
 
-                            @endif
+                            @php
+                                $total_general = $vot->total_general;
+                            @endphp
 
                         @endforeach
 
@@ -65,50 +188,41 @@
 
                     <tfoot>
 
-                        <tr>
+                        <tr style="background-color:#f71808a8">
 
-                            <th  colspan="2" scope="row">Total de Votos</th>
-                            
-                            @if($loca->Id_Local == 1)
-                                
-                                <td style="text-align: right"> <b>{{number_format($local_1,0, ".", ".")}} </b></td>
+                            <td  colspan="2"> <b>Total de Votos</b></td>
+                            <td style="text-align: right"><b>{{number_format($total_local,0, ".", ".")}} </b></td>
 
-                            @endif
-                            
-                            @if($loca->Id_Local == 2)
-                                
-                                <td style="text-align: right"> <b>{{number_format($local_2,0, ".", ".")}} </b></td>
-
-                            @endif
-
-                            @if($loca->Id_Local == 3)
-                                
-                                <td style="text-align: right"> <b>{{number_format($local_3, 0, ".", ".")}} </b></td>
-
-                            @endif
-                            
-                            @if($loca->Id_Local == 4)
-                                
-                                <td style="text-align: right"> <b>{{number_format($local_4, 0, ".", ".")}} </b></td>
-
-                            @endif
-                            
-                            @if($loca->Id_Local == 5)
-                                
-                                <td style="text-align: right"> <b>{{number_format($local_5, 0, ".", ".")}} </b></td>
-
-                            @endif
                         </tr>
-                    
-                    </tfoot>                    
+
+                    </tfoot>                  
 
                 </table>
 
             </div>
-            
-            <br>
 
-        @endforeach
+            <div class="table table-responsive table-bordered">
+
+                <table class="table">
+
+                    <thead style="background-color:#f71808a8">
+                        
+                        <tr style="text-align: center">
+                        
+                            <th scope="row"><b>TOTAL GENERAL DE VOTOS</b></th>
+                            <th scope="row"><b>{{$total_local}}</b></th>
+
+                        </tr>
+                        
+                    </thead>
+
+                </table>
+
+            </div>
+
+
+        @endif
+
 
     </div>    
     
