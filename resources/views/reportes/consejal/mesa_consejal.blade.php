@@ -14,7 +14,7 @@
                     
                     <select name="id_consejal" id="id_consejal" class="form-control selectpicker"  data-live-search="true">
                                 
-                        <option value="99" @if(9999 == $id_consejal) selected="selected" @endif>TODOS LOS LOCALES</option>
+                        <option value="9999" @if(9999 == $id_consejal) selected="selected" @endif>TODOS LOS LOCALES</option>
                     
                         @foreach ($consejales as $consejal)
                             
