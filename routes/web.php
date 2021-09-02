@@ -73,7 +73,7 @@ Route::get('pdf/consejal_resumen', 'PDFController@Resumen_General_Consejal')->na
 Route::get('pdf/local_consejal/{id}', 'PDFController@Resumen_Local_Consejal')->name('consejal_local');
 Route::get('pdf/mesa_consejal/{id}', 'PDFController@Resumen_Mesa_Consejal')->name('consejal_mesa');
 Route::get('pdf/consejal/{id}', 'PDFController@Consejal')->name('consejal');
-Route::get('pdf/padron/{id}', 'PDFController@Consejal')->name('persona_padron');
+Route::get('pdf/padron/{id}', 'PDFController@padron_persona')->name('persona_padron');
 Route::get('pdf/consejal_lista', 'PDFController@Lista');
 
 Route::get('/limpiar', 'LimpiarController@limpiar');

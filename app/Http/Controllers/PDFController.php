@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Padron;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Support\Facades\DB;
@@ -300,6 +301,18 @@ class PDFController extends Controller
         $PDF = PDF::loadView('pdf.referentes', compact('comprometidos', 'id'));
                 
         return $PDF->stream();
+
+    }
+
+    public function padron_persona($id){
+
+        $persona = Padron::where('CodPadron', $id)
+        ->join('local_votacion','local_votacion.Id_Local', '=', 'padron.local')
+        ->first();
+
+        $PDF = PDF::loadView('pdf.padron', compact('persona'));
+                
+        return $PDF->stream();        
 
     }
 
