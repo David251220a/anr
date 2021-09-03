@@ -230,4 +230,14 @@ class Consulta_ConsejalController extends Controller
 
     }
 
+    public function Acta($id1, $id2){
+
+        $votos_consejal = Votacion_Consejal::where('Id_Local', $id1)
+        ->where('Id_Mesa', $id2)
+        ->first();
+
+        return view('consulta.votos_consejal.acta', compact('votos_consejal'));
+
+    }
+
 }

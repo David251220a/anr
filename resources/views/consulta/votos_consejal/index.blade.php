@@ -93,7 +93,7 @@
                                         <a href="{{ route('consulta_consejal.editar', [$voto->Id_Local, $voto->Id_Mesa]) }}">
                                             <button class="btn btn-info btn-sm">Editar</button>
                                         </a>
-                                        <a href="#">
+                                        <a href="{{ route('consulta_consejal.acta', [$voto->Id_Local, $voto->Id_Mesa]) }}">
                                             <button class="btn btn-primary btn-sm">Acta</button>
                                         </a>
                                         <a href="#" target="_blank">

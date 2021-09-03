@@ -169,7 +169,7 @@ class ConsultaController extends Controller
 
         }
 
-        return redirect()->route('consulta_intendente.editar', [$id_local, $id_mesa])->with('msj', 'Se actualizo con exito.');
+        return redirect()->route('consulta_intendente.index')->with('msj', 'Se actualizo con exito.');
 
     }
 

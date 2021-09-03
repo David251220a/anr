@@ -19,16 +19,29 @@
             header {
                 position: fixed;                
                 top: 0cm;
-                left: 0cm;
+                left: 0.1cm;
                 right: 0cm;
                 height: 200px;
                 width: 200px;
-                background: url(justicia.jpg);
+                /* background: url(manuel.jpg); */
                 color: white;
                 text-align: center;
                 line-height: 50px;
                 
-            }            
+            }
+
+            header.prueba {                
+                margin-top: 0px;
+                margin-right: -0.9cm;
+                height: 200px;
+                width: 200px;
+                /* background: url(manuel.jpg); */
+                color: white;
+                text-align: center;
+                line-height: 50px;
+                float: right;
+                
+            }
 
             footer {
                 position: fixed;
@@ -99,7 +112,11 @@
 
             <div class="row">
                 
-                <header>                
+                <header style="background: url(manuel.jpg)">
+                </header>
+
+                <header class="prueba" style="background: url(manuel.jpg)">
+
                 </header>
 
             </div>
@@ -108,11 +125,9 @@
 
                 <div class="form-group">
                                     
-                    <label for="justicia"><h2 style="text-align: center">JUSTICIAL ELECTORAL</h2></label>
+                    <label for="justicia"><h2 style="text-align: center">MANUEL AGUILAR</h2></label>
                     <br>
-                    <p style="text-align: center"> Consulta Registro Cívico Permanente</p>
-                    <br class="br1">
-                    <p style="text-align: center"> Inscripciones hasta el 30/12/2020 - Version 2.0</p>
+                    <label for="justicia"><h2 style="text-align: center">LISTA 1</h2></label>
 
                 </div>
 

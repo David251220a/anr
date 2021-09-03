@@ -33,7 +33,7 @@ Route::get('consulta/votos_intendente/{id1}/{id2}/editar', 'ConsultaController@e
 Route::get('consulta/votos_intendente/{id1}/{id2}/eliminar', 'ConsultaController@eliminar')->name('consulta_intendente.eliminar');
 Route::resource('consulta/padron', 'BuscarController')->names('consulta');
 Route::resource('consulta/votos_consejal', 'Consulta_ConsejalController')->names('consulta_consejal');
-Route::get('consulta/votos_consejal/Acta/{id1}/{id2}', 'Consulta_ConsejalController@Acta');
+Route::get('consulta/votos_consejal/Acta/{id1}/{id2}', 'Consulta_ConsejalController@Acta')->name('consulta_consejal.acta');;
 Route::get('consulta/votos_intendente/Acta/{id1}/{id2}', 'ConsultaController@Acta')->name('consulta_intendente.acta');
 Route::get('consulta/referente', 'ConsultaController@referente')->name('consulta.referente');
 Route::get('consulta/aporedado', 'ConsultaController@aporedado')->name('consulta.aporedado');
