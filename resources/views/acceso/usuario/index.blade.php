@@ -6,7 +6,8 @@
 
     <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 ">
 
-        <h3>Listado de Usuario  <a href="usuario/create"> <a href="" data-target="#modal-edit" data-toggle="modal">
+        <h3>Listado de Usuario  
+        <a href="usuario/create"> <a href="" data-target="#modal-edit" data-toggle="modal">
             <button class="btn btn-success">Nuevo</button>
        </a></h3>
         @include('acceso.usuario.search')
@@ -43,6 +44,8 @@
 
                         <th>Nombre</th>
                         <th>Correo</th>
+                        <th>Nivel</th>
+                        <th>URL</th>
                         <th>Opciones</th>
 
                     </thead>
@@ -52,16 +55,23 @@
 
                         <td>{{$usu->name}}</td>
                         <td>{{$usu->email}}</td>
+                        <td>{{$usu->url}}</td>
+                        <td style="text-align: center">{{$usu->id_rol}}</td>
                         <td>
                             
                             <a href="" data-target="#modal-delete-{{$usu->id}}" data-toggle="modal">
-                            <button class="btn btn-danger">Cambiar Contraseña</button>
+                                <button class="btn btn-danger">Cambiar Contraseña</button>
+                            </a>
+
+                            <a href="" data-target="#modal-new-{{$usu->id}}" data-toggle="modal">
+                                <button class="btn btn-primary">Editar</button>
                             </a>
                            
                         </td>
                     </tr>                    
 
                     @include('acceso.usuario.modal_contrasena')
+                    @include('acceso.usuario.modal_edit')
 
                     @endforeach
                     

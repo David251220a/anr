@@ -70,8 +70,9 @@ class acc_UsuarioController extends Controller
             
             $user->name = $request->get('name');
             $user->email = $request->get('email');
-            $user->password =  bcrypt($request->get('contraseña'));
-            $user->id_rol = 2;
+            $user->id_rol = $request->get('id_rol');
+            $user->url = $request->get('url').".jpg";
+            $user->password =  bcrypt($request->get('contraseña'));            
             $user->api_token=Str::random(60);
 
             $user->save();
@@ -122,6 +123,21 @@ class acc_UsuarioController extends Controller
             return redirect('votacion/intendente');
 
         }
+
+    }
+
+    public function update(Request $request, $id){
+
+        $usuario = User::find($id);
+        
+        $usuario->url = $request->get('url');
+        $usuario->name = $request->get('name');
+        $usuario->email = $request->get('email');
+        $usuario->id_rol = $request->get('id_rol');
+
+        $usuario->update();
+
+        return redirect('acceso/usuario')->with('msj', 'Se actualizo usuario con exito.');
 
     }
 }

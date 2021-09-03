@@ -99,9 +99,11 @@
                                         <a href="{{ route('intendente_acta', [$voto->Id_Local, $voto->Id_Mesa]) }}" target="_blank">
                                             <button class="btn btn-primary btn-sm">PDF</button>
                                         </a>
-                                        <a href="{{ route('consulta_intendente.eliminar',[$voto->Id_Local, $voto->Id_Mesa]) }}">
-                                            <button class="btn btn-danger btn-sm">Eliminar</button>
-                                        </a>
+                                        @if ((Auth::user()->id == 1) || (Auth::user()->id == 2))
+                                            <a href="{{ route('consulta_intendente.eliminar',[$voto->Id_Local, $voto->Id_Mesa]) }}">
+                                                <button class="btn btn-danger btn-sm">Eliminar</button>
+                                            </a>
+                                        @endif
 
                                     </td>
 

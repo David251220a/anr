@@ -1,15 +1,15 @@
 
 <div class="modal fade modal-slide-in-right" aria-hidden="true"
-role="dialog" tabindex="-1" id="modal-edit">
+role="dialog" tabindex="-1"  id="modal-new-{{$usu->id}}">
 
-{!! Form::open(array('action'=> array('acc_UsuarioController@store'), 'method'=>'POST' ) ) !!}
+{!! Form::open(array('action'=> array('acc_UsuarioController@update', $usu->id), 'method'=>'PUT' ) ) !!}
 
     <div class="modal-dialog modal-dialog-centered" >
     
         <div class="modal-content">
 
             <div class="modal-header">
-                <h2 class="modal-title">Nuevo Usuario:</h2>
+                <h2 class="modal-title">Editar Usuario: {{$usu->name}}</h2>
             </div>                
                             
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 ">
@@ -17,7 +17,7 @@ role="dialog" tabindex="-1" id="modal-edit">
                 <div class="form-group">
 
                     <label for="recipient-name" class="col-form-label">Nombre Usuario:</label>
-                    <input type="text" name="name" class="form-control" placeholder="Nombre Usuario...">                    
+                    <input type="text" name="name" class="form-control" value="{{$usu->name}}" required>
 
                 </div>
 
@@ -28,18 +28,7 @@ role="dialog" tabindex="-1" id="modal-edit">
                 <div class="form-group">
 
                     <label for="recipient-name" class="col-form-label">Email:</label>
-                    <input type="text" name="email" class="form-control" placeholder="Email...">
-
-                </div>
-
-            </div>
-
-            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 ">
-        
-                <div class="form-group">
-
-                    <label for="recipient-name" class="col-form-label">Contraseña:</label>
-                    <input type="password" name="contraseña"class="form-control" placeholder="Contraseña...">                    
+                    <input type="text" name="email" class="form-control" value="{{$usu->email}}" required>
 
                 </div>
 
@@ -52,9 +41,9 @@ role="dialog" tabindex="-1" id="modal-edit">
                     <label for="recipient-name" class="col-form-label">Nivel:</label>
                     <select name="id_rol" id="id_rol" class="form-control selectpicker"  data-live-search="true">
                                 
-                        <option value="1">NIVEL 1</option>
-                        <option value="2">NIVEL 2</option>
-                        <option value="3">NIVEL 3</option>
+                        <option value="1" @if(1 == $usu->id_rol) selected="selected" @endif>NIVEL 1</option>
+                        <option value="2" @if(2 == $usu->id_rol) selected="selected" @endif>NIVEL 2</option>
+                        <option value="3" @if(3 == $usu->id_rol) selected="selected" @endif>NIVEL 3</option>
     
                     </select>
 
@@ -68,7 +57,8 @@ role="dialog" tabindex="-1" id="modal-edit">
 
                     <label for="recipient-name" class="col-form-label">Nivel:</label>
                     <select name="url" id="url" class="form-control selectpicker"  data-live-search="true">
-                                
+                        
+                        <option value="manuel">0- Manuel Aguilar</option>
                         <option value="cesar_mendez">1- Cesar Mendez</option>
                         <option value="hector_avila">2 -Hector Avila</option>
                         <option value="mabel_gomez">3- Mabel Gomez</option>

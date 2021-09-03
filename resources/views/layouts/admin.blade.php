@@ -287,6 +287,9 @@
             
       $("#acceso").remove();
       $("#votacion").remove();
+      $("#reset").remove();
+      $("#auditoria").remove();
+      
     }
 
     if (id_rol == 3){

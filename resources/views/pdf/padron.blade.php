@@ -68,7 +68,7 @@
             .caja{
                 background: white;
                 width: 90%;
-                height: 250px;
+                height: 270px;
                 margin-top: 150px;
                 margin-left: 50px;
                 border-width: 2px;
@@ -140,7 +140,9 @@
                 
                 <label for="" class="mylabel" style="font-size: 1.5rem"><b>Inscripto en</b></label>
                 <p></p>
-                <label for="" class="mylabel" style="font-size: 1.5rem"> Dpto.   :<b>LIMPIO</b></label>
+                <label for="" class="mylabel" style="font-size: 1.5rem"> Dpto.   :<b>11 - CENTRAL</b></label>
+                <p></p>
+                <label for="" class="mylabel" style="font-size: 1.5rem"> LOCALIDAD   :<b>LIMPIO</b></label>
                 
                 <hr class="myhrline">
 
