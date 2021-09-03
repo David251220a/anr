@@ -3,8 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">    
-
-        
+     
         <style rel="stylesheet">
 
             @page {
@@ -98,6 +97,7 @@
 
         </style>
         
+  
     </head>
 
     <body>
@@ -115,7 +115,7 @@
 
                 <div class="form-group">
                                     
-                    <label for="justicia"><h2 style="text-align: center">CERTIFICADO DE RESULTADO - CONSEJAL</h2></label>
+                    <label for="justicia"><h2 style="text-align: center">CERTIFICADO DE RESULTADO - JUNTA MUNICIPAL</h2></label>
 
                 </div>
 
@@ -124,7 +124,7 @@
             <div class="row">
 
                 <p class="mypline" style="font-size: 1.2rem"> 
-                    ELECIONES MUNICIPALES: ELECCIÓN DE CONSEJAL
+                    ELECIONES MUNICIPALES: JUNTA MUNICIPAL
                     <br>                    
                     DEPTO    : 11 - CENTRAL
                     <br>
@@ -148,41 +148,200 @@
                     <table class="table">
 
                         <thead class="thead-light">  
-
                             <tr style="text-align: center; font-size: 0.9rem">
+                            
+                                <th style="text-align: center; font-size: 1.2rem">Orden/Lista</th>
+                                @foreach ($listas as $lista)
                                 
-                                <th scope="col" colspan="2">AGRUPACIONES</th>
-                                <th scope="col"> VOTOS </th>
+                                    <th  style="text-align: center; font-size: 1.2rem">{{$lista->numero_lista}}</th>
+
+                                @endforeach
 
                             </tr>
 
                         </thead>
 
                         <tbody>
+                            @php
+                                $cont = 0;
+                            @endphp
 
-                            @foreach ($votacion_intendente as $vot)
+                            @foreach ($ordenes as $orden)
     
                                 <tr style="font-size: 0.9rem">
                                     
-                                    <td width="99px">{{$vot->Desc_Lista}}</td>
-                                    <td>{{$vot->Nombre}} {{$vot->Apellido}} - {{$vot->Alias}}</td>
-                                    <td>{{$vot->Votos}}</td>
-    
+                                    <td width="99px"> {{$orden->Orden}} </td>
+                                    <td style="text-align: right">{{$votaciones[$cont]->Votos}} </td>
+                                    @php
+                                        $cont = $cont + 1;
+                                    @endphp
+                                    <td style="text-align: right">{{$votaciones[$cont]->Votos}} </td>
+                                    @php
+                                        $cont = $cont + 1;
+                                    @endphp
+                                    <td style="text-align: right">{{$votaciones[$cont]->Votos}} </td>
+                                    @php
+                                        $cont = $cont + 1;
+                                    @endphp
+                                    <td style="text-align: right">{{$votaciones[$cont]->Votos}} </td>
+                                    @php
+                                        $cont = $cont + 1;
+                                    @endphp
+                                    <td style="text-align: right">{{$votaciones[$cont]->Votos}} </td>
+                                    @php
+                                        $cont = $cont + 1;
+                                    @endphp
+                                    <td style="text-align: right">{{$votaciones[$cont]->Votos}} </td>
+                                    @php
+                                        $cont = $cont + 1;
+                                    @endphp
+                                    <td style="text-align: right">{{$votaciones[$cont]->Votos}} </td>
+                                    @php
+                                        $cont = $cont + 1;
+                                    @endphp
+                                    <td style="text-align: right">{{$votaciones[$cont]->Votos}} </td>
+                                    @php
+                                        $cont = $cont + 1;
+                                    @endphp
+                                    <td style="text-align: right">{{$votaciones[$cont]->Votos}} </td>
+                                    @php
+                                        $cont = $cont + 1;
+                                    @endphp
+                                    <td style="text-align: right">{{$votaciones[$cont]->Votos}} </td>
+                                    @php
+                                        $cont = $cont + 1;
+                                    @endphp
+                                    <td style="text-align: right">{{$votaciones[$cont]->Votos}} </td>
+                                    @php
+                                        $cont = $cont + 1;
+                                    @endphp
+                                    <td style="text-align: right">{{$votaciones[$cont]->Votos}} </td>
+                                    @php
+                                        $cont = $cont + 1;
+                                    @endphp
                                 </tr>
                                 
                             @endforeach
+
+                            @php
+                                $cont_total = 0;
+                            @endphp
+
+
+                            <tr style="font-size: 0.9rem">
+                                    
+                                <td width="99px"> TOT</td>
+                                <td style="text-align: right">{{ $totales[$cont_total]->total}} </td>
+                                @php
+                                    $cont_total = $cont_total + 1 ;
+                                @endphp
+                                <td style="text-align: right">{{ $totales[$cont_total]->total}} </td>
+                                @php
+                                    $cont_total = $cont_total + 1 ;
+                                @endphp
+                                <td style="text-align: right">{{ $totales[$cont_total]->total}} </td>
+                                @php
+                                    $cont_total = $cont_total + 1 ;
+                                @endphp
+                                <td style="text-align: right">{{ $totales[$cont_total]->total}} </td>
+                                @php
+                                    $cont_total = $cont_total + 1 ;
+                                @endphp
+                                <td style="text-align: right">{{ $totales[$cont_total]->total}} </td>
+                                @php
+                                    $cont_total = $cont_total + 1 ;
+                                @endphp
+                                <td style="text-align: right">{{ $totales[$cont_total]->total}} </td>
+                                @php
+                                    $cont_total = $cont_total + 1 ;
+                                @endphp
+                                <td style="text-align: right">{{ $totales[$cont_total]->total}} </td>
+                                @php
+                                    $cont_total = $cont_total + 1 ;
+                                @endphp
+                                <td style="text-align: right">{{ $totales[$cont_total]->total}} </td>
+                                @php
+                                    $cont_total = $cont_total + 1 ;
+                                @endphp
+                                <td style="text-align: right">{{ $totales[$cont_total]->total}} </td>
+                                @php
+                                    $cont_total = $cont_total + 1 ;
+                                @endphp
+                                <td style="text-align: right">{{ $totales[$cont_total]->total}} </td>
+                                @php
+                                    $cont_total = $cont_total + 1 ;
+                                @endphp
+                                <td style="text-align: right">{{ $totales[$cont_total]->total}} </td>
+                                @php
+                                    $cont_total = $cont_total + 1 ;
+                                @endphp
+                                <td style="text-align: right">{{ $totales[$cont_total]->total}} </td>
+                                @php
+                                    $cont_total = $cont_total + 1 ;
+                                @endphp
+                                
+                            </tr>
     
                         </tbody>
 
                     </table>
-
-                    
                     
                 </div>                
 
             </div>
+            <br style="margin-bottom: 8cm">
 
             <div class="row">
+
+                <div class="table table-responsive table-bordered">
+                    
+                    <table class="table">
+
+                        <tbody>
+
+                            <tr>
+                                <td width="80px">NULL</td>
+                                <td>Votos Nulos</td>
+                                <td width="80px"> {{$votaciones[$cont]->Votos}}</td>
+                                @php
+                                    $cont = $cont + 1;
+                                @endphp
+                            </tr>
+
+                            <tr>
+                                <td width="80px">BLC</td>
+                                <td>Votos en Blanco</td>
+                                <td width="80px"> {{$votaciones[$cont]->Votos}}</td>
+                                @php
+                                    $cont = $cont + 1;
+                                @endphp
+                            </tr>
+
+                            <tr>
+                                <td width="80px">VAC</td>
+                                <td>Votos a Computar</td>
+                                <td width="80px"> {{$votaciones[$cont]->Votos}}</td>
+                                @php
+                                    $cont = $cont + 1;
+                                @endphp
+                            </tr>
+
+                            <tr>
+                                <td width="80px">TOT</td>
+                                <td> <b>TOTAL GENERAL </b></td>
+                                <td width="80px"> {{$total->total}}</td>
+
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+            {{-- <div class="row">
 
                 <div class="table table-responsive table-bordered">
 
@@ -217,11 +376,12 @@
                     
                     
                 </div>
-            </div>
+            </div> --}}
 
         </div>
 
-
-    </body>
+      
+    </body>    
 
 </html>
+

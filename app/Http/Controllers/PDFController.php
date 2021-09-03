@@ -335,6 +335,8 @@ class PDFController extends Controller
 
         $PDF = PDF::loadView('pdf.consejal_acta', compact('local_votacion', 'listas', 'ordenes', 'votaciones', 'totales', 'total', 'id2'));
 
+        return $PDF->stream();
+        
     }
 
 

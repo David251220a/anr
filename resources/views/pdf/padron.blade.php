@@ -19,10 +19,10 @@
             header {
                 position: fixed;                
                 top: 0cm;
-                left: 0.1cm;
+                left: 0cm;
                 right: 0cm;
                 height: 200px;
-                width: 200px;
+                width: 800px;
                 /* background: url(manuel.jpg); */
                 color: white;
                 text-align: center;
@@ -112,24 +112,17 @@
 
             <div class="row">
                 
-                <header style="background: url(manuel.jpg)">
-                </header>
-
-                <header class="prueba" style="background: url({{Auth::user()->url}})">
-
-                </header>
-
-            </div>
-
-            <div class="row">
-
-                <div class="form-group">
-                                    
-                    <label for="justicia"><h2 style="text-align: center">MANUEL AGUILAR</h2></label>
-                    <br>
-                    <label for="justicia"><h2 style="text-align: center">LISTA 1</h2></label>
-
-                </div>
+                @if (Auth::user())
+                
+                    <header style="background: url({{Auth::user()->url}})">
+    
+                    </header> 
+                @else
+                
+                   <header>                
+                    </header>
+                    
+                @endif
 
             </div>
 

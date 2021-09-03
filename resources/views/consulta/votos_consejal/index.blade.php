@@ -96,7 +96,7 @@
                                         <a href="{{ route('consulta_consejal.acta', [$voto->Id_Local, $voto->Id_Mesa]) }}">
                                             <button class="btn btn-primary btn-sm">Acta</button>
                                         </a>
-                                        <a href="#" target="_blank">
+                                        <a href=" {{ route('consejal_acta', [$voto->Id_Local, $voto->Id_Mesa]) }} " target="_blank">
                                             <button class="btn btn-primary btn-sm">PDF</button>
                                         </a>
                                         @if ((Auth::user()->id == 1) || (Auth::user()->id == 2))
@@ -108,7 +108,6 @@
                                         @endif
 
                                     </td>
-
 
                                 </tr>
                                 
