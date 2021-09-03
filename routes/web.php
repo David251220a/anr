@@ -80,6 +80,8 @@ Route::get('pdf/mesa_consejal/{id}', 'PDFController@Resumen_Mesa_Consejal')->nam
 Route::get('pdf/consejal/{id}', 'PDFController@Consejal')->name('consejal');
 Route::get('pdf/padron/{id}', 'PDFController@padron_persona')->name('persona_padron');
 Route::get('pdf/consejal_lista/{id}', 'PDFController@Lista')->name('consejal_lista');
+Route::get('pdf/intendente_acta/{id1}/{id2}', 'PDFController@intendente_acta')->name('intendente_acta');
+
 
 Route::get('/limpiar', 'LimpiarController@limpiar');
 

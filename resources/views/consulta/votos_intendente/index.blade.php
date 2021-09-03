@@ -89,12 +89,15 @@
                                     <td style="text-align: center">{{$voto->Desc_Local}}</td>
                                     <td style="text-align: center">{{$voto->Mesa}}</td>
                                     <td style="text-align: right">{{number_format($voto->cont, 0, ".", ".")}}</td>
-                                    <td style="text-align: center" width="200px">
+                                    <td style="text-align: center" width="300px">
                                         <a href="{{ route('consulta_intendente.editar', [$voto->Id_Local, $voto->Id_Mesa]) }}">
                                             <button class="btn btn-info btn-sm">Editar</button>
                                         </a>
                                         <a href="{{ route('consulta_intendente.acta', [$voto->Id_Local, $voto->Id_Mesa]) }}">
                                             <button class="btn btn-primary btn-sm">Acta</button>
+                                        </a>
+                                        <a href="{{ route('intendente_acta', [$voto->Id_Local, $voto->Id_Mesa]) }}" target="_blank">
+                                            <button class="btn btn-primary btn-sm">PDF</button>
                                         </a>
                                         <a href="{{ route('consulta_intendente.eliminar',[$voto->Id_Local, $voto->Id_Mesa]) }}">
                                             <button class="btn btn-danger btn-sm">Eliminar</button>

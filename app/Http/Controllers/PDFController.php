@@ -245,7 +245,61 @@ class PDFController extends Controller
 
         $PDF = PDF::loadView('pdf.padron', compact('persona'));
                 
-        return $PDF->stream();        
+        return $PDF->stream();
+
+    }
+
+    public function intendente_acta($id1, $id2){
+
+        $votos = DB::table('votacion_intendente AS a')
+        ->join('mesa AS b','b.Id_Mesa','=','a.Id_Mesa')
+        ->join('local_votacion AS c','c.Id_Local','=','a.Id_Local')
+        ->join('local_votacion AS c','c.Id_Local','=','a.Id_Local')
+        ->select('a.Id_Local'
+        , 'c.Desc_Local'
+        , 'a.Id_Mesa'
+        , 'b.Mesa'
+        , DB::raw("SUM(a.`Votos`) AS cont"))
+        ->where('a.Id_Local', $id1)
+        ->where('a.Id_Mesa', $id2)
+        ->whereBetween('c.Id_Lista', [91,99])
+        ->groupBy('a.Id_Local'
+        , 'c.Desc_Local'
+        , 'b.Mesa'
+        , 'a.Id_Mesa')
+        ->get();
+
+        $local = DB::table('local_votacion')
+        ->where('Id_Local', $id1)
+        ->first();
+        
+    
+        $votacion_nulos  = DB::table('votacion_consejal AS a')
+        ->join('consejal AS b', 'b.Id_Consejal', '=','a.Id_Consejal')
+        ->join('lista AS c', 'c.Id_Lista', '=','b.Id_Lista')
+        ->select('c.Desc_Lista'
+        , 'c.Alias'
+        , 'b.Id_Lista'
+        , DB::raw(' SUM(a.Votos) AS votos'))
+        ->whereBetween('c.Id_Lista', [91,99])
+        ->where('a.Id_Local', $id1)
+        ->where('a.Id_Mesa', $id2)
+        ->orderBy('b.Id_Lista', 'ASC')
+        ->groupBy('c.Desc_Lista'
+        , 'c.Alias'
+        , 'b.Id_Lista')
+        ->get();
+
+        $total = DB::table('votacion_consejal AS a')
+        ->select(DB::raw(' SUM(a.Votos) AS votos'))
+        ->where('a.Id_Local', $id1)
+        ->where('a.Id_Mesa', $id2)
+        ->first();
+
+        $PDF = PDF::loadView('pdf.intendente_acta', compact('votacion_consejal', 'local', 'votacion_nulos', 'total', 'id2'));
+                
+        return $PDF->stream();
+
 
     }
 
