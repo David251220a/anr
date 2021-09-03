@@ -121,7 +121,14 @@ class BuscarController extends Controller
 
         }
 
-        // $padron= Padron::find($request->codpadron);
+        if ($comprometido == 0) {
+
+            $padron_comprometido = Padron_Comprometido::where('Cod_Comprometido',  $request->codpadron)
+            ->where('Id_User', $id_user)
+            ->delete();
+
+            return redirect()->route('consulta.index');
+        }
 
         $padron_comprometido= new Padron_Comprometido();
 
