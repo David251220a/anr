@@ -84,7 +84,6 @@ class ConsejalController extends Controller
         $votos = $request->get('votos');
 
         $lista = $request->get('lista');
-        $votos = $request->get('votos');
         $orden = $request->get('orden');
 
         $id_consejal = $request->get('id_lista');

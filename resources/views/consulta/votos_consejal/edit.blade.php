@@ -1,3 +1,14 @@
+@php
+    $total = 0;
+@endphp
+
+@foreach ($votaciones as $votacion)
+
+    @php
+        $total = $total + $votacion->Votos;
+    @endphp
+    
+@endforeach
 @extends('layouts.admin')
 
 @section('contenido')
@@ -15,7 +26,7 @@
         </div>
     </div>
 
-    {!! Form::open(['route' => 'consejal.store', 'autocomplete' => 'off', 'files' => true]) !!}
+    {!! Form::model($votaciones, ['route' => ['consulta_consejal.update', $local_votacion->Id_Local], 'method' => 'put' , 'file'=>'true', 'enctype'=>"multipart/form-data" ]) !!}
 
         <div class="row">
 
@@ -37,14 +48,9 @@
 
                     <label form="id_local_consejal" >Local Votacion</label>
                     <select name="id_local_consejal" id="id_local_consejal" class="form-control">
-
-                        <option value="">Seleccione un local</option>
-
-                        @foreach ($local_votacion as $vot)
                             
-                            <option value="{{$vot->Id_Local}}">{{$vot->Desc_Local}} </option>
-
-                        @endforeach
+                        <option value="{{$local_votacion->Id_Local}}">{{$local_votacion->Desc_Local}} </option>
+                        
 
                     </select>
 
@@ -59,12 +65,9 @@
                     <label form="id_mesa_consejal" >Mesa</label>
                     <select name="id_mesa_consejal" id="id_mesa_consejal" class="form-control">
 
-                    </select>
-                    @error('id_mesa_consejal')
+                        <option value="{{$mesas->Id_Mesa}}">{{$mesas->Mesa}} </option>
 
-                        <span class="text-danger">{{$message}}</span>
-
-                    @enderror
+                    </select>                    
 
                 </div>
 
@@ -101,56 +104,56 @@
                                 <tr style="align-items: center">
 
                                     <td style="text-align: right">{{$orden->Orden}} <input type="hidden" name="orden[]" value="{{$orden->Orden}}"></td>
-                                    <td style="text-align: right"> <input type="number" style="text-align: right" class="form-control Can_Produc primer_11"  name="votos[]" value="{{old('votos.'.$cont, 0)}}"> </td>
+                                    <td style="text-align: right"> <input type="number" style="text-align: right" class="form-control Can_Produc primer_11"  name="votos[]" value="{{old('votos.'.$cont, $votaciones[$cont]->Votos)}}"> </td>
                                     @php
                                         $cont = $cont + 1;
                                     @endphp
-                                    <td style="text-align: right"> <input type="number" style="text-align: right" class="form-control Can_Produc primer_12" name="votos[]" value="{{old('votos.'.$cont, 0)}}"> </td>
+                                    <td style="text-align: right"> <input type="number" style="text-align: right" class="form-control Can_Produc primer_12" name="votos[]" value="{{old('votos.'.$cont, $votaciones[$cont]->Votos)}}"> </td>
                                     @php
                                         $cont = $cont + 1;
                                     @endphp
-                                    <td style="text-align: right"> <input type="number" style="text-align: right" class="form-control Can_Produc primer_13" name="votos[]" value="{{old('votos.'.$cont, 0)}}"> </td>
+                                    <td style="text-align: right"> <input type="number" style="text-align: right" class="form-control Can_Produc primer_13" name="votos[]" value="{{old('votos.'.$cont, $votaciones[$cont]->Votos)}}"> </td>
                                     @php
                                         $cont = $cont + 1;
                                     @endphp
-                                    <td style="text-align: right"> <input type="number" style="text-align: right" class="form-control Can_Produc primer_15" name="votos[]" value="{{old('votos.'.$cont, 0)}}"> </td>
+                                    <td style="text-align: right"> <input type="number" style="text-align: right" class="form-control Can_Produc primer_15" name="votos[]" value="{{old('votos.'.$cont, $votaciones[$cont]->Votos)}}"> </td>
                                     @php
                                         $cont = $cont + 1;
                                     @endphp
-                                    <td style="text-align: right"> <input type="number" style="text-align: right" class="form-control Can_Produc primer_16" name="votos[]" value="{{old('votos.'.$cont, 0)}}"> </td>
+                                    <td style="text-align: right"> <input type="number" style="text-align: right" class="form-control Can_Produc primer_16" name="votos[]" value="{{old('votos.'.$cont, $votaciones[$cont]->Votos)}}"> </td>
                                     @php
                                         $cont = $cont + 1;
                                     @endphp
-                                    <td style="text-align: right"> <input type="number" style="text-align: right" class="form-control Can_Produc primer_17" name="votos[]" value="{{old('votos.'.$cont, 0)}}"> </td>
+                                    <td style="text-align: right"> <input type="number" style="text-align: right" class="form-control Can_Produc primer_17" name="votos[]" value="{{old('votos.'.$cont, $votaciones[$cont]->Votos)}}"> </td>
                                     @php
                                         $cont = $cont + 1;
                                     @endphp
-                                    <td style="text-align: right"> <input type="number" style="text-align: right" class="form-control Can_Produc primer_18" name="votos[]" value="{{old('votos.'.$cont, 0)}}"> </td>
+                                    <td style="text-align: right"> <input type="number" style="text-align: right" class="form-control Can_Produc primer_18" name="votos[]" value="{{old('votos.'.$cont, $votaciones[$cont]->Votos)}}"> </td>
                                     @php
                                         $cont = $cont + 1;
                                     @endphp
                                     
-                                    <td style="text-align: right"> <input type="number" style="text-align: right" class="form-control Can_Produc primer_19" name="votos[]" value="{{old('votos.'.$cont, 0)}}"> </td>
+                                    <td style="text-align: right"> <input type="number" style="text-align: right" class="form-control Can_Produc primer_19" name="votos[]" value="{{old('votos.'.$cont, $votaciones[$cont]->Votos)}}"> </td>
                                     @php
                                         $cont = $cont + 1;
                                     @endphp
 
-                                    <td style="text-align: right"> <input type="number" style="text-align: right" class="form-control Can_Produc primer_20" name="votos[]" value="{{old('votos.'.$cont, 0)}}"> </td>
+                                    <td style="text-align: right"> <input type="number" style="text-align: right" class="form-control Can_Produc primer_20" name="votos[]" value="{{old('votos.'.$cont, $votaciones[$cont]->Votos)}}"> </td>
                                     @php
                                         $cont = $cont + 1;
                                     @endphp
 
-                                    <td style="text-align: right"> <input type="number" style="text-align: right" class="form-control Can_Produc primer_21" name="votos[]" value="{{old('votos.'.$cont, 0)}}"> </td>
+                                    <td style="text-align: right"> <input type="number" style="text-align: right" class="form-control Can_Produc primer_21" name="votos[]" value="{{old('votos.'.$cont, $votaciones[$cont]->Votos)}}"> </td>
                                     @php
                                         $cont = $cont + 1;
                                     @endphp
 
-                                    <td style="text-align: right"> <input type="number" style="text-align: right" class="form-control Can_Produc primer_22" name="votos[]" value="{{old('votos.'.$cont, 0)}}"> </td>
+                                    <td style="text-align: right"> <input type="number" style="text-align: right" class="form-control Can_Produc primer_22" name="votos[]" value="{{old('votos.'.$cont, $votaciones[$cont]->Votos)}}"> </td>
                                     @php
                                         $cont = $cont + 1;
                                     @endphp
 
-                                    <td style="text-align: right"> <input type="number" style="text-align: right" class="form-control Can_Produc primer_23" name="votos[]" value="{{old('votos.'.$cont, 0)}}"> </td>
+                                    <td style="text-align: right"> <input type="number" style="text-align: right" class="form-control Can_Produc primer_23" name="votos[]" value="{{old('votos.'.$cont, $votaciones[$cont]->Votos)}}"> </td>
                                     @php
                                         $cont = $cont + 1;
                                     @endphp
@@ -159,25 +162,59 @@
                             @endforeach
 
                         </tbody>
-
+                        @php
+                            $cont_total = 0;
+                        @endphp
                         <tfoot>
                             
                             <tr>
 
                                 <td style="text-align: right">TOTAL:</td>
-                                <td style="text-align: right"> <input type="number" id="total_11" name="total_11" style="text-align: right" class="form-control" value="{{old('total_11', 0)}}" readonly> </td>
-                                <td style="text-align: right"> <input type="number" id="total_12" name="total_12" style="text-align: right" class="form-control" value="{{old('total_12', 0)}}" readonly> </td>
-                                <td style="text-align: right"> <input type="number" id="total_13" name="total_13" style="text-align: right" class="form-control" value="{{old('total_13', 0)}}" readonly> </td>
-                                <td style="text-align: right"> <input type="number" id="total_15" name="total_15" style="text-align: right" class="form-control" value="{{old('total_15', 0)}}" readonly> </td>
-                                <td style="text-align: right"> <input type="number" id="total_16" name="total_16" style="text-align: right" class="form-control" value="{{old('total_16', 0)}}" readonly> </td>
-                                <td style="text-align: right"> <input type="number" id="total_17" name="total_17" style="text-align: right" class="form-control" value="{{old('total_17', 0)}}" readonly> </td>
-                                <td style="text-align: right"> <input type="number" id="total_18" name="total_18" style="text-align: right" class="form-control" value="{{old('total_18', 0)}}" readonly> </td>
-
-                                <td style="text-align: right"> <input type="number" id="total_19" name="total_19" style="text-align: right" class="form-control" value="{{old('total_19', 0)}}" readonly> </td>
-                                <td style="text-align: right"> <input type="number" id="total_20" name="total_20" style="text-align: right" class="form-control" value="{{old('total_20', 0)}}" readonly> </td>
-                                <td style="text-align: right"> <input type="number" id="total_21" name="total_21" style="text-align: right" class="form-control" value="{{old('total_21', 0)}}" readonly> </td>
-                                <td style="text-align: right"> <input type="number" id="total_22" name="total_22" style="text-align: right" class="form-control" value="{{old('total_22', 0)}}" readonly> </td>
-                                <td style="text-align: right"> <input type="number" id="total_23" name="total_23" style="text-align: right" class="form-control" value="{{old('total_23', 0)}}" readonly> </td>
+                                <td style="text-align: right"> <input type="number" id="total_11" name="total_11" style="text-align: right" class="form-control" value="{{old('total_11',  $totales[$cont_total]->total)}}" readonly> </td>
+                                @php
+                                    $cont_total = $cont_total + 1 ;
+                                @endphp
+                                <td style="text-align: right"> <input type="number" id="total_12" name="total_12" style="text-align: right" class="form-control" value="{{old('total_12',  $totales[$cont_total]->total)}}" readonly> </td>
+                                @php
+                                    $cont_total = $cont_total + 1 ;
+                                @endphp
+                                <td style="text-align: right"> <input type="number" id="total_13" name="total_13" style="text-align: right" class="form-control" value="{{old('total_13',  $totales[$cont_total]->total)}}" readonly> </td>
+                                @php
+                                    $cont_total = $cont_total + 1 ;
+                                @endphp
+                                <td style="text-align: right"> <input type="number" id="total_15" name="total_15" style="text-align: right" class="form-control" value="{{old('total_15',  $totales[$cont_total]->total)}}" readonly> </td>
+                                @php
+                                    $cont_total = $cont_total + 1 ;
+                                @endphp
+                                <td style="text-align: right"> <input type="number" id="total_16" name="total_16" style="text-align: right" class="form-control" value="{{old('total_16',  $totales[$cont_total]->total)}}" readonly> </td>
+                                @php
+                                    $cont_total = $cont_total + 1 ;
+                                @endphp
+                                <td style="text-align: right"> <input type="number" id="total_17" name="total_17" style="text-align: right" class="form-control" value="{{old('total_17',  $totales[$cont_total]->total)}}" readonly> </td>
+                                @php
+                                    $cont_total = $cont_total + 1 ;
+                                @endphp
+                                <td style="text-align: right"> <input type="number" id="total_18" name="total_18" style="text-align: right" class="form-control" value="{{old('total_18',  $totales[$cont_total]->total)}}" readonly> </td>
+                                @php
+                                    $cont_total = $cont_total + 1 ;
+                                @endphp
+                                <td style="text-align: right"> <input type="number" id="total_19" name="total_19" style="text-align: right" class="form-control" value="{{old('total_19',  $totales[$cont_total]->total)}}" readonly> </td>
+                                @php
+                                    $cont_total = $cont_total + 1 ;
+                                @endphp
+                                <td style="text-align: right"> <input type="number" id="total_20" name="total_20" style="text-align: right" class="form-control" value="{{old('total_20',  $totales[$cont_total]->total)}}" readonly> </td>
+                                @php
+                                    $cont_total = $cont_total + 1 ;
+                                @endphp
+                                <td style="text-align: right"> <input type="number" id="total_21" name="total_21" style="text-align: right" class="form-control" value="{{old('total_21',  $totales[$cont_total]->total)}}" readonly> </td>
+                                @php
+                                    $cont_total = $cont_total + 1 ;
+                                @endphp
+                                <td style="text-align: right"> <input type="number" id="total_22" name="total_22" style="text-align: right" class="form-control" value="{{old('total_22',  $totales[$cont_total]->total)}}" readonly> </td>
+                                @php
+                                    $cont_total = $cont_total + 1 ;
+                                @endphp
+                                <td style="text-align: right"> <input type="number" id="total_23" name="total_23" style="text-align: right" class="form-control" value="{{old('total_23',  $totales[$cont_total]->total)}}" readonly> </td>
 
                             </tr>
 
@@ -208,8 +245,10 @@
                 
                 <div class="form-group md-form mt-3">
                                                                 
-                    <input id="votos" name="votos_varios[]" type="number" required="required" value="{{old('votos_varios.0', 0)}}" class="form-control Can_Produc">
-
+                    <input id="votos" name="votos_varios[]" type="number" required="required" value="{{old('votos_varios.0', $votaciones[$cont]->Votos)}}" class="form-control Can_Produc">
+                    @php
+                        $cont= $cont + 1;
+                    @endphp
                 </div>                        
                 
 
@@ -234,7 +273,10 @@
                 
                 <div class="form-group md-form mt-3">
                                                                 
-                    <input id="votos" name="votos_varios[]" type="number" required="required" value="{{old('votos_varios.1', 0)}}" class="form-control Can_Produc">
+                    <input id="votos" name="votos_varios[]" type="number" required="required" value="{{old('votos_varios.1', $votaciones[$cont]->Votos)}}" class="form-control Can_Produc">
+                    @php
+                        $cont = $cont + 1;
+                    @endphp
 
                 </div>                        
                 
@@ -260,8 +302,10 @@
                 
                 <div class="form-group md-form mt-3">
                                                                 
-                    <input id="votos" name="votos_varios[]" type="number" required="required" value="{{old('votos_varios.2', 0)}}" class="form-control Can_Produc">
-
+                    <input id="votos" name="votos_varios[]" type="number" required="required" value="{{old('votos_varios.2', $votaciones[$cont]->Votos)}}" class="form-control Can_Produc">
+                    @php
+                        $cont = $cont +1 ;
+                    @endphp
                 </div>                        
                 
 
@@ -285,7 +329,7 @@
                 
                 <div class="form-group md-form mt-3">
                                                                 
-                    <input id="total_votos" name="total_votos" type="number" required="required" value="{{old('total_votos', 0)}}" class="form-control">
+                    <input id="total_votos" name="total_votos" type="number" required="required" value="{{old('total_votos', $total)}}" class="form-control">
 
                 </div>                        
                 

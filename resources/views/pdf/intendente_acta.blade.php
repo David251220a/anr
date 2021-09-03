@@ -125,7 +125,7 @@
             <div class="row">
 
                 <p class="mypline" style="font-size: 1.2rem"> 
-                    ELECCIÓN: ASOCACIÓN NACIONAL REPUBLICANA
+                    ELECIONES MUNICIPALES: ELECCIÓN DE INTENDENTE
                     <br>                    
                     DEPTO    : 11 - CENTRAL
                     <br>
@@ -161,13 +161,13 @@
 
                         <tbody>
 
-                            @foreach ($votacion_consejal as $vot)
+                            @foreach ($votacion_intendente as $vot)
     
                                 <tr style="font-size: 0.9rem">
                                     
                                     <td width="99px">{{$vot->Desc_Lista}}</td>
-                                    <td>{{$vot->Alias}}</td>
-                                    <td>{{$vot->votos}}</td>
+                                    <td>{{$vot->Nombre}} {{$vot->Apellido}} - {{$vot->Alias}}</td>
+                                    <td>{{$vot->Votos}}</td>
     
                                 </tr>
                                 
@@ -196,8 +196,8 @@
                                 <tr style="font-size: 0.9rem">
                                     
                                     <td width="100px">{{$vot->Alias}}</td>
-                                    <td>VOTOS {{$vot->Desc_Lista}}</td>
-                                    <td width="280px">{{$vot->votos}}</td>
+                                    <td>{{$vot->Nombre}} {{$vot->Apellido}}</td>
+                                    <td width="280px">{{$vot->Votos}}</td>
     
                                 </tr>
                                 
@@ -206,8 +206,8 @@
                             <tr style="font-size: 0.9rem">
                                     
                                 <td width="100px">TOT</td>
-                                <td>Total General</td>
-                                <td width="280px">{{$total->votos}}</td>
+                                <td> <b> TOTAL GENERAL </b></td>
+                                <td width="280px"> <b> {{$total->votos}} </b></td>
 
                             </tr>
     

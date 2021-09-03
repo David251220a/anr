@@ -143,6 +143,7 @@
                         
                                         <label form="votos" ></label>
                                         <input type="number" name="votos[]" id="votos[]" class="form-control Can_Produc" value="{{old('votos.'.$cont, 0)}}">
+                                    
                                         @php
                                             $cont = $cont + 1;
                                         @endphp
@@ -166,8 +167,7 @@
                                 <div class="form-group mt-3" style="text-align: center">                                
                                     
                                     <br>
-                                    <label form="intendente" ><b>TOTAL DE VOTOS</b> </label>
-                    
+                                    <label form="intendente" ><b>TOTAL DE VOTOS</b> </label>                                    
                                 </div>
                     
                             </div>
@@ -222,7 +222,7 @@
 
                                 <div class="form-group">
                                     
-                                    <button class="btn btn-primary" type="submit" style="align-items: center">Guardar</button>
+                                    <button class="btn btn-primary" type="submit" style="align-items: center" id="btnGuardar">Guardar</button>
                             
                                 </div>
                             
@@ -245,8 +245,33 @@
 
         <script type="text/javascript">
 
-            $(document).ready(function(){                
-                
+            $(document).ready(function(){  
+                // let votos=[];
+                // const btnGuardar=document.querySelector(".Can_Produc");
+                // btnGuardar.addEventListener("keydown", guardar);
+                // function guardar(e){
+                    
+                //     btnGuardar.addEventListener("keydown", guardar);
+
+                //     if (event.keyCode == 13) {
+                //         e.preventDefault();
+                //         console.log(btnGuardar);
+                //         // votos=[..., btnGuardar.value];
+                //     }
+                //     console.log(votos);
+                    
+                // } 
+
+                $('.Can_Produc').on('keydown',function(event){
+                    
+                    const btnGuardar=document.querySelector(".Can_Produc");
+
+                    if (event.keyCode == 13) {
+                        event.preventDefault();
+                        //console.log(btnGuardar);
+                    }
+                });
+
                 $('.Can_Produc').keyup(function() {
                     
                     var nuevo_valor =  $(this).val();
