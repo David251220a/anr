@@ -237,7 +237,17 @@
                     );
 
                     $("#total_votos").val(importe_total);
-                });            
+                });
+                
+                $('.Can_Produc').on('keydown',function(event){
+                    
+                    const btnGuardar=document.querySelector(".Can_Produc");
+
+                    if (event.keyCode == 13) {
+                        event.preventDefault();
+                        //console.log(btnGuardar);
+                    }
+                });
                 
             });
 
