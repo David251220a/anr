@@ -148,6 +148,7 @@
                 </a>
                 <ul class="treeview-menu">
                   
+                  <li id="#"><a href="{{route('reportes.intendente')}}"><i class="fa fa-circle-o"></i> Intendente</a></li>
                   <li id="#"><a href="{{route('reportes.intendente_resumen')}}"><i class="fa fa-circle-o"></i> Intendente - General</a></li>
                   <li id="#"><a href="{{route('reportes.intendente_local')}}"><i class="fa fa-circle-o"></i> Intendente - Locales</a></li>
                   <li id="#"><a href="{{route('reportes.intendente_mesa')}}"><i class="fa fa-circle-o"></i> Intendente - Mesas</a></li>

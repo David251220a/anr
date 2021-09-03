@@ -162,4 +162,33 @@ class ReporteConsejalController extends Controller{
 
     }
 
+    public function intendente(Request $request){
+
+        $id_intendente=trim($request->get('id_intendente'));
+
+        if(empty($id_intendente)){
+
+            $id_intendente = 1;
+
+        }
+
+        $sql_Call = 'CALL intendente(?)';
+
+        $votacion_intendente = DB::select($sql_Call, array($id_intendente)); 
+
+        $local_votacion = DB::table('local_votacion')
+        ->orderBy('Id_Local', 'ASC' )
+        ->get();
+
+        $intendentes = DB::table('intendente AS a')
+        ->join('lista AS b', 'b.Id_Lista', '=', 'a.Id_Lista')
+        ->select('a.Id_Intendente'
+        , DB::raw('CONCAT(a.Nombre, " ", a.Apellido, " ", b.Desc_Lista, " - ", b.Alias) AS intendente'))
+        ->orderBy('a.Id_Lista', 'ASC' )
+        ->get();
+
+        return view('reportes.intendente.intendente', compact('votacion_intendente', 'local_votacion', 'id_intendente', 'intendentes'));
+
+    }
+
 }
