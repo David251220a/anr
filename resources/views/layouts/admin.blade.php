@@ -153,6 +153,7 @@
                   <li id="#"><a href="{{route('reportes.intendente_local')}}"><i class="fa fa-circle-o"></i> Intendente - Locales</a></li>
                   <li id="#"><a href="{{route('reportes.intendente_mesa')}}"><i class="fa fa-circle-o"></i> Intendente - Mesas</a></li>
                   <li id="#"><a href="{{route('reportes.consejal')}}"><i class="fa fa-circle-o"></i> Consejal</a></li>
+                  <li id="#"><a href="{{route('reportes.consejal_lista')}}"><i class="fa fa-circle-o"></i> Consejal - Lista</a></li>
                   <li id="#"><a href="{{route('reportes.consejal_resumen')}}"><i class="fa fa-circle-o"></i> Consejal - General</a></li>
                   <li id="#"><a href="{{route('reportes.consejal_local')}}"><i class="fa fa-circle-o"></i> Consejal - Locales</a></li>
                   <li id="#"><a href="{{route('reportes.consejal_mesa')}}"><i class="fa fa-circle-o"></i> Consejal - Mesas</a></li>

@@ -153,47 +153,17 @@ class PDFController extends Controller
 
     }
 
-    public function Lista(){
+    public function Lista($id){
         
-        $consejal = DB::table('votacion_consejal AS a')
-        ->join('consejal AS b','b.Id_Consejal','=','a.Id_Consejal')        
-        ->join('lista AS c','c.Id_Lista','=','b.Id_Lista')
-        ->select('b.Id_Lista'
-        , 'a.Id_Consejal'
-        , 'b.Nombre'
-        , 'b.Apellido'
-        , DB::raw('SUM(a.`Votos`) AS Votos')
-        , 'c.Desc_Lista')
-        ->where('b.Id_Lista','=', 8)
-        ->groupBy('b.Id_Lista'
-        , 'a.Id_Consejal'
-        , 'b.Nombre'
-        , 'b.Apellido'
-        , 'c.Desc_Lista')                
-        ->orderBy('b.Id_Lista', 'Asc')
-        ->orderBy('a.Id_Consejal', 'Asc')
-        ->get();
+        $sql_Call = 'CALL consejal_lista(?)';
+        $votacion_consejal = DB::select($sql_Call, array($id));
 
-        $lista = DB::table('lista_consejal')
-        ->where('Id_Lista','=', 8)
-        ->orderBy('Id_Lista', 'ASC' )
-        ->get();
-
-        $consejal_monto = DB::table('votacion_consejal AS a')
-        ->join('consejal AS b','b.Id_Consejal','=','a.Id_Consejal')        
-        ->join('lista AS c','c.Id_Lista','=','b.Id_Lista')
-        ->where('b.Id_Lista','=', 8)
-        ->select('b.Id_Lista'            
-        , DB::raw('SUM(a.`Votos`) AS Votos')
-        , 'c.Desc_Lista')
-        ->groupBy('b.Id_Lista'
-        , 'c.Desc_Lista')                
-        ->orderBy(DB::raw('SUM(a.`Votos`)'), 'DESC')
+        $listas = DB::table('lista')
+        ->whereBetween('Id_Lista', [11,99])
+        ->orderBy('numero_lista', 'ASC')
         ->get();
     
-        $PDF = PDF::loadView('pdf.consejal_lista',["consejal"=>$consejal
-        , "lista"=>$lista
-        , "consejal_monto"=>$consejal_monto]);
+        $PDF = PDF::loadView('pdf.consejal_lista',compact('votacion_consejal', 'listas', 'id'));
 
         return $PDF->stream();
 

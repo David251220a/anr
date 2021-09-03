@@ -245,5 +245,6 @@ class ConsultaController extends Controller
         return redirect()->route('consulta.aporedado');
 
     }
+    
 
 }

@@ -70,6 +70,28 @@ class ReporteConsejalController extends Controller{
 
     }
 
+    public function consejal_lista(Request $request){
+
+        $id_lista=trim($request->get('id_lista'));
+
+        if((empty($id_lista)) || ($id_lista == 999)){
+
+            $id_lista = 999;
+
+        }
+
+        $sql_Call = 'CALL consejal_lista(?)';
+        $votacion_consejal = DB::select($sql_Call, array($id_lista));
+
+        $listas = DB::table('lista')
+        ->whereBetween('Id_Lista', [11,99])
+        ->orderBy('numero_lista', 'ASC')
+        ->get();
+
+        return view('reportes.consejal.consejal_lista', compact('votacion_consejal', 'listas', 'id_lista'));
+
+    }
+
     public function consejal(Request $request){
 
         $id_consejal=trim($request->get('id_consejal'));
@@ -190,5 +212,6 @@ class ReporteConsejalController extends Controller{
         return view('reportes.intendente.intendente', compact('votacion_intendente', 'local_votacion', 'id_intendente', 'intendentes'));
 
     }
+    
 
 }
