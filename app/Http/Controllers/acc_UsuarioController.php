@@ -129,8 +129,10 @@ class acc_UsuarioController extends Controller
     public function update(Request $request, $id){
 
         $usuario = User::find($id);
+
+        $url =  $request->get('url') . '.jpg';
         
-        $usuario->url = $request->get('url');
+        $usuario->url = $url;
         $usuario->name = $request->get('name');
         $usuario->email = $request->get('email');
         $usuario->id_rol = $request->get('id_rol');
