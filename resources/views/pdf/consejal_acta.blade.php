@@ -17,12 +17,13 @@
             }
 
             header {
-                position: fixed;
-                margin-left: 0.1cm;
-                margin-top: 0.1cm;
-                height: 105px;
-                width: 110px;
-                background: url(manuel_1.jpg);
+                position: fixed;                
+                top: 0cm;
+                left: 0cm;
+                right: 0cm;
+                height: 200px;
+                width: 200px;
+                background: url(justicia.jpg);
                 color: white;
                 text-align: center;
                 line-height: 50px;
@@ -54,7 +55,7 @@
             .caja{
                 background: white;
                 width: 90%;
-                height: 100px;
+                height: 250px;
                 margin-top: 150px;
                 margin-left: 50px;
                 border-width: 2px;
@@ -81,7 +82,7 @@
             p.mypline{
                 margin-left: 2px;
                 margin-bottom: 1px;
-                margin-top: 10px;
+                margin-top: 80px;
                 border: 2px;
                 border-width: 2px;
                 border-style: solid;
@@ -115,7 +116,7 @@
 
                 <div class="form-group">
                                     
-                    <label for="justicia"><h2 style="text-align: center">CERTIFICADO DE RESULTADO - INTENDENTE</h2></label>
+                    <label for="justicia"><h2 style="text-align: center">CERTIFICADO DE RESULTADO - CONSEJAL</h2></label>
 
                 </div>
 

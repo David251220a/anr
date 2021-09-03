@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Padron;
+use App\Votacion_Consejal;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Support\Facades\DB;
@@ -285,6 +286,54 @@ class PDFController extends Controller
                 
         return $PDF->stream();
 
+
+    }
+
+    public function consejal_acta($id1, $id2){
+
+        $local_votacion = DB::table('local_votacion')
+        ->where('Id_Local', $id1)
+        ->first();
+
+        $listas = DB::table('consejal AS a')
+        ->join('lista AS b','b.Id_Lista','=','a.Id_Lista')
+        ->select('a.Id_Lista', 'b.numero_lista')
+        ->whereBetween('a.Id_Lista', [11, 90])
+        ->groupBy('a.Id_Lista', 'b.numero_lista')
+        ->orderBy('b.numero_lista')
+        ->get();
+
+        $ordenes = DB::table('consejal')
+        ->select('Orden')
+        ->whereBetween('Id_Lista', [11, 90])
+        ->groupBy('Orden')
+        ->orderBy('Orden')
+        ->get();        
+
+        $votaciones = DB::table('votacion_consejal AS a')
+        ->join('consejal AS b', 'b.Id_Consejal', '=', 'a.Id_Consejal')
+        ->where('a.Id_Local', $id1)
+        ->where('a.Id_Mesa', $id2)
+        ->orderBy('b.Orden', 'ASC')
+        ->orderBy('b.Id_Lista', 'ASC')
+        ->get();
+
+        $totales = DB::table('votacion_consejal AS a')
+        ->join('consejal AS b', 'b.Id_Consejal', '=', 'a.Id_Consejal')
+        ->select('b.Id_Lista'
+        , DB::raw('SUM(a.Votos) AS total'))
+        ->where('a.Id_Local', $id1)
+        ->where('a.Id_Mesa', $id2)
+        ->groupBy('b.Id_Lista')
+        ->orderBy('b.Id_Lista')
+        ->get();
+
+        $total = Votacion_Consejal::where('Id_Local', $id1)
+        ->where('Id_Mesa', $id2)
+        ->select(DB::raw('SUM(Votos) AS total'))
+        ->first();
+
+        $PDF = PDF::loadView('pdf.consejal_acta', compact('local_votacion', 'listas', 'ordenes', 'votaciones', 'totales', 'total', 'id2'));
 
     }
 
