@@ -114,7 +114,7 @@ class IntendenteController extends Controller
         $id->Activo = 0;
         $id->save();
 
-        return redirect()->route('intendente.index');
+        return redirect()->route('intendente.index')->with('msj', 'Se guardo con exito!.');;
         
     }
 

@@ -57,7 +57,7 @@ class ConsejalController extends Controller
 
     }
 
-    public function store(ConsejalRequest $request){        
+    public function store(ConsejalRequest $request){
         
         $id_user = auth()->id();
 
@@ -156,7 +156,7 @@ class ConsejalController extends Controller
         $id->Activo = 0;
         $id->save();
 
-        return redirect()->route('consejal.index');
+        return redirect()->route('consejal.index')->with('msj', 'Se guardo con exito!.');
 
     }
 
