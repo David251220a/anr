@@ -99,4 +99,67 @@ class ReporteConsejalController extends Controller{
 
     }
 
+    public function general_intendente(){
+
+        $sql_Call = 'CALL intendente_resumen()';
+
+        $votacion_intendente = DB::select($sql_Call); 
+
+        return view('reportes.intendente.general_intendente', compact('votacion_intendente'));
+
+    }
+
+    public function intendente_local(Request $request){
+
+        $local=trim($request->get('local'));
+
+        $local_votacion = DB::table('local_votacion')
+        ->orderBy('Id_Local', 'ASC' )
+        ->get();
+
+        $sql_Call = 'CALL intendente_local(?)';
+
+        if((empty($local)) || ($local == 99)){
+
+            $local = 99;
+            $votacion_intendente = DB::select($sql_Call, array($local)); 
+
+        }else{
+
+            $votacion_intendente = DB::select($sql_Call, array($local)); 
+
+        }
+
+        return view('reportes.intendente.local_intendente', compact('local', 'local_votacion', 'votacion_intendente'));
+
+    }
+
+    public function intendente_mesa(Request $request){
+        
+        $id_intendente=trim($request->get('id_intendente'));
+
+        $intendentes = DB::table('intendente AS a')
+        ->join('lista AS b', 'b.Id_Lista', '=', 'a.Id_Lista')
+        ->select('a.Id_Intendente'
+        , DB::raw('CONCAT(a.Nombre, " ", a.Apellido, " ", b.Desc_Lista, " - ", b.Alias) AS intendente'))
+        ->orderBy('a.Id_Lista', 'ASC' )
+        ->get();
+
+        $sql_Call = 'CALL intendente_mesa(?)';
+
+        if((empty($id_intendente)) || ($id_intendente == 9999)){
+
+            $id_intendente = 9999;
+            $votacion_intendente = DB::select($sql_Call, array($id_intendente)); 
+
+        }else{
+
+            $votacion_intendente = DB::select($sql_Call, array($id_intendente)); 
+
+        }
+
+        return view('reportes.intendente.mesa_intendente', compact('id_intendente', 'votacion_intendente', 'intendentes'));
+
+    }
+
 }

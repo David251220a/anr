@@ -6,19 +6,19 @@
 
         <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
             
-            {!! Form::open(array('route' => 'reportes.consejal_mesa', 'method'=>'GET', 'autocomplete'=>'off', 'role'=>'search')) !!}
+            {!! Form::open(array('route' => 'reportes.intendente_mesa', 'method'=>'GET', 'autocomplete'=>'off', 'role'=>'search')) !!}
 
             <div class="form-group">
 
                 <div class="input-group">
                     
-                    <select name="id_consejal" id="id_consejal" class="form-control selectpicker"  data-live-search="true">
+                    <select name="id_intendente" id="id_intendente" class="form-control selectpicker"  data-live-search="true">
                                 
-                        <option value="9999" @if(9999 == $id_consejal) selected="selected" @endif>TODOS LOS CONSEJALES</option>
+                        <option value="9999" @if(9999 == $id_intendente) selected="selected" @endif>TODOS LOS INTENDENTES</option>
                     
-                        @foreach ($consejales as $consejal)
+                        @foreach ($intendentes as $intendente)
                             
-                            <option value="{{$consejal->Id_Consejal}}" @if($consejal->Id_Consejal == $id_consejal) selected="selected" @endif>{{$consejal->consejal}} </option>
+                            <option value="{{$intendente->Id_Intendente}}" @if($intendente->Id_Intendente == $id_intendente) selected="selected" @endif>{{$intendente->intendente}} </option>
                     
                         @endforeach
                     
@@ -39,7 +39,7 @@
 
         <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
         
-            <a href=" {{ route('consejal_mesa', $id_consejal) }} " target="_blank">
+            <a href=" {{ route('intendente_mesa', $id_intendente) }} " target="_blank">
                 <button class="btn btn-info float-right"><li  class="fa fa-file-pdf-o"></li> PDF</button>
             </a>
         
@@ -51,9 +51,9 @@
 
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 
-            @if((empty($id_consejal)) || ($id_consejal == 9999))
+            @if((empty($id_intendente)) || ($id_intendente == 9999))
 
-                @foreach ($consejales as $consejal)
+                @foreach ($intendentes as $intendente)
 
                     <div class="table-responsive">
 
@@ -63,7 +63,7 @@
 
                                 <tr style="text-align: center">
                                     
-                                    <th colspan="2" style="text-align: center">{{$consejal->consejal}}</th>
+                                    <th colspan="2" style="text-align: center">{{$intendente->intendente}}</th>
                                     
                                 </tr>
                                 <tr style="text-align: center">
@@ -81,16 +81,16 @@
 
                             <tbody>
 
-                                @foreach ($votacion_consejal as $vot)
+                                @foreach ($votacion_intendente as $vot)
                             
-                                    @if($vot->Id_Consejal == $consejal->Id_Consejal)
+                                    @if($vot->Id_Intendente == $intendente->Id_Intendente)
                                         
                                         <tr style="text-align: center">
                                             
                                             <td>{{$vot->Mesa}}</td>
                                             <td style="text-align: right">{{number_format($vot->votos,0, ".", ".")}}</td>
                                             @php
-                                                $total = $vot->consejal_votos;
+                                                $total = $vot->intendentes_votos;
                                             @endphp                                                                                        
                                             
                                         </tr>
@@ -121,22 +121,22 @@
             @else
 
                 @php
-                    $consejal_1= "";
+                    $inte_1= "";
                 @endphp
 
-                @foreach ($consejales as $conse)
+                @foreach ($intendentes as $inte)
                     
-                    @if ($conse->Id_Consejal == $id_consejal)
+                    @if ($inte->Id_Intendente == $id_intendente)
 
                         @php
-                            $consejal_1= $conse->consejal;
+                            $inte_1= $inte->intendente;
                         @endphp
                         
                     @endif
 
                 @endforeach
 
-                @if ($votacion_consejal)
+                @if ($votacion_intendente)
 
                     <div class="table-responsive">
 
@@ -146,7 +146,7 @@
 
                                 <tr style="text-align: center">
                                     
-                                    <th colspan="2" style="text-align: center">{{$consejal_1}}</th>
+                                    <th colspan="2" style="text-align: center">{{$inte_1}}</th>
                                     
                                 </tr>
 
@@ -161,14 +161,14 @@
 
                             <tbody>
 
-                                @foreach ($votacion_consejal as $vot)
+                                @foreach ($votacion_intendente as $vot)
                                         
                                     <tr style="text-align: center">
                                         
                                         <td>{{$vot->Mesa}}</td>
                                         <td style="text-align: right">{{number_format($vot->votos,0, ".", ".")}}</td>
                                         @php
-                                            $total = $vot->consejal_votos;
+                                            $total = $vot->intendentes_votos;
                                         @endphp                                                                                        
                                         
                                     </tr>
@@ -191,9 +191,10 @@
                         </table>
 
                     </div>
-
-                @endif
                 
+                @endif
+
+
                 
             @endif
 

@@ -1,19 +1,3 @@
-@php
-    $total_voto = 0
-@endphp
-
-@if(empty($aux->cont))
-
-@else
-
-    @foreach ($votacion_intendente as $vota)
-
-        @php $total_voto += $vota->Votos  @endphp        
-        
-    @endforeach
-
-@endif
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -32,39 +16,45 @@
     <div class="container">
 
         <u><h3 align="center" ><strong>Resumen General de Votos</strong></h3></u>
+        <br>
+
+        @if($votacion_intendente)
         
-        <br>        
-
-        @if(empty($aux->cont))
-
-        @else        
-
             <div class="table table-responsive table-bordered">
                 
                 <table class="table">
                 
-                    <thead class="thead-light">                    
+                    <thead class="thead-light">
 
                         <tr style="text-align: center">
                             <th scope="col">Lista</th>
                             <th scope="col">Intendente</th>
                             <th scope="col">Votos</th>
                         </tr>
+                    
                     </thead>
                     
+                    @php
+                        $total= 0;
+                    @endphp
+
                     <tbody>
+
                         @foreach ($votacion_intendente as $vot)
                             
                             <tr style="text-align: center">
                                 
-                                <th scope="row">{{$vot->Desc_Lista}}</th>
-                                <td>{{$vot->Nombre}} {{$vot->Apellido}}</td>
-                                <td style="text-align: right">{{number_format($vot->Votos,0, ".", ".")}}</td>
+                                <th scope="row">{{$vot->Desc_Lista}}-{{$vot->Alias}}</th>
+                                <td>{{$vot->Intendente}}</td>
+                                <td style="text-align: right">{{number_format($vot->votos,0, ".", ".")}}</td>
                                 
                             </tr>
-                        
-                        @endforeach                    
 
+                            @php
+                                $total = $vot->total_general;
+                            @endphp
+                        
+                        @endforeach
 
                     </tbody>
 
@@ -72,8 +62,8 @@
 
                         <tr>
 
-                            <td colspan="2">Total de Votos</td> 
-                            <td style="text-align: right"> <b>{{number_format($total_voto,0, ".", ".")}} </b></td>
+                            <td colspan="2" style="text-align: center"> <b> Total de Votos </b></td> 
+                            <td style="text-align: right"> <b>{{number_format($total,0, ".", ".")}} </b></td>
 
                         </tr>
                     
@@ -86,7 +76,6 @@
         @endif
 
     </div>
-    
     
 </body>
 </html>

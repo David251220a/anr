@@ -1,47 +1,3 @@
-@php $intendente_voto_1 = 0 @endphp
-
-@php $intendente_voto_2 = 0 @endphp
-
-@php $intendente_voto_3 = 0 @endphp
-
-@php $intendente_voto_4 = 0 @endphp
-
-@php $intendente_voto_5 = 0 @endphp
-
-@foreach ($resumen_mesa as $res)
-
-    @if($res->Id_Intendente == 1)
-
-        @php $intendente_voto_1 += $res->Votos @endphp           
-
-    @endif
-
-    @if($res->Id_Intendente == 2)
-
-        @php $intendente_voto_2 += $res->Votos @endphp           
-
-    @endif
-    
-    @if($res->Id_Intendente == 3)
-
-        @php $intendente_voto_3 += $res->Votos @endphp           
-
-    @endif
-
-    @if($res->Id_Intendente == 4)
-
-        @php $intendente_voto_4 += $res->Votos @endphp
-
-    @endif
-
-    @if($res->Id_Intendente == 5)
-
-        @php $intendente_voto_5 += $res->Votos @endphp           
-
-    @endif
-
-@endforeach
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -63,96 +19,161 @@
         
         <br>                
         
-        @foreach ($intendente as $int)
+        @if ($id == 9999)        
+        
+            @foreach ($intendentes as $intendente)
 
-            <div class="table table-responsive table-bordered">
-                
-                <table class="table">
-                                                        
-                    <thead class="thead-light">                    
+                <div class="table table-responsive table-bordered">
+                    
+                    <table class="table">
+                                                            
+                        <thead class="thead-light">                    
 
-                        <tr style="text-align: center">
-                            
-                            <th colspan="2">{{$int->Nombre}} {{$int->Apellido}}</th>
-                            
-                        </tr>
-                        <tr style="text-align: center">
-
-                            <th scope="col">Mesa</th>                                
-                            <th scope="col">Votos</th>
-
-                        </tr>
-
-                    </thead>
-
-                    <tbody>
-
-                        @foreach ($resumen_mesa as $resu)
-                            
-                            @if($int->Id_Intendente == $resu->Id_Intendente)
+                            <tr style="text-align: center">
                                 
+                                <th colspan="2">{{$intendente->intendente}}</th>
+                                
+                            </tr>
+                            <tr style="text-align: center">
+
+                                <th scope="col">Mesa</th>                                
+                                <th scope="col">Votos</th>
+
+                            </tr>
+
+                        </thead>
+                        
+                        @php
+                            $total= 0;
+                        @endphp
+                        
+                        <tbody>
+
+                            @foreach ($votacion_intendente as $vot)
+                                
+                                @if($vot->Id_Intendente == $intendente->Id_Intendente)
+                                    
+                                    <tr style="text-align: center">
+                                        
+                                        <th scope="row">{{$vot->Mesa}}</th>                                    
+                                        <td style="text-align: right">{{number_format($vot->votos,0, ".", ".")}}</td>
+                                        @php
+                                            $total = $vot->intendentes_votos;
+                                        @endphp 
+                                        
+                                    </tr>
+
+                                @endif
+
+                            @endforeach
+
+
+                        </tbody>
+
+                        <tfoot>
+                            
+                            <tr style="background-color:#f71808a8">
+
+                                <th> <b>Total de Votos</b></th>
+                                <th style="text-align: right"><b>{{number_format($total,0, ".", ".")}} </b></th>
+
+                            </tr>
+                        
+                        </tfoot>
+
+                    </table>
+
+                </div>
+
+            @endforeach
+
+            
+                
+        @else
+
+            @php
+                $inte_1= "";
+            @endphp
+
+            @foreach ($intendentes as $inte)
+                
+                @if ($inte->Id_Intendente == $id)
+
+                    @php
+                        $inte_1= $inte->intendente;
+                    @endphp
+                    
+                @endif
+
+            @endforeach
+
+            @if ($votacion_intendente)
+
+                <div class="table table-responsive table-bordered">
+                            
+                    <table class="table">
+                                                            
+                        <thead class="thead-light">                    
+
+                            <tr style="text-align: center">
+                                
+                                <th colspan="2">{{$inte_1}}</th>
+                                
+                            </tr>
+                            <tr style="text-align: center">
+
+                                <th scope="col">Mesa</th>                                
+                                <th scope="col">Votos</th>
+
+                            </tr>
+
+                        </thead>
+                        
+                        @php
+                            $total= 0;
+                        @endphp
+                        
+                        <tbody>
+
+                            @foreach ($votacion_intendente as $vot)
+                                    
                                 <tr style="text-align: center">
                                     
-                                    <th scope="row">{{$resu->Mesa}}</th>                                    
-                                    <td style="text-align: right">{{number_format($resu->Votos,0, ".", ".")}}</td>
+                                    <th scope="row">{{$vot->Mesa}}</th>                                    
+                                    <td style="text-align: right">{{number_format($vot->votos,0, ".", ".")}}</td>
+                                    @php
+                                        $total = $vot->intendentes_votos;
+                                    @endphp 
                                     
                                 </tr>
 
-                            @endif
-
-                        @endforeach
+                            @endforeach
 
 
-                    </tbody>
+                        </tbody>
 
-                    <tfoot>
-
-                        <tr>
-
-                            <th scope="row">Total de Votos</th>
+                        <tfoot>
                             
-                            @if($int->Id_Intendente == 1)
-                                
-                                <td style="text-align: right"> <b>{{number_format($intendente_voto_1,0, ".", ".")}} </b></td>
+                            <tr style="background-color:#f71808a8">
 
-                            @endif
-                            
-                            @if($int->Id_Intendente == 2)
-                                
-                                <td style="text-align: right"> <b>{{number_format($intendente_voto_2,0, ".", ".")}} </b></td>
+                                <th> <b>Total de Votos</b></th>
+                                <th style="text-align: right"><b>{{number_format($total,0, ".", ".")}} </b></th>
 
-                            @endif
+                            </tr>
+                        
+                        </tfoot>
 
-                            @if($int->Id_Intendente == 3)
-                                
-                                <td style="text-align: right"> <b>{{number_format($intendente_voto_3, 0, ".", ".")}} </b></td>
+                    </table>
 
-                            @endif
-                            
-                            @if($int->Id_Intendente == 4)
-                                
-                                <td style="text-align: right"> <b>{{number_format($intendente_voto_4, 0, ".", ".")}} </b></td>
+                </div>
 
-                            @endif
-                            
-                            @if($int->Id_Intendente == 5)
-                                
-                                <td style="text-align: right"> <b>{{number_format($intendente_voto_5, 0, ".", ".")}} </b></td>
-
-                            @endif
-                        </tr>
-                    
-                    </tfoot>                    
-
-                </table>
-
-            </div>
+            @endif
             
-            <br>
-
-        @endforeach
+        @endif
+        
 
     </div>    
     
 </body>
+
 </html>

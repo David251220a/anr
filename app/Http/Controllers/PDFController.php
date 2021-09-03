@@ -19,77 +19,43 @@ class PDFController extends Controller
 
     public function Resumen_General(){
 
-        $sql_Call = 'CALL pdf_resumen_general()';
+        $sql_Call = 'CALL intendente_resumen()';
 
-        $votacion_intendente = DB::select($sql_Call);
+        $votacion_intendente = DB::select($sql_Call); 
         
-        $aux = DB::table('votacion_intendente')        
-        ->select('Id_Intendente'            
-        , DB::raw('COUNT(`Votos`) AS cont'))        
-        ->groupBy('Id_Intendente')            
-        ->first();
-        
-        
-        $PDF = PDF::loadView('pdf.intendente_resumen',["votacion_intendente"=>$votacion_intendente
-        , "aux"=>$aux]);      
+        $PDF = PDF::loadView('pdf.intendente_resumen', compact('votacion_intendente'));
                 
         return $PDF->stream();
     }
 
-    public function Resumen_Local(){
+    public function Resumen_Local($id){
 
-        $votacion_intendente = DB::table('votacion_intendente AS a')
-        ->join('intendente AS b','b.Id_Intendente','=','a.Id_Intendente')        
-        ->join('lista AS c','c.Id_Lista','=','b.Id_Lista')
-        ->select('a.Id_Intendente'            
-        , DB::raw('SUM(a.`Votos`) AS Votos')
-        , 'b.Apellido'
-        , 'b.Nombre'
-        , 'c.Desc_Lista'
-        , 'a.Id_Local')
-        ->groupBy('a.Id_Intendente'
-        , 'b.Apellido'
-        , 'b.Nombre'
-        , 'c.Desc_Lista'
-        , 'a.Id_Local')
-        ->orderBy('a.Id_Intendente', 'ASC')        
-        ->get();
+        $sql_Call = 'CALL intendente_local(?)';
+        $votacion_intendente = DB::select($sql_Call, array($id)); 
         
         $local_votacion = DB::table('local_votacion')
         ->orderBy('Id_Local', 'ASC' )
         ->get();        
-                
-        $PDF = PDF::loadView('pdf.intendente_local_resumen',["votacion_intendente"=>$votacion_intendente
-        , "local_votacion"=>$local_votacion]);
+        
+        $PDF = PDF::loadView('pdf.intendente_local_resumen', compact('votacion_intendente', 'local_votacion', 'id'));
 
         return $PDF->stream();
     }
 
-    public function Resumen_Mesa(){
+    public function Resumen_Mesa($id){
 
-        $resumen_mesa = DB::table('votacion_intendente AS a')
-        ->join('intendente AS b','b.Id_Intendente','=','a.Id_Intendente')
-        ->join('mesa AS c','c.Id_Mesa','=','a.Id_Mesa')
-        ->select('a.Id_Intendente'            
-        , DB::raw('SUM(a.`Votos`) AS Votos')
-        , 'b.Apellido'
-        , 'b.Nombre'
-        , 'a.Id_Mesa'
-        , 'c.Mesa')        
-        ->groupBy('a.Id_Intendente'
-        , 'b.Apellido'
-        , 'b.Nombre'
-        , 'a.Id_Mesa'
-        , 'c.Mesa')
-        ->orderBy('a.Id_Intendente', 'ASC' )
+        $intendentes = DB::table('intendente AS a')
+        ->join('lista AS b', 'b.Id_Lista', '=', 'a.Id_Lista')
+        ->select('a.Id_Intendente'
+        , DB::raw('CONCAT(a.Nombre, " ", a.Apellido, " ", b.Desc_Lista, " - ", b.Alias) AS intendente'))
+        ->orderBy('a.Id_Lista', 'ASC' )
         ->get();
 
-        $intendente = DB::table('intendente')
-        ->orderBy('Id_Intendente', 'ASC' )
-        ->get();
+        $sql_Call = 'CALL intendente_mesa(?)';
 
-        $PDF = PDF::loadView('pdf.intendente_mesa_resumen',["resumen_mesa"=>$resumen_mesa
-        , "intendente"=>$intendente]);
+        $votacion_intendente = DB::select($sql_Call, array($id)); 
+        
+        $PDF = PDF::loadView('pdf.intendente_mesa_resumen', compact('id', 'votacion_intendente', 'intendentes'));
 
         return $PDF->stream();
 
