@@ -115,7 +115,7 @@
                 <header style="background: url(manuel.jpg)">
                 </header>
 
-                <header class="prueba" style="background: url(manuel.jpg)">
+                <header class="prueba" style="background: url({{Auth::user()->url}})">
 
                 </header>
 

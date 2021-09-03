@@ -17,13 +17,12 @@
             }
 
             header {
-                position: fixed;                
-                top: 0cm;
-                left: 0cm;
-                right: 0cm;
-                height: 200px;
-                width: 200px;
-                background: url(justicia.jpg);
+                position: fixed;
+                margin-left: 0.1cm;
+                margin-top: 0.1cm;
+                height: 105px;
+                width: 110px;
+                background: url(manuel_1.jpg);
                 color: white;
                 text-align: center;
                 line-height: 50px;
@@ -55,7 +54,7 @@
             .caja{
                 background: white;
                 width: 90%;
-                height: 250px;
+                height: 100px;
                 margin-top: 150px;
                 margin-left: 50px;
                 border-width: 2px;
@@ -82,7 +81,7 @@
             p.mypline{
                 margin-left: 2px;
                 margin-bottom: 1px;
-                margin-top: 80px;
+                margin-top: 10px;
                 border: 2px;
                 border-width: 2px;
                 border-style: solid;
@@ -125,13 +124,13 @@
             <div class="row">
 
                 <p class="mypline" style="font-size: 1.2rem"> 
-                    ELECIONES MUNICIPALES: ELECCIÓN DE INTENDENTE
+                    ELECIONES MUNICIPALES: ELECCIÓN DE CONSEJAL
                     <br>                    
                     DEPTO    : 11 - CENTRAL
                     <br>
                     DISTRITO : 15 - LIMPIO 
                     <br>
-                    LOCAL    : {{$local->Desc_Local}}
+                    LOCAL    : {{$local_votacion->Desc_Local}}
                     <br>
                     MESA     : {{$id2}}
 
