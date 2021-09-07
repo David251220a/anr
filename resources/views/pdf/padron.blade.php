@@ -119,7 +119,7 @@
                     </header> 
                 @else
                 
-                   <header>                
+                <header style="background: url('manuel.jpg')">
                     </header>
                     
                 @endif

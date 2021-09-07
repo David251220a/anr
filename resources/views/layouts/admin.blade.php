@@ -221,6 +221,7 @@
                                 @if (Auth::user())
                                   <input type="hidden" id="prol" name="prol"  value="{{Auth::user()->id_rol}}" class="form-control">    
                                 @endif
+                                <input type="hidden" id="prol" name="prol"  value="0" class="form-control">    
                                 
 		                          <!--Fin Contenido-->
                            </div>
@@ -272,7 +273,14 @@
 
   $(document).ready(function(){
 
-    ocultar();    
+    // var id_rol = document.getElementById("#prol").value();
+    var id_rol = ((document.getElementById("prol")||{}).value)||"";
+
+    if(id_rol != 0){
+
+      ocultar();    
+
+    }
   
   });
 
