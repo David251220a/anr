@@ -307,7 +307,7 @@
       $("#votacion").remove();
       $("#reset").remove();
       $("#aporedados").remove();
-      $("#mesa").remove();
+      // $("#mesa").remove();
       $("#auditoria").remove();
       $("#votacion").remove();
       $("#reportes").remove();

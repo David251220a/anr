@@ -80,29 +80,6 @@
                             <tr>
                                 <td style="text-align: center">ORDEN : <b>{{$votante->orden}} </b></td>
                             </tr>
-                            {!! Form::open(['route' => 'consulta.padron_celular_store', 'method'=>'POST', 'autocomplete' => 'off', 'files' => true]) !!}
-                                <tr>
-                                    <td style="text-align: center">Comprometido:  {!! Form::checkbox('comprometido', null, $votante->comprometido) !!}</td>
-                                    <input type="hidden" name="codpadron" value="{{$votante->CodPadron}}">
-                                </tr>
-
-                                <tr style="display: none">
-                                    <td style="text-align: center">Voto :  {!! Form::checkbox('voto', null, $votante->voto) !!} </td>
-                                </tr>
-
-                                <tr style="display: none">
-                                    <td style="text-align: center"><b>Referente</b></td>
-                                </tr>
-
-                                <tr>
-                                    <td style="text-align: center"><input type="text" style="width: 300px; text-align: center" name="referente" value="{{$votante->apellido_nombre_Referente}}"></td>
-                                </tr>
-
-                                <tr>
-                                    <td style="text-align: center"><button style="font-size: 1.2rem" class="btn btn-success btn-sm float-right" type="submit">OK</button> </td>
-                                </tr>
-
-                            {!! Form::close() !!}
                             <tr>
 
                                 <td style="text-align: center" width="30px">
@@ -112,6 +89,35 @@
                                 </td>
 
                             </tr>
+                            
+                            <tr style="text-align: center">
+                                <td><button id="btn_ver" class="btn btn-primary btn-sm">Ver Mas</button></td>
+                            </tr>
+                            
+                            {!! Form::open(['route' => 'consulta.padron_celular_store', 'method'=>'POST', 'autocomplete' => 'off', 'files' => true]) !!}
+                                <tr>
+                                    <td style="display: none" class="ver centro">Comprometido:  {!! Form::checkbox('comprometido', null, $votante->comprometido) !!}</td>
+                                    <input type="hidden" name="codpadron" value="{{$votante->CodPadron}}">
+                                </tr>
+
+                                <tr>
+                                    <td style="display: none" class="ver centro">Voto :  {!! Form::checkbox('voto', null, $votante->voto) !!} </td>
+                                </tr>
+
+                                <tr>
+                                    <td style="display: none" class="ver centro"><b>Referente</b></td>
+                                </tr>
+
+                                <tr>
+                                    <td style="display: none" class="ver centro"><input type="text" style="width: 300px; text-align: center" name="referente" value="{{$votante->apellido_nombre_Referente}}"></td>
+                                </tr>
+
+                                <tr>
+                                    <td style="display: none" class="ver centro"><button style="font-size: 1.2rem" class="btn btn-success btn-sm float-right" type="submit">OK</button> </td>
+                                </tr>
+
+                            {!! Form::close() !!}
+                            
                             
                         </tbody>
                         
@@ -187,26 +193,6 @@
                             <tr>
                                 <td style="text-align: center">ORDEN : <b>{{$votante->orden}} </b></td>
                             </tr>
-                            {!! Form::open(['route' => 'consulta.padron_celular_store', 'method'=>'POST', 'autocomplete' => 'off', 'files' => true]) !!}
-                                <tr>
-                                    <td style="text-align: center">Comprometido:  {!! Form::checkbox('comprometido', null, $votante->comprometido) !!}</td>
-                                    <input type="hidden" name="codpadron" value="{{$votante->CodPadron}}">
-                                </tr>
-                                
-                                <tr style="display: none">
-                                    <td style="text-align: center; font-size: 1.2rem ; display: none">Voto : {!! Form::checkbox('voto', null, $votante->voto) !!} </td>
-                                </tr>
-                                <tr>
-                                    <td style="text-align: center"><b>Referente</b></td>
-                                </tr>
-                                <tr>
-                                    <td style="text-align: center"><input type="text" style="width: 300px; text-align: center" name="referente" value="{{$votante->apellido_nombre_Referente}}"></td>
-                                </tr>
-
-                                <tr>
-                                    <td style="text-align: center"><button style="font-size: 1.2rem" class="btn btn-success btn-sm float-right" type="submit">OK</button> </td>
-                                </tr>
-                            {!! Form::close() !!}
                             <tr>
 
                                 <td style="text-align: center" width="30px">
@@ -216,6 +202,35 @@
                                 </td>
 
                             </tr>
+                            
+                            <tr style="text-align: center">
+                                <td><button id="btn_ver1" class="btn btn-primary btn-sm">Ver Mas</button></td>
+                            </tr>
+                            
+                            {!! Form::open(['route' => 'consulta.padron_celular_store', 'method'=>'POST', 'autocomplete' => 'off', 'files' => true]) !!}
+                                <tr>
+                                    <td style="display: none" class="ver1 centro1">Comprometido:  {!! Form::checkbox('comprometido', null, $votante->comprometido) !!}</td>
+                                    <input type="hidden" name="codpadron" value="{{$votante->CodPadron}}">
+                                </tr>
+
+                                <tr>
+                                    <td style="display: none" class="ver1 centro1">Voto :  {!! Form::checkbox('voto', null, $votante->voto) !!} </td>
+                                </tr>
+
+                                <tr>
+                                    <td style="display: none" class="ver1 centro1"><b>Referente</b></td>
+                                </tr>
+
+                                <tr>
+                                    <td style="display: none" class="ver1 centro1"><input type="text" style="width: 300px; text-align: center" name="referente" value="{{$votante->apellido_nombre_Referente}}"></td>
+                                </tr>
+
+                                <tr>
+                                    <td style="display: none" class="ver1 centro1"><button style="font-size: 1.2rem" class="btn btn-success btn-sm float-right" type="submit">OK</button> </td>
+                                </tr>
+
+                            {!! Form::close() !!}
+                            
                             
                         </tbody>
                         
@@ -277,6 +292,42 @@
 
                         $("#pantalla_grande").css("display", "none");
                         $("#pantalla_pequeno").css("display", "block");
+
+                    }
+                    
+                });
+
+                $("#btn_ver").on('click',function(event){
+                    
+                    var isVisible = $('.ver').is(":visible");
+
+                    if(isVisible == true){
+
+                        $('.ver').css("display", "none");
+                        $('.centro').css("text-align", "center");
+
+                    }else{
+                        
+                        $('.ver').css("display", "block");
+                        $('.centro').css("text-align", "center");
+
+                    }
+                    
+                });
+
+                $("#btn_ver1").on('click',function(event){
+                    
+                    var isVisible = $('.ver1').is(":visible");
+
+                    if(isVisible == true){
+
+                        $('.ver1').css("display", "none");
+                        $('.centro1').css("text-align", "center");
+
+                    }else{
+                        
+                        $('.ver1').css("display", "block");
+                        $('.centro1').css("text-align", "center");
 
                     }
                     
