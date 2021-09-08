@@ -72,6 +72,7 @@ class acc_UsuarioController extends Controller
             $user->email = $request->get('email');
             $user->id_rol = $request->get('id_rol');
             $user->url = $request->get('url').".jpg";
+            $user->url_1 = $request->get('url')."_pequeno.jpg";
             $user->password =  bcrypt($request->get('contraseña'));            
             $user->api_token=Str::random(60);
 
@@ -131,8 +132,10 @@ class acc_UsuarioController extends Controller
         $usuario = User::find($id);
 
         $url =  $request->get('url') . '.jpg';
+        $url_1 =  $request->get('url') . '_pequeno.jpg';
         
         $usuario->url = $url;
+        $usuario->url_1 = $url_1;
         $usuario->name = $request->get('name');
         $usuario->email = $request->get('email');
         $usuario->id_rol = $request->get('id_rol');

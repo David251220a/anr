@@ -8,28 +8,27 @@
             
             {!! Form::open(array('route' => 'reportes.intendente', 'method'=>'GET', 'autocomplete'=>'off', 'role'=>'search')) !!}
 
-            <div class="form-group">
+                <div class="form-group">
 
-                <div class="input-group">
-                    
-                    <select name="id_intendente" id="id_intendente" class="form-control selectpicker"  data-live-search="true">
-                    
-                        @foreach ($intendentes as $intendente)
-                            
-                            <option value="{{$intendente->Id_Intendente}}" @if($intendente->Id_Intendente == $id_intendente) selected="selected" @endif>{{$intendente->intendente}} </option>
-                    
-                        @endforeach
-                    
-                    </select>
-                
-                    <span class="input-group-btn">
-                        <button type="submit" class="btn btn-primary">Buscar </button>
-                    </span>
+                    <div class="input-group">
                         
+                        <select name="id_intendente" id="id_intendente" class="form-control selectpicker"  data-live-search="true">
+                        
+                            @foreach ($intendentes as $intendente)
+                                
+                                <option value="{{$intendente->Id_Intendente}}" @if($intendente->Id_Intendente == $id_intendente) selected="selected" @endif>{{$intendente->intendente}} </option>
+                        
+                            @endforeach
+                        
+                        </select>
+                    
+                        <span class="input-group-btn">
+                            <button type="submit" class="btn btn-primary">Buscar </button>
+                        </span>
+                            
+                    </div>
 
                 </div>
-
-            </div>
         
             {{Form::close() }}
 

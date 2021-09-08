@@ -2,6 +2,9 @@
     $total = 0;
 @endphp
 @php
+    $total_voto = 0;
+@endphp
+@php
     $nombre_referente= "";
 @endphp
 
@@ -13,6 +16,11 @@
     @php
         $nombre_referente= $comprometido->apellido_nombre_Referente;
     @endphp
+    @if ($comprometido->voto == 1)
+        @php
+            $total_voto = $total_voto + 1;
+        @endphp
+    @endif
 
 @endforeach
 
@@ -89,6 +97,7 @@
                         <th scope="col" style="text-align: center">M</th>
                         <th scope="col" style="text-align: center">O</th>
                         <th scope="col" style="text-align: center">C</th>
+                        <th scope="col" style="text-align: center">V</th>
 
                     </tr>
                 </thead>
@@ -104,7 +113,8 @@
                             <td style="text-align: center">{{$comprometido->Desc_Local}}</td>
                             <td style="text-align: right">{{$comprometido->mesa}}</td>
                             <td style="text-align: right">{{$comprometido->orden}}</td>
-                            <td style="text-align: center"> {!! Form::checkbox('voto', null, $comprometido->comprometido) !!} </td>
+                            <td style="text-align: center"> {!! Form::checkbox('comprometido', null, $comprometido->comprometido) !!} </td>
+                            <td style="text-align: center">{!! Form::checkbox('voto', null, $comprometido->voto) !!} </td>
 
                         </tr>
                     @endforeach
@@ -116,7 +126,14 @@
                     <tr style="background-color:#f71808a8">
 
                         <td colspan="5" style="text-align: center"><b> TOTAL DE COMPROMETIDOS </b></td>
-                        <td style="text-align: right"><b>{{number_format($total, 0, ".", ".")}}</b></td>
+                        <td colspan="2" style="text-align: right"><b>{{number_format($total, 0, ".", ".")}}</b></td>
+
+                    </tr>
+
+                    <tr style="background-color:#f71808a8">
+
+                        <td colspan="5" style="text-align: center"><b> TOTAL DE VOTADOS </b></td>
+                        <td colspan="2" style="text-align: right"><b>{{number_format($total_voto, 0, ".", ".")}}</b></td>
 
                     </tr>
 

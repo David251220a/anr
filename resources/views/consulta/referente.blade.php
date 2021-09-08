@@ -2,12 +2,12 @@
 
 @section('contenido')
 
-    {!! Form::open(array('route' => 'consulta.referente', 'method'=>'GET', 'autocomplete'=>'off', 'role'=>'search')) !!}
-            
-        <div class="row">
+    <div class="row">
 
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            
+        <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+
+            {!! Form::open(array('route' => 'consulta.referente', 'method'=>'GET', 'autocomplete'=>'off', 'role'=>'search')) !!}
+                            
                 <div class="form-group">
 
                     <div class="input-group">
@@ -31,28 +31,26 @@
                     </div>
 
                 </div>
-            
-            </div>
+
+            {{Form::close() }}
 
         </div>
 
-    {{Form::close() }}
+        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
 
-    <div class="row">
-
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-    
             @if (99 != $referente)
                             
                 <a class="btn btn-secondary btn-sm float-right" href=" {{ route('referente_pdf', $referente) }}" target="_blank">
-                    <button class="btn btn-info float-right"><li  class="fa fa-file-pdf-o"></li> PDF</button>
+                    <button class="btn btn-info"><li  class="fa fa-file-pdf-o"></li> PDF</button>
                 </a>
 
             @endif
 
         </div>
-        
+
     </div>
+
+    <br>
     
 
     <div class="row">

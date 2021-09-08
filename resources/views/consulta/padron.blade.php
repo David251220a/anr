@@ -34,7 +34,7 @@
                         <thead>
 
                             <tr style="text-align: center">
-                                <th style="vertical-align:middle; text-align:center"><img src="{{asset('manuel_pequeno.jpg')}}"></th>
+                                <th style="vertical-align:middle; text-align:center"><img src="{{asset('manuel.jpg')}}"></th>
                             </tr>
 
                         </thead>
@@ -197,7 +197,7 @@
                 var ventana_alto =$(window).height();
                 var ventana_ancho =$(window).width();
 
-                if(ventana_alto >= 600  && ventana_ancho >= 400){
+                if(ventana_alto >= 600  && ventana_ancho >= 600){
 
                     $("#pantalla_grande").css("display", "block");
                     $("#pantalla_pequeno").css("display", "none");
@@ -213,7 +213,7 @@
                     var ventana_alto1 =$(window).height();
                     var ventana_ancho1 =$(window).width();
 
-                    if((ventana_alto1 > 600 ) && (ventana_ancho1 > 400)){
+                    if((ventana_alto1 > 600 ) && (ventana_ancho1 > 600)){
 
                         $("#pantalla_grande").css("display", "block");
                         $("#pantalla_pequeno").css("display", "none");
