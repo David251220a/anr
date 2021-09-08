@@ -2,8 +2,20 @@
 
 @section('contenido')
 
-    {!! Form::open(array('route' => 'consulta.padron', 'method'=>'GET', 'autocomplete'=>'off', 'role'=>'search')) !!}
-    
+    <div class="row">
+
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+            @if (session()->has('msj'))
+            
+                <div class="alert alert-danger" role="alert">{{session('msj')}}</div>
+                
+            @endif        
+
+        </div>
+
+    </div>
+    {!! Form::open(array('route' => 'consulta.padron_celular', 'method'=>'GET', 'autocomplete'=>'off', 'role'=>'search')) !!}
 
         <div class="form-group">
 
@@ -34,7 +46,7 @@
                         <thead>
 
                             <tr style="text-align: center">
-                                <th style="vertical-align:middle; text-align:center"><img src="{{asset('manuel_pequeno.jpg')}}"></th>
+                                <th style="vertical-align:middle; text-align:center"><img src="{{asset(Auth::user()->url)}}"></th>
                             </tr>
 
                         </thead>
@@ -68,6 +80,29 @@
                             <tr>
                                 <td style="text-align: center">ORDEN : <b>{{$votante->orden}} </b></td>
                             </tr>
+                            {!! Form::open(['route' => 'consulta.padron_celular_store', 'method'=>'POST', 'autocomplete' => 'off', 'files' => true]) !!}
+                                <tr>
+                                    <td style="text-align: center">Comprometido:  {!! Form::checkbox('comprometido', null, $votante->comprometido) !!}</td>
+                                    <input type="hidden" name="codpadron" value="{{$votante->CodPadron}}">
+                                </tr>
+
+                                <tr style="display: none">
+                                    <td style="text-align: center">Voto :  {!! Form::checkbox('voto', null, $votante->voto) !!} </td>
+                                </tr>
+
+                                <tr style="display: none">
+                                    <td style="text-align: center"><b>Referente</b></td>
+                                </tr>
+
+                                <tr>
+                                    <td style="text-align: center"><input type="text" style="width: 300px; text-align: center" name="referente" value="{{$votante->apellido_nombre_Referente}}"></td>
+                                </tr>
+
+                                <tr>
+                                    <td style="text-align: center"><button style="font-size: 1.2rem" class="btn btn-success btn-sm float-right" type="submit">OK</button> </td>
+                                </tr>
+
+                            {!! Form::close() !!}
                             <tr>
 
                                 <td style="text-align: center" width="30px">
@@ -152,6 +187,26 @@
                             <tr>
                                 <td style="text-align: center">ORDEN : <b>{{$votante->orden}} </b></td>
                             </tr>
+                            {!! Form::open(['route' => 'consulta.padron_celular_store', 'method'=>'POST', 'autocomplete' => 'off', 'files' => true]) !!}
+                                <tr>
+                                    <td style="text-align: center">Comprometido:  {!! Form::checkbox('comprometido', null, $votante->comprometido) !!}</td>
+                                    <input type="hidden" name="codpadron" value="{{$votante->CodPadron}}">
+                                </tr>
+                                
+                                <tr style="display: none">
+                                    <td style="text-align: center; font-size: 1.2rem ; display: none">Voto : {!! Form::checkbox('voto', null, $votante->voto) !!} </td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: center"><b>Referente</b></td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: center"><input type="text" style="width: 300px; text-align: center" name="referente" value="{{$votante->apellido_nombre_Referente}}"></td>
+                                </tr>
+
+                                <tr>
+                                    <td style="text-align: center"><button style="font-size: 1.2rem" class="btn btn-success btn-sm float-right" type="submit">OK</button> </td>
+                                </tr>
+                            {!! Form::close() !!}
                             <tr>
 
                                 <td style="text-align: center" width="30px">

@@ -2,22 +2,9 @@
 
 @section('contenido')
 
-    <div class="row">
+    {!! Form::open(array('route' => 'consulta.padron', 'method'=>'GET', 'autocomplete'=>'off', 'role'=>'search')) !!}
+    
 
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-
-            @if (session()->has('msj'))
-            
-                <div class="alert alert-danger" role="alert">{{session('msj')}}</div>
-                
-            @endif        
-
-        </div>
-
-    </div>
-
-    {!! Form::open(array('route' => 'consulta.index', 'method'=>'GET', 'autocomplete'=>'off', 'role'=>'search')) !!}
-        
         <div class="form-group">
 
             <div class="input-group">
@@ -49,10 +36,8 @@
                         <th style="text-align: center; font-size: 1.2rem">Local</th>
                         <th style="text-align: center; font-size: 1.2rem">M</th>
                         <th style="text-align: center; font-size: 1.2rem">O</th>
-                        <th style="text-align: center; font-size: 1.2rem">C</th>
-                        <th style="text-align: center; font-size: 1.2rem; display: none">V</th>
-                        <th style="text-align: center; font-size: 1.2rem">Referente</th>
-                        <th style="text-align: center; font-size: 1.2rem">OK</th>
+                        <th style="text-align: center; font-size: 1.2rem">Celular</th>
+                        <th style="text-align: center; font-size: 1.2rem">Enviar</th>
                         <th style="text-align: center; font-size: 1.2rem">PDF</th>
                         
                     </thead>
@@ -60,29 +45,36 @@
                     @if (count($votante))
 
                         <tbody>
-
+                            @php
+                                $indice = 0;
+                            @endphp
                             @foreach ($votante as $vota)
                             
                                 <tr>
-                                    {!! Form::open(['route' => 'consulta.store', 'autocomplete' => 'off', 'files' => true]) !!}
-                                    <td style="text-align: right; font-size: 1.2rem">{{number_format($vota->cedula, 0, ".", ".")}} <input type="hidden" name="codpadron" value="{{$vota->CodPadron}}"></td>
+                                    
+                                    <td style="text-align: right; font-size: 1.2rem">
+                                        {{number_format($vota->cedula, 0, ".", ".")}}
+                                        <input type="hidden" id="codpadron_{{$indice}}" value="{{$vota->CodPadron}}">
+                                        @php
+                                            $indice = $indice + 1;
+                                        @endphp
+                                    </td>
                                     <td style="text-align: center; font-size: 1.2rem">{{$vota->apellido_nombre}}</td>
                                     <td style="text-align: center; font-size: 1.2rem">{{$vota->Desc_Local}}</td>
                                     <td style="text-align: right; font-size: 1.2rem">{{$vota->mesa}}</td>
                                     <td style="text-align: right; font-size: 1.2rem">{{$vota->orden}}</td>
-                                    <td style="text-align: center; font-size: 1.2rem"> {!! Form::checkbox('comprometido', null, $vota->comprometido) !!} </td>
-                                    <td style="text-align: center; font-size: 1.2rem ; display: none"> {!! Form::checkbox('voto', null, $vota->voto) !!} </td>
-                                    <td style="text-align: center; font-size: 1.2rem"><input type="text" class="form-control" name="referente" value="{{$vota->apellido_nombre_Referente}}"></td>
-                                    <td style="text-align: center"> 
+                                    <td style="text-align: right; font-size: 1.2rem"><input type="text" id="sms" class=" form-control Contacto" placeholder="ejemplo: 76820842"></td>
+                                    <td style="text-align: center" width="30px">
+
+                                        <button id="#btnCompartir" class="btn btn-success btn-sm compartir"><li  class="fa fa-file-pdf-o"></li>whatsapp</button>
                                         
-                                        <button style="font-size: 1.2rem" class="btn btn-success btn-sm float-right" type="submit">OK</button> </td>
-                                        
-                                    {!! Form::close() !!}
+                                    </td>
                                     <td style="text-align: center" width="30px">
                                         <a href=" {{ route('persona_padron', $vota->CodPadron) }}" target="_blank">
                                             <button class="btn btn-info btn-sm"><li  class="fa fa-file-pdf-o"></li> PDF</button>
                                         </a>
                                     </td>
+                                                            
                                 </tr>
 
                             @endforeach
@@ -109,6 +101,51 @@
             {{$votante->appends(['searchtext' => $searchtext])->links()}}
 
         </div>
+
     </div>
+
+    @push('scripts')
+
+        <script type="text/javascript">
+
+            $(document).ready(function(){                  
+
+                $('.compartir').on('click',function(event){
+                    
+                    let mensaje = "Descargue el local y lugar de votacion de usted: ";
+                    let celular_aux = 0;
+                    let codpadron = 0;
+                    let sms_url = "http://web.cjppm.gov.py.confettiarteyfiesta.com.py/pdf/padron/";                    
+                    let indice = 0;
+
+                    $(".Contacto").each(
+
+                        function(index, value) {
+
+                            if ( $.isNumeric($(this).val()) ){
+                                celular_aux = $(this).val();
+                                indice = index;
+                            }
+
+                            $(this).val('');
+                        }
+
+                        
+                    );
+
+                    codpadron = $("#codpadron_"+indice).val();
+
+                    sms_url = sms_url+codpadron;
+                    if (!mensaje) return alert("Escribe algo");
+                    //  window.open("https://api.whatsapp.com/send?phone=+5959"+celular_aux+"&text=" + encodeURIComponent(mensaje)+ sms_url);
+                    window.open("https://wa.me/5959"+celular_aux+"?text=" + encodeURIComponent(mensaje)+ sms_url);
+                    
+                });       
+                
+            });
+
+        </script>
+
+    @endpush
 
 @endsection

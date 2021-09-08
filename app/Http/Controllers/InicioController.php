@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Padron_Comprometido;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -28,31 +29,38 @@ class InicioController extends Controller
 
     public function padron_ver(Request $request){
 
-        $searchtext=trim($request->get('searchtext'));
-        $cCodTab=trim($request->get('cCodTab'));
-        $votante="";        
+        $searchtext=str_replace('.', '', trim($request->get('searchtext')));
+        $votante="";
+        $id_user = auth()->id();        
+
+        $votante = "";
 
         if($searchtext){
         
             $votante = DB::table('padron AS a')
-            ->join('local_votacion AS b','b.Id_Local','=','a.local')
+            ->join('local_votacion AS b','b.Id_Local','=','a.local')            
             ->select('a.*', 'b.Desc_Local')
-            ->where('a.cedula', 'LIKE', '%'.$searchtext.'%')
-            ->orwhere('a.apellido_nombre', 'LIKE', '%'.$searchtext.'%') 
+            ->addSelect(['voto' => Padron_Comprometido::select('voto')
+                ->whereColumn('Cod_Comprometido', 'a.CodPadron')
+                ->where('Id_User', $id_user)
+                ->limit(1)
+            ])
+            ->addSelect(['comprometido' => Padron_Comprometido::select('comprometido')
+                ->whereColumn('Cod_Comprometido', 'a.CodPadron')
+                ->where('Id_User', $id_user)
+                ->limit(1)
+            ])
+            ->addSelect(['apellido_nombre_Referente' => Padron_Comprometido::select('apellido_nombre_Referente')
+                ->whereColumn('Cod_Comprometido', 'a.CodPadron')
+                ->where('Id_User', $id_user)
+                ->limit(1)
+            ])
+            ->where('a.cedula', $searchtext)
             ->orderBy('a.local', 'ASC')
             ->orderBy('a.mesa', 'ASC')
-            ->paginate(50);
+            ->first();
             
-            return view('consulta.padron', compact('searchtext', 'votante'));
-
         }
-
-        $votante = DB::table('padron AS a')
-        ->join('local_votacion AS b','b.Id_Local','=','a.local')
-        ->select('a.*', 'b.Desc_Local')
-        ->orderBy('a.local', 'ASC')
-        ->orderBy('a.mesa', 'ASC')
-        ->paginate(50);
 
         return view('consulta.padron', compact('searchtext', 'votante'));
         
