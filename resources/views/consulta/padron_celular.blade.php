@@ -173,7 +173,7 @@
                                 <td style="text-align: center">CEDULA DE IDENTIDAD</td>
                             </tr>
                             <tr>
-                                <td style="text-align: center"><b>{{$votante->cedula}}</b></td>
+                                <td style="text-align: center"><b>{{number_format($votante->cedula, 0, ".", ".")}}</b></td>
                             </tr>
                             <tr>
                                 <td style="text-align: center">APELLIDO Y NOMBRE</td>

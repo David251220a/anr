@@ -50,7 +50,7 @@
                         <th style="text-align: center; font-size: 1.2rem">M</th>
                         <th style="text-align: center; font-size: 1.2rem">O</th>
                         <th style="text-align: center; font-size: 1.2rem">C</th>
-                        <th style="text-align: center; font-size: 1.2rem; display: none">V</th>
+                        <th style="text-align: center; font-size: 1.2rem">V</th>
                         <th style="text-align: center; font-size: 1.2rem">Referente</th>
                         <th style="text-align: center; font-size: 1.2rem">OK</th>
                         <th style="text-align: center; font-size: 1.2rem">PDF</th>
@@ -71,7 +71,7 @@
                                     <td style="text-align: right; font-size: 1.2rem">{{$vota->mesa}}</td>
                                     <td style="text-align: right; font-size: 1.2rem">{{$vota->orden}}</td>
                                     <td style="text-align: center; font-size: 1.2rem"> {!! Form::checkbox('comprometido', null, $vota->comprometido) !!} </td>
-                                    <td style="text-align: center; font-size: 1.2rem ; display: none"> {!! Form::checkbox('voto', null, $vota->voto) !!} </td>
+                                    <td style="text-align: center; font-size: 1.2rem"> {!! Form::checkbox('voto', null, $vota->voto) !!} </td>
                                     <td style="text-align: center; font-size: 1.2rem"><input type="text" class="form-control" name="referente" value="{{$vota->apellido_nombre_Referente}}"></td>
                                     <td style="text-align: center"> 
                                         

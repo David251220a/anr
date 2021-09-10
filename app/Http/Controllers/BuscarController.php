@@ -112,7 +112,7 @@ class BuscarController extends Controller
         }
         
         $persona = Padron::where('cedula', $cedula)
-        ->first();
+        ->first();        
 
         if (empty($persona)){
 
@@ -127,6 +127,23 @@ class BuscarController extends Controller
             ->delete();
 
             return redirect()->route('consulta.index');
+        }
+
+        $existe = Padron_Comprometido::where('Cod_Comprometido',  $request->codpadron)
+        ->where('Id_User', $id_user)
+        ->first();
+
+        if($existe){
+
+            // if($voto == 1){
+
+                $existe->voto = $voto;
+                $existe->save();
+
+            // }
+
+            return redirect()->route('consulta.index');
+
         }
 
         $padron_comprometido= new Padron_Comprometido();
@@ -211,6 +228,7 @@ class BuscarController extends Controller
 
         }
         
+        
         $persona = Padron::where('cedula', $cedula)
         ->first();
 
@@ -227,6 +245,23 @@ class BuscarController extends Controller
             ->delete();
 
             return redirect()->route('consulta.padron_celular');
+        }
+        
+        $existe = Padron_Comprometido::where('Cod_Comprometido',  $request->codpadron)
+        ->where('Id_User', $id_user)
+        ->first();
+
+        if($existe){         
+            
+            // if($voto == 1){
+
+                $existe->voto = $voto;
+                $existe->save();
+
+            // }
+
+            return redirect()->route('consulta.padron_celular');
+
         }
 
         $padron_comprometido= new Padron_Comprometido();

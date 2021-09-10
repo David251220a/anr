@@ -80,6 +80,8 @@
     <div class="container">
 
         <h3 style="text-align: center"><b>REFERENTE: {{$nombre_referente}}</b></h3>
+
+        <h3 style="text-align: center">{{date('d-m-Y H:i', strtotime(Carbon\Carbon::now()))}}</h3>
         
         <br>        
     
@@ -123,17 +125,18 @@
 
                 <tfoot>
 
-                    <tr style="background-color:#f71808a8">
+                    <tr>
 
                         <td colspan="5" style="text-align: center"><b> TOTAL DE COMPROMETIDOS </b></td>
-                        <td colspan="2" style="text-align: right"><b>{{number_format($total, 0, ".", ".")}}</b></td>
+                        <td colspan="1" style="text-align: left"><b>{{number_format($total, 0, ".", ".")}}</b></td>
 
                     </tr>
 
-                    <tr style="background-color:#f71808a8">
+                    <tr>
 
                         <td colspan="5" style="text-align: center"><b> TOTAL DE VOTADOS </b></td>
-                        <td colspan="2" style="text-align: right"><b>{{number_format($total_voto, 0, ".", ".")}}</b></td>
+                        <td></td>
+                        <td colspan="1" style="text-align: left"><b>{{number_format($total_voto, 0, ".", ".")}}</b></td>
 
                     </tr>
 

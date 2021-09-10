@@ -134,7 +134,7 @@
 
                 <label for="" class="mylabel" style="font-size: 1.5rem"><b>El Sr/Sra:</b></label> 
                 <p style="font-size: 1.5rem"><b>{{$persona->apellido_nombre}}</b></p>
-                <label for="" class="mylabel" style="font-size: 1.5rem"><b>C.I.N°.:{{$persona->cedula}}</b></label>                
+                <label for="" class="mylabel" style="font-size: 1.5rem"><b>C.I.N°.:{{number_format($persona->cedula, 0, ".", ".")}}</b></label>                
                 
                 <hr class="myhrline">
                 

@@ -1,6 +1,37 @@
+@php
+    $total_comprometido=0;
+@endphp
+@php
+    $total_voto = 0;
+@endphp
+@foreach ($comprometidos as $compre)
+
+    @php
+        $total_comprometido = $total_comprometido + $compre->comprometido;
+    @endphp
+
+    @if ($compre->voto  == 1)
+
+        @php
+            $total_voto = $total_voto + $compre->voto;
+        @endphp
+        
+    @endif
+    
+@endforeach
+
 @extends('layouts.admin')
 
 @section('contenido')
+
+
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+            <h3 style="text-align: center">{{date('d-m-Y H:i', strtotime(Carbon\Carbon::now()))}}</h3>
+
+        </div>
+    </div>
 
     <div class="row">
 
@@ -69,9 +100,9 @@
                         <th style="text-align: center">Mesa</th>
                         <th style="text-align: center">Orden</th>
                         <th style="text-align: center">Com.</th>
-                        <th style="text-align: center; display: none">Voto</th>
-                        <th style="text-align: center">Referente</th>
-                        <th style="text-align: center">PDF</th>
+                        <th style="text-align: center">Voto</th>
+                        {{-- <th style="text-align: center">Referente</th>
+                        <th style="text-align: center">PDF</th> --}}
 
                     </thead>
 
@@ -89,14 +120,14 @@
                                     <td style="text-align: right; font-size: 1.2rem">{{$comprometido->mesa}}</td>
                                     <td style="text-align: right; font-size: 1.2rem">{{$comprometido->orden}}</td>                                    
                                     <td style="text-align: center; font-size: 1.2rem" width="70px">{!! Form::checkbox('comprometido', null, $comprometido->comprometido) !!} </td>
-                                    <td style="text-align: center; font-size: 1.2rem; display: none" width="70px"> {!! Form::checkbox('voto', null, $comprometido->voto) !!} </td>
-                                    <td style="text-align: center; font-size: 1.2rem">{{$comprometido->apellido_nombre_Referente}}</td>
+                                    <td style="text-align: center; font-size: 1.2rem" width="70px"> {!! Form::checkbox('voto', null, $comprometido->voto) !!} </td>
+                                    {{-- <td style="text-align: center; font-size: 1.2rem">{{$comprometido->apellido_nombre_Referente}}</td>
                                     <td style="text-align: center" width="50px">
                                         <a href="#">
                                             <button class="btn btn-info btn-sm">PDF</button>
                                         </a>
 
-                                    </td>
+                                    </td> --}}
 
                                 </tr>
                                 
@@ -116,6 +147,57 @@
         </div>
 
     </div>
+    
+    <br>
+
+    <div class="row">
+    
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+            <div class="table-responsive">
+
+                <table class="table table-striped table-condensed table-bordered table-hover table-responsive">
+
+                    <thead>
+
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+
+                    </thead >
+
+                    <tbody>
+                        
+                        <tr>
+                            
+                            <td colspan="5" style="text-align: center"> <b>Total Comprometido :</b></td>
+                            <td width="100px" style="text-align: center" > <b>{{number_format($total_comprometido, 0, ".", ".")}} </b></td>
+                            <td width="70px"></td>
+
+                        </tr>
+
+                        <tr>
+                            <td colspan="5" style="text-align: center"><b> Total Voto : </b></td>
+                            <td></td>
+                            <td style="text-align: center"> <b> {{number_format($total_voto, 0, ".", ".")}} </b></td>
+                        </tr>
+
+                    </tbody>
+
+                </table>
+                
+            </div>
+
+        </div>
+
+    </div>
+
+    
+
     @push('scripts')
 
         <script type="text/javascript">
@@ -124,7 +206,7 @@
                 $('#example').DataTable({
                     responsive: true,
                     autoWidth: false,
-                    "pageLength": 50,                                       
+                    "pageLength": 10,                                       
                     "language": {
                         "lengthMenu": "Mostrar _MENU_ registros por paginas",
                         "zeroRecords": "No hay coicidencia",
