@@ -81,7 +81,7 @@
 
         <h3 style="text-align: center"><b>REFERENTE: {{$nombre_referente}}</b></h3>
 
-        <h3 style="text-align: center">{{date('d-m-Y H:i', strtotime(Carbon\Carbon::now()))}}</h3>
+        <h2 style="text-align: center">{{date('d-m-Y H:i', strtotime(Carbon\Carbon::now()))}}</h2>
         
         <br>        
     
