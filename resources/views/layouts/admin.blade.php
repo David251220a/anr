@@ -134,6 +134,7 @@
                   <li id="padron_ver"><a href="{{ route('consulta.padron') }}"><i class="fa fa-circle-o"></i>Padron</a></li>
                   <li id="padron_ver"><a href="{{ route('consulta.padron_celular') }}"><i class="fa fa-circle-o"></i>Padron Cel</a></li>
                   <li id="referente"><a href="{{ route('consulta.referente') }}"><i class="fa fa-circle-o"></i>Referentes</a></li>
+                  <li id="referente_intendente"><a href="{{ route('consulta.referente_intendente') }}"><i class="fa fa-circle-o"></i>Referentes Inte</a></li>
                   <li id="aporedados"><a href=" {{ route('consulta.aporedado') }} "><i class="fa fa-circle-o"></i>Aporedados</a></li>
                   <li id="mesa"><a href="{{ route('electores') }}"><i class="fa fa-circle-o"></i> Mesa Habilitadas</a></li>
                   <li id="voto_intendente"><a href="{{url('consulta/votos_intendente')}}"><i class="fa fa-circle-o"></i> Votos Intendente</a></li>                
@@ -298,6 +299,7 @@
       $("#votacion").remove();
       $("#reset").remove();
       $("#auditoria").remove();
+      $("#referente_intendente").remove();
       
     }
 
@@ -314,6 +316,7 @@
       $("#voto_intendente").remove();
       $("#voto_consejal").remove();
       $("#padron_ver").remove();
+      $("#referente_intendente").remove();
     }
   
   }

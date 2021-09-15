@@ -216,6 +216,56 @@ class ConsultaController extends Controller
 
     }
 
+    public function referente_intendente(Request $request){
+
+        $id_user = auth()->id();
+        $referente=trim($request->get('referente'));
+        
+        $referentes = Padron_Comprometido::select('Cod_Referente', 'apellido_nombre_Referente', 'Id_User')
+        ->groupBy('Cod_Referente')
+        ->groupBy('apellido_nombre_Referente')
+        ->groupBy('Id_User')
+        ->get();
+
+        $comprometidos = "";
+        $totales = "";
+
+        $listas  = DB::table('padron_comprometido AS a')
+        ->join('users AS b', 'b.id', '=', 'a.Id_User')
+        ->join('equivalente_consejal AS c', 'c.equivalente_nombre', '=', 'b.url')
+        ->join('consejal AS d', 'd.Id_Consejal', '=', 'c.Id_Consejal')
+        ->select('d.Id_Consejal'
+        , 'd.Nombre'
+        , 'd.Apellido')
+        ->distinct()
+        ->orderBy('d.Id_Consejal', 'ASC')
+        ->get();
+
+        if((empty($referente)) || ($referente == 99)){
+            
+            $sql_Call = 'CALL totales_por_referente()';
+
+            $totales = DB::select($sql_Call);
+
+            $referente = 99;
+
+        }else{
+            
+            $sql_Call = 'CALL padron_comprometido(?, ?)';
+
+            $refe = Padron_Comprometido::where('Cod_Referente', $referente)
+            ->first();
+
+            $user = $refe->Id_User;
+
+            $comprometidos = DB::select($sql_Call, array($user, $referente));             
+
+        }
+        
+        return view('consulta.referente_intendente', compact('listas', 'referentes', 'referente', 'totales', 'comprometidos'));
+
+    }
+
     public function aporedado(Request $request){
 
         $aporedados = DB::table('aporedado_local')

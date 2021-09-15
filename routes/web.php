@@ -39,6 +39,7 @@ Route::resource('consulta/votos_consejal', 'Consulta_ConsejalController')->names
 Route::get('consulta/votos_consejal/Acta/{id1}/{id2}', 'Consulta_ConsejalController@Acta')->name('consulta_consejal.acta');;
 Route::get('consulta/votos_intendente/Acta/{id1}/{id2}', 'ConsultaController@Acta')->name('consulta_intendente.acta');
 Route::get('consulta/referente', 'ConsultaController@referente')->name('consulta.referente');
+Route::get('consulta/referente_intendente', 'ConsultaController@referente_intendente')->name('consulta.referente_intendente');
 Route::get('consulta/aporedado', 'ConsultaController@aporedado')->name('consulta.aporedado');
 Route::put('consulta/aporedado/{id1}', 'ConsultaController@store_aporedado')->name('consulta.store_aporedado');
 Route::get('consulta/votos_consejal/{id1}/{id2}/editar', 'Consulta_ConsejalController@editar')->name('consulta_consejal.editar');
