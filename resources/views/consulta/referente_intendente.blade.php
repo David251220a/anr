@@ -52,7 +52,7 @@
 
             @if (99 == $referente)
                             
-                <a class="btn btn-secondary btn-sm float-right" href="#" target="_blank">
+                <a class="btn btn-secondary btn-sm float-right" href=" {{ route('referente_intendente') }} " target="_blank">
                     <button class="btn btn-info"><li  class="fa fa-file-pdf-o"></li> PDF</button>
                 </a>
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Padron;
+use App\Padron_Comprometido;
 use App\Votacion_Consejal;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade as PDF;
@@ -333,6 +334,33 @@ class PDFController extends Controller
         
     }
 
+    public function referente_intendente(){
+        
+        $referentes = Padron_Comprometido::select('Cod_Referente', 'apellido_nombre_Referente', 'Id_User')
+        ->groupBy('Cod_Referente')
+        ->groupBy('apellido_nombre_Referente')
+        ->groupBy('Id_User')
+        ->get();
+
+        $listas  = DB::table('padron_comprometido AS a')
+        ->join('users AS b', 'b.id', '=', 'a.Id_User')
+        ->join('equivalente_consejal AS c', 'c.equivalente_nombre', '=', 'b.url')
+        ->join('consejal AS d', 'd.Id_Consejal', '=', 'c.Id_Consejal')
+        ->select('d.Id_Consejal'
+        , 'd.Nombre'
+        , 'd.Apellido')
+        ->distinct()
+        ->orderBy('d.Id_Consejal', 'ASC')
+        ->get();
+            
+        $sql_Call = 'CALL totales_por_referente()';
+        $totales = DB::select($sql_Call);
+        
+        $PDF = PDF::loadView('pdf.referente_intendente', compact('totales', 'listas', 'referentes'));
+
+        return $PDF->stream();
+
+    }
 
 }
 
