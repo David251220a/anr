@@ -362,5 +362,21 @@ class PDFController extends Controller
 
     }
 
+    public function referentes_inte($id){
+        
+        $refe = Padron_Comprometido::where('Cod_Referente', $id)
+        ->first();
+
+        $id_user = $refe->Id_User;
+        $sql_Call = 'CALL padron_comprometido(?, ?)';
+
+        $comprometidos = DB::select($sql_Call, array($id_user, $id)); 
+
+        $PDF = PDF::loadView('pdf.referentes', compact('comprometidos', 'id'));
+                
+        return $PDF->stream();
+
+    }
+
 }
 

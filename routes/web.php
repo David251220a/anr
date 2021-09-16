@@ -88,6 +88,7 @@ Route::get('pdf/consejal_lista/{id}', 'PDFController@Lista')->name('consejal_lis
 Route::get('pdf/intendente_acta/{id1}/{id2}', 'PDFController@intendente_acta')->name('intendente_acta');
 Route::get('pdf/consejal_acta/{id1}/{id2}', 'PDFController@consejal_acta')->name('consejal_acta');
 Route::get('pdf/referente_intendente', 'PDFController@referente_intendente')->name('referente_intendente');
+Route::get('pdf/referente_inte/{id}', 'PDFController@referentes_inte')->name('referente_inte_pdf');
 
 
 Route::get('/limpiar', 'LimpiarController@limpiar');
