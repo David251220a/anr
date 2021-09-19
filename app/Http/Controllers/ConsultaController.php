@@ -8,7 +8,9 @@ use Illuminate\Http\Request;
 use App\Votacion_Intendente;
 use App\Aporedados;
 use App\Padron_Comprometido;
+use App\User;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
@@ -200,7 +202,7 @@ class ConsultaController extends Controller
             
             $sql_Call = 'CALL padron_comprometido(?, ?)';
 
-            $comprometidos = DB::select($sql_Call, array($id_user, 99999));            
+            $comprometidos = DB::select($sql_Call, array($id_user, 99999));
 
             $referente = 99;
 
@@ -219,50 +221,143 @@ class ConsultaController extends Controller
     public function referente_intendente(Request $request){
 
         $id_user = auth()->id();
-        $referente=trim($request->get('referente'));
         
-        $referentes = Padron_Comprometido::select('Cod_Referente', 'apellido_nombre_Referente', 'Id_User')
-        ->groupBy('Cod_Referente')
-        ->groupBy('apellido_nombre_Referente')
-        ->groupBy('Id_User')
-        ->get();
+        if (($id_user == 1) || ($id_user == 2)) {
+        
+            $referente=trim($request->get('referente'));
+        
+            $referentes = Padron_Comprometido::select('Cod_Referente', 'apellido_nombre_Referente', 'Id_User')
+            ->groupBy('Cod_Referente')
+            ->groupBy('apellido_nombre_Referente')
+            ->groupBy('Id_User')
+            ->get();
 
-        $comprometidos = "";
-        $totales = "";
+            $comprometidos = "";
+            $totales = "";
 
-        $listas  = DB::table('padron_comprometido AS a')
-        ->join('users AS b', 'b.id', '=', 'a.Id_User')
-        ->join('equivalente_consejal AS c', 'c.equivalente_nombre', '=', 'b.url')
-        ->join('consejal AS d', 'd.Id_Consejal', '=', 'c.Id_Consejal')
-        ->select('d.Id_Consejal'
-        , 'd.Nombre'
-        , 'd.Apellido')
-        ->distinct()
-        ->orderBy('d.Id_Consejal', 'ASC')
-        ->get();
+            $listas  = DB::table('padron_comprometido AS a')
+            ->join('users AS b', 'b.id', '=', 'a.Id_User')
+            ->join('equivalente_consejal AS c', 'c.equivalente_nombre', '=', 'b.url')
+            ->join('consejal AS d', 'd.Id_Consejal', '=', 'c.Id_Consejal')
+            ->select('d.Id_Consejal'
+            , 'd.Nombre'
+            , 'd.Apellido')
+            ->distinct()
+            ->orderBy('d.Id_Consejal', 'ASC')
+            ->get();
 
-        if((empty($referente)) || ($referente == 99)){
+            if((empty($referente)) || ($referente == 99)){
+                
+                $sql_Call = 'CALL totales_por_referente()';
+
+                $totales = DB::select($sql_Call);
+
+                $referente = 99;
+
+            }else{
+                
+                $sql_Call = 'CALL padron_comprometido(?, ?)';
+
+                $refe = Padron_Comprometido::where('Cod_Referente', $referente)
+                ->first();
+
+                $user = $refe->Id_User;
+
+                $comprometidos = DB::select($sql_Call, array($user, $referente));             
+
+            }
             
-            $sql_Call = 'CALL totales_por_referente()';
-
-            $totales = DB::select($sql_Call);
-
-            $referente = 99;
+            return view('consulta.referente_intendente', compact('listas', 'referentes', 'referente', 'totales', 'comprometidos'));
 
         }else{
-            
-            $sql_Call = 'CALL padron_comprometido(?, ?)';
 
-            $refe = Padron_Comprometido::where('Cod_Referente', $referente)
-            ->first();
-
-            $user = $refe->Id_User;
-
-            $comprometidos = DB::select($sql_Call, array($user, $referente));             
+            return redirect()->route('consulta.padron_celular');
 
         }
         
-        return view('consulta.referente_intendente', compact('listas', 'referentes', 'referente', 'totales', 'comprometidos'));
+
+    }
+
+    public function referente_consejal(Request $request){
+
+        $id_user = auth()->id();
+
+        if (($id_user == 1) || ($id_user == 2)) {
+            
+            $referente=trim($request->get('referente'));
+        
+            $url_consulta = User::where('id', $id_user)
+            ->first();
+
+            $url = $url_consulta->url;  
+
+            $consejal_id = DB::table('equivalente_consejal') 
+            ->where('equivalente_nombre', '=' ,  $url_consulta->url)
+            ->first();
+            
+            $referentes = DB::table('padron_comprometido AS a')
+            ->join('users AS b', 'b.id', '=', 'a.Id_User')
+            ->join('equivalente_consejal AS c', 'c.equivalente_nombre', '=', 'b.url')
+            ->join('consejal AS d', 'd.Id_Consejal', '=', 'c.Id_Consejal')
+            ->select('a.Cod_Referente', 'a.apellido_nombre_Referente', 'a.Id_User')
+            ->where('d.Id_Consejal', $consejal_id->Id_Consejal)
+            ->groupBy('Cod_Referente')
+            ->groupBy('apellido_nombre_Referente')
+            ->groupBy('Id_User')
+            ->get();
+
+
+
+            $comprometidos = "";
+            $totales = "";
+
+            $listas  = DB::table('padron_comprometido AS a')
+            ->join('users AS b', 'b.id', '=', 'a.Id_User')
+            ->join('equivalente_consejal AS c', 'c.equivalente_nombre', '=', 'b.url')
+            ->join('consejal AS d', 'd.Id_Consejal', '=', 'c.Id_Consejal')
+            ->select('d.Id_Consejal'
+            , 'd.Nombre'
+            , 'd.Apellido')
+            ->distinct()
+            ->where('d.Id_Consejal', $consejal_id->Id_Consejal)
+            ->orderBy('d.Id_Consejal', 'ASC')
+            ->get();
+
+            if((empty($referente)) || ($referente == 99)){
+                
+                $sql_Call = 'CALL padron_comprometido_consejal(?)';
+
+                $totales = DB::select($sql_Call, array($consejal_id->Id_Consejal));
+
+                $referente = 99;
+
+            }elseif ($referente == 98){
+
+                $sql_Call = 'CALL consejal_comprometidos(?)';
+
+                $totales = DB::select($sql_Call, array($consejal_id->Id_Consejal));
+                $referente = 98;
+
+            }else{
+                
+                $sql_Call = 'CALL padron_comprometido(?, ?)';
+
+                $refe = Padron_Comprometido::where('Cod_Referente', $referente)
+                ->first();
+
+                $user = $refe->Id_User;
+
+                $comprometidos = DB::select($sql_Call, array($user, $referente));             
+
+            }
+            
+            return view('consulta.referente_consejal', compact('listas', 'referentes', 'referente', 'totales', 'comprometidos'));
+
+        }else{
+
+            return redirect()->route('consulta.padron_celular');
+
+        }
 
     }
 

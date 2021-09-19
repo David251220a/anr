@@ -40,6 +40,7 @@ Route::get('consulta/votos_consejal/Acta/{id1}/{id2}', 'Consulta_ConsejalControl
 Route::get('consulta/votos_intendente/Acta/{id1}/{id2}', 'ConsultaController@Acta')->name('consulta_intendente.acta');
 Route::get('consulta/referente', 'ConsultaController@referente')->name('consulta.referente');
 Route::get('consulta/referente_intendente', 'ConsultaController@referente_intendente')->name('consulta.referente_intendente');
+Route::get('consulta/referente_consejal', 'ConsultaController@referente_consejal')->name('consulta.referente_consejal');
 Route::get('consulta/aporedado', 'ConsultaController@aporedado')->name('consulta.aporedado');
 Route::put('consulta/aporedado/{id1}', 'ConsultaController@store_aporedado')->name('consulta.store_aporedado');
 Route::get('consulta/votos_consejal/{id1}/{id2}/editar', 'Consulta_ConsejalController@editar')->name('consulta_consejal.editar');
@@ -88,7 +89,9 @@ Route::get('pdf/consejal_lista/{id}', 'PDFController@Lista')->name('consejal_lis
 Route::get('pdf/intendente_acta/{id1}/{id2}', 'PDFController@intendente_acta')->name('intendente_acta');
 Route::get('pdf/consejal_acta/{id1}/{id2}', 'PDFController@consejal_acta')->name('consejal_acta');
 Route::get('pdf/referente_intendente', 'PDFController@referente_intendente')->name('referente_intendente');
+Route::get('pdf/referente_consejal', 'PDFController@referente_consejal')->name('referente_consejal');
 Route::get('pdf/referente_inte/{id}', 'PDFController@referentes_inte')->name('referente_inte_pdf');
+Route::get('pdf/referente_lista_consejal', 'PDFController@referente_lista_consejal')->name('referente_lista_consejal');
 
 
 Route::get('/limpiar', 'LimpiarController@limpiar');

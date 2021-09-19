@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Padron;
 use App\Padron_Comprometido;
+use App\User;
 use App\Votacion_Consejal;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade as PDF;
@@ -336,41 +337,137 @@ class PDFController extends Controller
 
     public function referente_intendente(){
         
-        $referentes = Padron_Comprometido::select('Cod_Referente', 'apellido_nombre_Referente', 'Id_User')
-        ->groupBy('Cod_Referente')
-        ->groupBy('apellido_nombre_Referente')
-        ->groupBy('Id_User')
-        ->get();
+        $id_user = auth()->id();
 
-        $listas  = DB::table('padron_comprometido AS a')
-        ->join('users AS b', 'b.id', '=', 'a.Id_User')
-        ->join('equivalente_consejal AS c', 'c.equivalente_nombre', '=', 'b.url')
-        ->join('consejal AS d', 'd.Id_Consejal', '=', 'c.Id_Consejal')
-        ->select('d.Id_Consejal'
-        , 'd.Nombre'
-        , 'd.Apellido')
-        ->distinct()
-        ->orderBy('d.Id_Consejal', 'ASC')
-        ->get();
+        if (($id_user == 1) || ($id_user == 2)) {
+
+            $referentes = Padron_Comprometido::select('Cod_Referente', 'apellido_nombre_Referente', 'Id_User')
+            ->groupBy('Cod_Referente')
+            ->groupBy('apellido_nombre_Referente')
+            ->groupBy('Id_User')
+            ->get();
+    
+            $listas  = DB::table('padron_comprometido AS a')
+            ->join('users AS b', 'b.id', '=', 'a.Id_User')
+            ->join('equivalente_consejal AS c', 'c.equivalente_nombre', '=', 'b.url')
+            ->join('consejal AS d', 'd.Id_Consejal', '=', 'c.Id_Consejal')
+            ->select('d.Id_Consejal'
+            , 'd.Nombre'
+            , 'd.Apellido')
+            ->distinct()
+            ->orderBy('d.Id_Consejal', 'ASC')
+            ->get();
+                
+            $sql_Call = 'CALL totales_por_referente()';
+            $totales = DB::select($sql_Call);
             
-        $sql_Call = 'CALL totales_por_referente()';
-        $totales = DB::select($sql_Call);
-        
-        $PDF = PDF::loadView('pdf.referente_intendente', compact('totales', 'listas', 'referentes'));
+            $PDF = PDF::loadView('pdf.referente_intendente', compact('totales', 'listas', 'referentes'));
+    
+            return $PDF->stream();            
 
-        return $PDF->stream();
+        }else{
+
+            return "No puede ver este reporte. No cuenta con los permisos necesarios!";
+
+        }
+
+
+
+    }
+
+    public function referente_consejal(){
+        
+        $id_user = auth()->id();
+
+        if (($id_user == 1) || ($id_user == 2)) {
+
+            $url_consulta = User::where('id', $id_user)
+            ->first();
+
+            $url = $url_consulta->url;  
+
+            $consejal_id = DB::table('equivalente_consejal') 
+            ->where('equivalente_nombre', '=' ,  $url_consulta->url)
+            ->first();
+
+            $referentes = DB::table('padron_comprometido AS a')
+            ->join('users AS b', 'b.id', '=', 'a.Id_User')
+            ->join('equivalente_consejal AS c', 'c.equivalente_nombre', '=', 'b.url')
+            ->join('consejal AS d', 'd.Id_Consejal', '=', 'c.Id_Consejal')
+            ->select('a.Cod_Referente', 'a.apellido_nombre_Referente', 'a.Id_User')
+            ->where('d.Id_Consejal', $consejal_id->Id_Consejal)
+            ->groupBy('Cod_Referente')
+            ->groupBy('apellido_nombre_Referente')
+            ->groupBy('Id_User')
+            ->get();
+
+            $listas  = DB::table('padron_comprometido AS a')
+            ->join('users AS b', 'b.id', '=', 'a.Id_User')
+            ->join('equivalente_consejal AS c', 'c.equivalente_nombre', '=', 'b.url')
+            ->join('consejal AS d', 'd.Id_Consejal', '=', 'c.Id_Consejal')
+            ->select('d.Id_Consejal'
+            , 'd.Nombre'
+            , 'd.Apellido')
+            ->distinct()
+            ->where('d.Id_Consejal', $consejal_id->Id_Consejal)
+            ->orderBy('d.Id_Consejal', 'ASC')
+            ->get();
+                
+            $sql_Call = 'CALL padron_comprometido_consejal(?)';
+            $totales = DB::select($sql_Call, array($consejal_id->Id_Consejal));
+            
+            $PDF = PDF::loadView('pdf.referente_intendente', compact('totales', 'listas', 'referentes'));
+
+            return $PDF->stream();
+
+        }else{
+            
+            return "No puede ver este reporte. No cuenta con los permisos necesarios!";
+        }
+
+    }
+
+    public function referente_lista_consejal(){
+
+        $id_user = auth()->id();
+
+        if (($id_user == 1) || ($id_user == 2)) {
+
+            $url_consulta = User::where('id', $id_user)
+            ->first();
+    
+            $consejal_id = DB::table('equivalente_consejal') 
+            ->where('equivalente_nombre', '=' ,  $url_consulta->url)
+            ->first();
+    
+            $consejal = DB::table('consejal')
+            ->where('Id_Consejal', $consejal_id->Id_Consejal)
+            ->first();
+    
+            $sql_Call = 'CALL consejal_comprometidos(?)';
+    
+            $comprometidos = DB::select($sql_Call, array($consejal_id->Id_Consejal));
+            
+            $PDF = PDF::loadView('pdf.consejal_listado', compact('comprometidos', 'consejal'));
+                
+            return $PDF->stream();
+
+
+        }else{
+
+            return "No puede ver este reporte. No cuenta con los permisos necesarios!";
+
+        }
+
+
 
     }
 
     public function referentes_inte($id){
         
-        $refe = Padron_Comprometido::where('Cod_Referente', $id)
-        ->first();
+        $sql_Call = 'CALL padron_comprometido_rep(?)';
 
-        $id_user = $refe->Id_User;
-        $sql_Call = 'CALL padron_comprometido(?, ?)';
-
-        $comprometidos = DB::select($sql_Call, array($id_user, $id)); 
+        $comprometidos = DB::select($sql_Call, array($id)); 
 
         $PDF = PDF::loadView('pdf.referentes', compact('comprometidos', 'id'));
                 

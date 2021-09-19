@@ -134,7 +134,26 @@
                   <li id="padron_ver"><a href="{{ route('consulta.padron') }}"><i class="fa fa-circle-o"></i>Padron</a></li>
                   <li id="padron_ver"><a href="{{ route('consulta.padron_celular') }}"><i class="fa fa-circle-o"></i>Padron Cel</a></li>
                   <li id="referente"><a href="{{ route('consulta.referente') }}"><i class="fa fa-circle-o"></i>Referentes</a></li>
-                  <li id="referente_intendente"><a href="{{ route('consulta.referente_intendente') }}"><i class="fa fa-circle-o"></i>Referentes Inte</a></li>
+                  @if (Auth::user())
+
+                    @if ((Auth::user()->id == 1) ||  (Auth::user()->id == 2))
+
+                      <li id="referente_intendente"><a href="{{ route('consulta.referente_intendente') }}"><i class="fa fa-circle-o"></i>Referentes Inte</a></li>
+                    
+                      @endif
+                      
+                  @endif
+                  
+                  @if (Auth::user())
+
+                    @if ((Auth::user()->id == 1) ||  (Auth::user()->id == 2))
+
+                      <li id="referente_consejal"><a href="{{ route('consulta.referente_consejal') }}"><i class="fa fa-circle-o"></i>Referentes Consejal</a></li>
+                    
+                      @endif
+                      
+                  @endif
+
                   <li id="aporedados"><a href=" {{ route('consulta.aporedado') }} "><i class="fa fa-circle-o"></i>Aporedados</a></li>
                   <li id="mesa"><a href="{{ route('electores') }}"><i class="fa fa-circle-o"></i> Mesa Habilitadas</a></li>
                   <li id="voto_intendente"><a href="{{url('consulta/votos_intendente')}}"><i class="fa fa-circle-o"></i> Votos Intendente</a></li>                
@@ -222,8 +241,10 @@
                                 @yield('scripts')
                                 @if (Auth::user())
                                   <input type="hidden" id="prol" name="prol"  value="{{Auth::user()->id_rol}}" class="form-control">    
+                                  <input type="hidden" id="id_user" name="id_user"  value="{{Auth::user()->id}}" class="form-control">
                                 @endif
                                 <input type="hidden" id="prol" name="prol"  value="0" class="form-control">    
+                                <input type="hidden" id="id_user" name="id_user"  value="0" class="form-control">
                                 
 		                          <!--Fin Contenido-->
                            </div>
@@ -277,6 +298,7 @@
 
     // var id_rol = document.getElementById("#prol").value();
     var id_rol = ((document.getElementById("prol")||{}).value)||"";
+    var user = ((document.getElementById("id_user")||{}).value)||"";
 
     if(id_rol != 0){
 
@@ -289,9 +311,9 @@
   function ocultar(){
 
     var id_rol = document.getElementById("prol").value;
+    var user = document.getElementById("id_user").value;
 
-    //console.log(id_rol);
-
+    // console.log(user);
 
     if (id_rol == 2){
             
@@ -317,6 +339,19 @@
       $("#voto_consejal").remove();
       $("#padron_ver").remove();
       $("#referente_intendente").remove();
+
+      // if((user != 1) || (user != 2)){
+
+      //   $("#referente_consejal").remove();
+
+      // }
+
+      // if((user != 2) || (user != 6)){
+
+      //   $("#referente_intendente").remove();
+
+      // }
+
     }
   
   }
