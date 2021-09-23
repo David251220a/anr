@@ -46,7 +46,7 @@
             <a class="btn btn-secondary btn-sm float-right" href=" {{ route('integrante_todos') }} " target="_blank">
                 <button class="btn btn-info"><li  class="fa fa-file-pdf-o"></li> General</button>
             </a>
-            <a class="btn btn-secondary btn-sm float-right" href="#" target="_blank">
+            <a class="btn btn-secondary btn-sm float-right" href=" {{ route('integrante_local') }} " target="_blank">
                 <button class="btn btn-info"><li  class="fa fa-file-pdf-o"></li> Local</button>
             </a>
             
