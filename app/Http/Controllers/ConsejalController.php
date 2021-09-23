@@ -18,6 +18,8 @@ class ConsejalController extends Controller
         $this->middleware('ad');
         $this->middleware('ad_3');
 
+        
+
     }
 
     public function index(Request $request){        
