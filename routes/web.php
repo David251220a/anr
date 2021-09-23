@@ -45,6 +45,10 @@ Route::get('consulta/aporedado', 'ConsultaController@aporedado')->name('consulta
 Route::put('consulta/aporedado/{id1}', 'ConsultaController@store_aporedado')->name('consulta.store_aporedado');
 Route::get('consulta/votos_consejal/{id1}/{id2}/editar', 'Consulta_ConsejalController@editar')->name('consulta_consejal.editar');
 Route::get('consulta/votos_consejal/{id1}/{id2}/eliminar', 'Consulta_ConsejalController@eliminar')->name('consulta_consejal.eliminar');
+Route::get('consulta/integrante_mesa', 'ConsultaController@integrante_mesa')->name('consulta.integrante_mesa');
+Route::post('consulta/integrante_store', 'ConsultaController@integrante_store')->name('consulta.integrante_store');
+Route::get('consulta/capacitacion', 'ConsultaController@capacitacion')->name('consulta.capacitacion');
+Route::post('consulta/capacitacion_actualizar', 'ConsultaController@capacitacion_actualizar')->name('consulta.capacitacion_actualizar');
 /*****************************************
  *  ACCESO
  *****************************************/
@@ -92,6 +96,7 @@ Route::get('pdf/referente_intendente', 'PDFController@referente_intendente')->na
 Route::get('pdf/referente_consejal', 'PDFController@referente_consejal')->name('referente_consejal');
 Route::get('pdf/referente_inte/{id}', 'PDFController@referentes_inte')->name('referente_inte_pdf');
 Route::get('pdf/referente_lista_consejal', 'PDFController@referente_lista_consejal')->name('referente_lista_consejal');
+Route::get('pdf/integrante_general', 'PDFController@integrante_todos')->name('integrante_todos');
 
 
 Route::get('/limpiar', 'LimpiarController@limpiar');

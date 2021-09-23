@@ -475,5 +475,25 @@ class PDFController extends Controller
 
     }
 
+    public function integrante_todos(){
+
+        $integrantes = DB::table('integrante_mesa AS a')
+        ->join('padron AS b', 'b.cedula', '=', 'a.Cedula_Integrante')
+        ->join('local_votacion AS c', 'c.Id_Local', '=', 'a.Id_Local')
+        ->select('a.*', 'b.apellido_nombre', 'c.Desc_Local')
+        ->orderBy('a.Id_Local', 'ASC')
+        ->get();
+
+        $PDF = PDF::loadView('pdf.integrante_general', compact('integrantes'));
+                
+        return $PDF->stream();
+
+    }
+
+    public function integrante_local(){
+
+
+    }
+
 }
 

@@ -7,6 +7,7 @@ use App\Local_Mesa_Votacion;
 use Illuminate\Http\Request;
 use App\Votacion_Intendente;
 use App\Aporedados;
+use App\Integrante_Mesa;
 use App\Padron_Comprometido;
 use App\User;
 use Carbon\Carbon;
@@ -390,6 +391,213 @@ class ConsultaController extends Controller
         return redirect()->route('consulta.aporedado');
 
     }
+
+
+    public function integrante_mesa(Request $request){
+
+        $id_user = auth()->id();
+        $searchtext=str_replace('.', '',trim($request->get('searchtext')));
+        $id_rol = Auth::user()->id == 2;
+
+        // if(($id_rol == 4) || ($id_rol == 1)){
+
+            if(empty($searchtext)){
+            
+                $integrantes = DB::table('integrante_mesa AS a')
+                ->join('padron AS b', 'b.cedula', '=', 'a.Cedula_Integrante')
+                ->join('local_votacion AS c', 'c.Id_Local', '=', 'a.Id_Local')
+                ->select('a.*', 'b.apellido_nombre', 'c.Desc_Local')
+                ->orderBy('a.Id_Local', 'ASC')
+                // ->orderBy('a.Id_Mesa', 'ASC')
+                ->paginate(10);
     
+                $sessiones = DB::table('integrante_mesa')
+                ->first();
+    
+            }else{
+    
+                $integrantes = DB::table('integrante_mesa AS a')
+                ->join('padron AS b', 'b.cedula', '=', 'a.Cedula_Integrante')
+                ->join('local_votacion AS c', 'c.Id_Local', '=', 'a.Id_Local')
+                ->select('a.*', 'b.apellido_nombre', 'c.Desc_Local')
+                ->where('a.Cedula_Integrante', $searchtext)
+                ->orWhere('b.apellido_nombre', 'LIKE', '%'. $searchtext . '%')
+                ->orderBy('a.Id_Local', 'ASC')
+                // ->orderBy('a.Id_Mesa', 'ASC')
+                ->paginate(10);
+    
+                $sessiones = DB::table('integrante_mesa')
+                ->first();
+    
+            }
+    
+            return view('consulta.integrante_mesa', compact('integrantes', 'sessiones', 'searchtext'));
+
+        // }else{
+
+        //     return redirect()->route('consulta.padron_celular');
+
+        // }
+
+    }
+    
+    public function integrante_store(Request $request){
+
+
+        $cedula_integrante = $request->get('cedula');
+        $p_1= $request->get('Primera_Session');
+        $p_2= $request->get('Segunda_Session');
+        $p_3= $request->get('Tercera_Session');
+        $p_4= $request->get('Cuarta_Session');
+        $p_5= $request->get('Quinta_Session');
+        $p_6= $request->get('Sexta_Session');
+        $p_7= $request->get('Septima_Session');
+        $p_8= $request->get('Octava_Session');
+        $p_9= $request->get('Novena_Session');
+        $p_10= $request->get('Decima_Session');
+
+        if($p_1 == 'on'){
+
+            $p_1 = 1;
+
+        }else{
+
+            $p_1 = 0;
+
+        }
+
+        if($p_2 == 'on'){
+
+            $p_2 = 1;
+
+        }else{
+
+            $p_2 = 0;
+
+        }
+        if($p_3 == 'on'){
+
+            $p_3 = 1;
+
+        }else{
+
+            $p_3 = 0;
+
+        }
+
+        if($p_4 == 'on'){
+
+            $p_4 = 1;
+
+        }else{
+
+            $p_4 = 0;
+
+        }
+        if($p_5 == 'on'){
+
+            $p_5 = 1;
+
+        }else{
+
+            $p_5 = 0;
+
+        }
+
+        if($p_6 == 'on'){
+
+            $p_6 = 1;
+
+        }else{
+
+            $p_6 = 0;
+
+        }
+
+        if($p_7 == 'on'){
+
+            $p_7 = 1;
+
+        }else{
+
+            $p_7 = 0;
+
+        }
+
+        if($p_8 == 'on'){
+
+            $p_8 = 1;
+
+        }else{
+
+            $p_8 = 0;
+
+        }
+
+        if($p_9 == 'on'){
+
+            $p_9 = 1;
+
+        }else{
+
+            $p_9 = 0;
+
+        }
+
+        if($p_10 == 'on'){
+
+            $p_10 = 1;
+
+        }else{
+
+            $p_10 = 0;
+
+        }
+
+        $integrante = Integrante_Mesa::where('Cedula_Integrante', $cedula_integrante)
+        ->first();
+        
+        $integrante->Primera_Session = $p_1;
+        $integrante->Segunda_Session = $p_2;
+        $integrante->Tercera_Session = $p_3;
+        $integrante->Cuarta_Session = $p_4;
+        $integrante->Quinta_Session = $p_5;
+        $integrante->Sexta_Session = $p_6;
+        $integrante->Septima_Session = $p_7;
+        $integrante->Octava_Session = $p_8;
+        $integrante->Novena_Session = $p_9;
+        $integrante->Decima_Session = $p_10; 
+
+        $integrante->save();
+
+        return redirect()->route('consulta.integrante_mesa');
+
+    }
+
+    public function capacitacion(){
+
+        $sessiones = Integrante_Mesa::first();
+
+        return view('consulta.capacitacion_act', compact('sessiones'));
+
+    }
+
+    public function capacitacion_actualizar(Request $request){
+
+        $request->validate([
+            'sessiones' => 'required'
+        ]);
+
+        $session = $request->get('sessiones');
+
+        $sessiones = Integrante_Mesa::first();
+
+        $sessiones->Sessiones_Habilitar =  $session;
+
+        $sessiones->save();
+
+        return redirect()->route('consulta.capacitacion')->with('msj', 'Actualizado con exito');
+
+    }
 
 }

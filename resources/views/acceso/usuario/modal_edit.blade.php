@@ -44,6 +44,7 @@ role="dialog" tabindex="-1"  id="modal-new-{{$usu->id}}">
                         <option value="1" @if(1 == $usu->id_rol) selected="selected" @endif>NIVEL 1</option>
                         <option value="2" @if(2 == $usu->id_rol) selected="selected" @endif>NIVEL 2</option>
                         <option value="3" @if(3 == $usu->id_rol) selected="selected" @endif>NIVEL 3</option>
+                        <option value="4" @if(4 == $usu->id_rol) selected="selected" @endif>NIVEL 4</option>
     
                     </select>
 

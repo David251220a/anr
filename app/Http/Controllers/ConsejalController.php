@@ -17,6 +17,7 @@ class ConsejalController extends Controller
         $this->middleware('auth');
         $this->middleware('ad');
         $this->middleware('ad_3');
+        $this->middleware('ad_4');
 
         
 

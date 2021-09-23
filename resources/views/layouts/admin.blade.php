@@ -132,7 +132,7 @@
 
                   <li id="padron"><a href="{{ route('consulta.index') }}"><i class="fa fa-circle-o"></i> Padron Comp</a></li>
                   <li id="padron_ver"><a href="{{ route('consulta.padron') }}"><i class="fa fa-circle-o"></i>Padron</a></li>
-                  <li id="padron_ver"><a href="{{ route('consulta.padron_celular') }}"><i class="fa fa-circle-o"></i>Padron Cel</a></li>
+                  <li id="padron_cel"><a href="{{ route('consulta.padron_celular') }}"><i class="fa fa-circle-o"></i>Padron Cel</a></li>
                   <li id="referente"><a href="{{ route('consulta.referente') }}"><i class="fa fa-circle-o"></i>Referentes</a></li>
                   @if (Auth::user())
 
@@ -156,6 +156,7 @@
 
                   <li id="aporedados"><a href=" {{ route('consulta.aporedado') }} "><i class="fa fa-circle-o"></i>Aporedados</a></li>
                   <li id="mesa"><a href="{{ route('electores') }}"><i class="fa fa-circle-o"></i> Mesa Habilitadas</a></li>
+                  <li id="integrante_mesa"><a href="{{ route('consulta.integrante_mesa') }}"><i class="fa fa-circle-o"></i> Integrante Mesa</a></li>
                   <li id="voto_intendente"><a href="{{url('consulta/votos_intendente')}}"><i class="fa fa-circle-o"></i> Votos Intendente</a></li>                
                   <li id="voto_consejal"><a href="{{url('consulta/votos_consejal')}}"><i class="fa fa-circle-o"></i> Votos Consejal</a></li>
                   
@@ -329,7 +330,7 @@
             
       $("#acceso").remove();
       $("#votacion").remove();
-      $("#reset").remove();
+      // $("#reset").remove();
       $("#aporedados").remove();
       // $("#mesa").remove();
       $("#auditoria").remove();
@@ -339,18 +340,27 @@
       $("#voto_consejal").remove();
       $("#padron_ver").remove();
       $("#referente_intendente").remove();
+      $("#integrante_mesa").remove();
+      
+    }
 
-      // if((user != 1) || (user != 2)){
+    if (id_rol == 4){
 
-      //   $("#referente_consejal").remove();
-
-      // }
-
-      // if((user != 2) || (user != 6)){
-
-      //   $("#referente_intendente").remove();
-
-      // }
+      $("#acceso").remove();
+      $("#votacion").remove();
+      // $("#reset").remove();
+      $("#aporedados").remove();
+      $("#mesa").remove();
+      $("#auditoria").remove();
+      $("#votacion").remove();
+      $("#reportes").remove();
+      $("#voto_intendente").remove();
+      $("#voto_consejal").remove();
+      $("#padron_ver").remove();
+      $("#referente_intendente").remove();
+      $("#padron").remove();
+      $("#padron_cel").remove();
+      $("#referente").remove();
 
     }
   
