@@ -129,8 +129,8 @@
                                     <th scope="col" style="text-align: center; align-items: center">1/C</th> 
                                     <th scope="col" style="text-align: center; align-items: center">2/C</th> 
                                     <th scope="col" style="text-align: center; align-items: center">3/C</th> 
-                                    {{-- <th scope="col" style="text-align: center; align-items: center">4/C</th> 
-                                    <th scope="col" style="text-align: center; align-items: center">5/C</th> 
+                                    <th scope="col" style="text-align: center; align-items: center">4/C</th> 
+                                    {{-- <th scope="col" style="text-align: center; align-items: center">5/C</th> 
                                     <th scope="col" style="text-align: center; align-items: center">6/C</th> 
                                     <th scope="col" style="text-align: center; align-items: center">7/C</th> 
                                     <th scope="col" style="text-align: center; align-items: center">8/C</th> 
@@ -154,8 +154,8 @@
                                             <td style="text-align: center"> {!! Form::checkbox('Primera_Session', null, $integrante->Primera_Session) !!} </td>
                                             <td style="text-align: center"> {!! Form::checkbox('Segunda_Session', null, $integrante->Segunda_Session) !!} </td>
                                             <td style="text-align: center"> {!! Form::checkbox('Tercera_Session', null, $integrante->Tercera_Session) !!} </td>
-                                            {{-- <td style="text-align: center"> {!! Form::checkbox('Tercera_Session', null, $integrante->Cuarta_Session) !!} </td>
-                                            <td style="text-align: center"> {!! Form::checkbox('Tercera_Session', null, $integrante->Quinta_Session) !!} </td>
+                                            <td style="text-align: center"> {!! Form::checkbox('Tercera_Session', null, $integrante->Cuarta_Session) !!} </td>
+                                            {{-- <td style="text-align: center"> {!! Form::checkbox('Tercera_Session', null, $integrante->Quinta_Session) !!} </td>
                                             <td style="text-align: center"> {!! Form::checkbox('Tercera_Session', null, $integrante->Sexta_Session) !!} </td>
                                             <td style="text-align: center"> {!! Form::checkbox('Tercera_Session', null, $integrante->Septima_Session) !!} </td>
                                             <td style="text-align: center"> {!! Form::checkbox('Tercera_Session', null, $integrante->Octava_Session) !!} </td>
