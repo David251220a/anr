@@ -98,6 +98,7 @@ Route::get('pdf/referente_inte/{id}', 'PDFController@referentes_inte')->name('re
 Route::get('pdf/referente_lista_consejal', 'PDFController@referente_lista_consejal')->name('referente_lista_consejal');
 Route::get('pdf/integrante_general', 'PDFController@integrante_todos')->name('integrante_todos');
 Route::get('pdf/integrante_local', 'PDFController@integrante_local')->name('integrante_local');
+Route::get('pdf/lista', 'PDFController@lista_integrante_local')->name('lista_integrante_local');
 
 
 Route::get('/limpiar', 'LimpiarController@limpiar');

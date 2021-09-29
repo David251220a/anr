@@ -511,5 +511,29 @@ class PDFController extends Controller
 
     }
 
+    public function lista_integrante_local(){
+
+        $integrantes = DB::table('integrante_mesa AS a')
+        ->join('padron AS b', 'b.cedula', '=', 'a.Cedula_Integrante')
+        ->join('local_votacion AS c', 'c.Id_Local', '=', 'a.Id_Local')
+        ->leftJoin('consejal AS d', 'd.Id_Consejal', '=', 'a.Id_Consejal')
+        ->select('a.*', 'b.apellido_nombre', 'c.Desc_Local', 'd.Nombre', 'd.Apellido')
+        ->orderBy('a.Id_Local', 'ASC')
+        ->get();
+
+        $locales = DB::table('local_votacion')
+        ->orderBy('Id_Local', 'ASC' )
+        ->get();  
+
+        $PDF = PDF::loadView('pdf.lista_integrante_local', compact('integrantes', 'locales'));
+
+
+    }
+
+    public function lista_integrante_consejal(){
+
+
+    }
+
 }
 
