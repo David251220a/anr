@@ -280,5 +280,69 @@ class BuscarController extends Controller
 
     }
 
+    public function voto_padron(Request $request){
+        
+        $searchtext=str_replace('.', '', trim($request->get('searchtext')));
+        $votante="";
+        $id_user = auth()->id();
+
+        if($searchtext){
+        
+            $votante = DB::table('padron AS a')
+            ->join('local_votacion AS b','b.Id_Local','=','a.local')            
+            ->select('a.*', 'b.Desc_Local')
+            ->addSelect(['voto' => Padron_Comprometido::select('voto')
+                ->whereColumn('Cod_Comprometido', 'a.CodPadron')
+                ->where('Id_User', $id_user)
+                ->limit(1)
+            ])
+            ->addSelect(['comprometido' => Padron_Comprometido::select('comprometido')
+                ->whereColumn('Cod_Comprometido', 'a.CodPadron')
+                ->where('Id_User', $id_user)
+                ->limit(1)
+            ])
+            ->addSelect(['apellido_nombre_Referente' => Padron_Comprometido::select('apellido_nombre_Referente')
+                ->whereColumn('Cod_Comprometido', 'a.CodPadron')
+                ->where('Id_User', $id_user)
+                ->limit(1)
+            ])
+            ->where('a.cedula', $searchtext)
+            ->orderBy('a.local', 'ASC')
+            ->orderBy('a.mesa', 'ASC')
+            ->first();
+            
+        }
+
+        return view('consulta.votos', compact('searchtext', 'votante'));
+
+    }
+
+    public function voto_padron_store(Request $request){
+        
+        $voto = 1;
+        $cont= 0;
+
+        $padron = Padron::where('CodPadron', $request->codpadron)
+        ->first();
+
+        $padron->si_voto = $voto;
+
+        $padron->save();
+
+        $padron_comprometido = Padron_Comprometido::where('Cod_Comprometido', $request->codpadron)
+        ->get();
+
+        while ($cont < count($padron_comprometido)) {
+            
+            $padron_comprometido[$cont]->voto = $voto;
+            
+            $padron_comprometido[$cont]->save();
+            $cont = $cont + 1 ;
+
+        }
+
+        return redirect()->route('consulta.voto_padron');
+
+    }
 
 }

@@ -132,6 +132,7 @@
 
                   <li id="padron"><a href="{{ route('consulta.index') }}"><i class="fa fa-circle-o"></i> Padron Comp</a></li>
                   <li id="padron_ver"><a href="{{ route('consulta.padron') }}"><i class="fa fa-circle-o"></i>Padron</a></li>
+                  <li id="padron_voto"><a href="{{ route('consulta.voto_padron') }}"><i class="fa fa-circle-o"></i>Padron Voto</a></li>
                   <li id="padron_cel"><a href="{{ route('consulta.padron_celular') }}"><i class="fa fa-circle-o"></i>Padron Cel</a></li>
                   <li id="referente"><a href="{{ route('consulta.referente') }}"><i class="fa fa-circle-o"></i>Referentes</a></li>
                   @if (Auth::user())
@@ -323,6 +324,7 @@
       $("#reset").remove();
       $("#auditoria").remove();
       $("#referente_intendente").remove();
+      $("#padron_voto").remove();
       
     }
 
@@ -341,6 +343,7 @@
       $("#padron_ver").remove();
       $("#referente_intendente").remove();
       $("#integrante_mesa").remove();
+      $("#padron_voto").remove();
       
     }
 
@@ -361,8 +364,11 @@
       $("#padron").remove();
       $("#padron_cel").remove();
       $("#referente").remove();
+      $("#padron_voto").remove();
 
     }
+
+    
   
   }
     

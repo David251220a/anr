@@ -49,6 +49,8 @@ Route::get('consulta/integrante_mesa', 'ConsultaController@integrante_mesa')->na
 Route::post('consulta/integrante_store', 'ConsultaController@integrante_store')->name('consulta.integrante_store');
 Route::get('consulta/capacitacion', 'ConsultaController@capacitacion')->name('consulta.capacitacion');
 Route::post('consulta/capacitacion_actualizar', 'ConsultaController@capacitacion_actualizar')->name('consulta.capacitacion_actualizar');
+Route::get('consulta/voto_padron', 'BuscarController@voto_padron')->name('consulta.voto_padron');
+Route::post('consulta/voto_padron_store', 'BuscarController@voto_padron_store')->name('consulta.padron_voto_store');
 /*****************************************
  *  ACCESO
  *****************************************/

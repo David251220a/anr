@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Votacion_Intendente;
 use App\Aporedados;
 use App\Integrante_Mesa;
+use App\Padron;
 use App\Padron_Comprometido;
 use App\User;
 use Carbon\Carbon;
@@ -392,7 +393,6 @@ class ConsultaController extends Controller
 
     }
 
-
     public function integrante_mesa(Request $request){
 
         $id_user = auth()->id();
@@ -597,6 +597,26 @@ class ConsultaController extends Controller
         $sessiones->save();
 
         return redirect()->route('consulta.capacitacion')->with('msj', 'Actualizado con exito');
+
+    }
+
+    public function consultar_voto(Request $request){
+
+        $id_user = auth()->id();
+        $local=trim($request->get('local'));
+
+        if((empty($referente)) || ($referente == 99)){
+
+            $votantes = Padron::where('si_voto', 1)
+            ->orderBy('Id_Local', 'ASC')
+            ->orderBy('Id_Mesa', 'ASC')
+            ->paginate(10);
+
+        }else{
+
+
+
+        }
 
     }
 
