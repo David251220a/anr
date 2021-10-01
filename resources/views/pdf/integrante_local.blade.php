@@ -84,7 +84,7 @@
                         <thead style="background-color:#f71808a8">
 
                             <tr>
-                                <th scope="col" colspan="8" style="text-align: center">{{$local->Desc_Local}}</th>
+                                <th scope="col" colspan="10" style="text-align: center">{{$local->Desc_Local}}</th>
                             </tr>
                             <tr>
                                 
@@ -96,12 +96,12 @@
                                 <th scope="col" style="text-align: center; align-items: center">2/C</th> 
                                 <th scope="col" style="text-align: center; align-items: center">3/C</th> 
                                 <th scope="col" style="text-align: center; align-items: center">4/C</th> 
-                                {{-- <th scope="col" style="text-align: center; align-items: center">5/C</th> 
+                                <th scope="col" style="text-align: center; align-items: center">5/C</th> 
                                 <th scope="col" style="text-align: center; align-items: center">6/C</th> 
-                                <th scope="col" style="text-align: center; align-items: center">7/C</th> 
+                                {{-- <th scope="col" style="text-align: center; align-items: center">7/C</th> 
                                 <th scope="col" style="text-align: center; align-items: center">8/C</th> 
                                 <th scope="col" style="text-align: center; align-items: center">9/C</th> 
-                                <th scope="col" style="text-align: center; align-items: center">10/C</th>  --}}
+                                <th scope="col" style="text-align: center; align-items: center">10/C</th> --}}
                             </tr>
     
                         </thead>                        
@@ -121,12 +121,12 @@
                                         <td style="text-align: center"> {!! Form::checkbox('Segunda_Session', null, $integrante->Segunda_Session) !!} </td>
                                         <td style="text-align: center"> {!! Form::checkbox('Tercera_Session', null, $integrante->Tercera_Session) !!} </td>
                                         <td style="text-align: center"> {!! Form::checkbox('cuarta_session', null, $integrante->Cuarta_Session) !!} </td>
-                                        {{-- <td style="text-align: center"> {!! Form::checkbox('Tercera_Session', null, $integrante->Quinta_Session) !!} </td>
-                                        <td style="text-align: center"> {!! Form::checkbox('Tercera_Session', null, $integrante->Sexta_Session) !!} </td>
-                                        <td style="text-align: center"> {!! Form::checkbox('Tercera_Session', null, $integrante->Septima_Session) !!} </td>
-                                        <td style="text-align: center"> {!! Form::checkbox('Tercera_Session', null, $integrante->Octava_Session) !!} </td>
-                                        <td style="text-align: center"> {!! Form::checkbox('Tercera_Session', null, $integrante->Novena_Session) !!} </td>
-                                        <td style="text-align: center"> {!! Form::checkbox('Tercera_Session', null, $integrante->Decima_Session) !!} </td> --}}
+                                        <td style="text-align: center"> {!! Form::checkbox('as', null, $integrante->Quinta_Session) !!} </td>
+                                        <td style="text-align: center"> {!! Form::checkbox('qwq', null, $integrante->Sexta_Session) !!} </td>
+                                        {{-- <td style="text-align: center"> {!! Form::checkbox('wqe', null, $integrante->Septima_Session) !!} </td>
+                                        <td style="text-align: center"> {!! Form::checkbox('gggg', null, $integrante->Octava_Session) !!} </td>
+                                        <td style="text-align: center"> {!! Form::checkbox('gg', null, $integrante->Novena_Session) !!} </td>
+                                        <td style="text-align: center"> {!! Form::checkbox('ger', null, $integrante->Decima_Session) !!} </td> --}}
                                         
                                     </tr>
 
