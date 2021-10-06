@@ -30,7 +30,7 @@ Route::get('votacion/mesas/{id}/consejal', 'ConsejalController@getmesas_consejal
  ******************************************/
 Route::resource('consulta/votos_intendente', 'ConsultaController')->names('consulta_intendente');
 Route::get('consulta/votos_intendente/{id1}/{id2}/editar', 'ConsultaController@editar')->name('consulta_intendente.editar');
-Route::get('consulta/votos_intendente/{id1}/{id2}/eliminar', 'ConsultaController@eliminar')->name('consulta_intendente.eliminar');
+Route::delete('consulta/votos_intendente/{id1}/{id2}/eliminar', 'ConsultaController@eliminar')->name('consulta_intendente.eliminar');
 Route::resource('consulta/padron', 'BuscarController')->names('consulta');
 Route::get('consulta/ver_padron', 'InicioController@padron_ver')->name('consulta.padron');
 Route::get('consulta/padron_cel', 'BuscarController@padron_celular')->name('consulta.padron_celular');
@@ -44,7 +44,7 @@ Route::get('consulta/referente_consejal', 'ConsultaController@referente_consejal
 Route::get('consulta/aporedado', 'ConsultaController@aporedado')->name('consulta.aporedado');
 Route::put('consulta/aporedado/{id1}', 'ConsultaController@store_aporedado')->name('consulta.store_aporedado');
 Route::get('consulta/votos_consejal/{id1}/{id2}/editar', 'Consulta_ConsejalController@editar')->name('consulta_consejal.editar');
-Route::get('consulta/votos_consejal/{id1}/{id2}/eliminar', 'Consulta_ConsejalController@eliminar')->name('consulta_consejal.eliminar');
+Route::delete('consulta/votos_consejal/{id1}/{id2}/eliminar', 'Consulta_ConsejalController@eliminar')->name('consulta_consejal.eliminar');
 Route::get('consulta/integrante_mesa', 'ConsultaController@integrante_mesa')->name('consulta.integrante_mesa');
 Route::post('consulta/integrante_store', 'ConsultaController@integrante_store')->name('consulta.integrante_store');
 Route::get('consulta/capacitacion', 'ConsultaController@capacitacion')->name('consulta.capacitacion');

@@ -13,25 +13,7 @@
 
             body {
                 margin: 2cm 1cm 1cm;
-            }
-
-            header {
-                position: fixed;                
-                top: 0cm;
-                left: 0cm;
-                right: 0cm;
-                height: 200px;
-                width: 800px;
-                background: url(manuel.jpg);
-                color: white;
-                text-align: center;
-                line-height: 50px;
-                
-            }
-
-            .rows {
-                margin-top: 3.5cm;
-            }
+            }           
 
             footer {
                 position: fixed;
@@ -43,16 +25,6 @@
                 color: white;
                 text-align: center;
                 line-height: 35px;
-            }
-            br { 
-                display:block;
-                margin-top:10px; 
-                line-height:22px; 
-            }
-            .br1 { 
-                display:block;
-                margin-top:5px; 
-                line-height:5%; 
             }
 
             .saltopagina{
@@ -84,7 +56,7 @@
                         <thead style="background-color:#f71808a8">
 
                             <tr>
-                                <th scope="col" colspan="10" style="text-align: center">{{$local->Desc_Local}}</th>
+                                <th scope="col" colspan="11" style="text-align: center">{{$local->Desc_Local}}</th>
                             </tr>
                             <tr>
                                 
@@ -98,8 +70,8 @@
                                 <th scope="col" style="text-align: center; align-items: center">4/C</th> 
                                 <th scope="col" style="text-align: center; align-items: center">5/C</th> 
                                 <th scope="col" style="text-align: center; align-items: center">6/C</th> 
-                                {{-- <th scope="col" style="text-align: center; align-items: center">7/C</th> 
-                                <th scope="col" style="text-align: center; align-items: center">8/C</th> 
+                                <th scope="col" style="text-align: center; align-items: center">7/C</th> 
+                                {{-- <th scope="col" style="text-align: center; align-items: center">8/C</th> 
                                 <th scope="col" style="text-align: center; align-items: center">9/C</th> 
                                 <th scope="col" style="text-align: center; align-items: center">10/C</th> --}}
                             </tr>
@@ -123,8 +95,8 @@
                                         <td style="text-align: center"> {!! Form::checkbox('cuarta_session', null, $integrante->Cuarta_Session) !!} </td>
                                         <td style="text-align: center"> {!! Form::checkbox('as', null, $integrante->Quinta_Session) !!} </td>
                                         <td style="text-align: center"> {!! Form::checkbox('qwq', null, $integrante->Sexta_Session) !!} </td>
-                                        {{-- <td style="text-align: center"> {!! Form::checkbox('wqe', null, $integrante->Septima_Session) !!} </td>
-                                        <td style="text-align: center"> {!! Form::checkbox('gggg', null, $integrante->Octava_Session) !!} </td>
+                                        <td style="text-align: center"> {!! Form::checkbox('wqe', null, $integrante->Septima_Session) !!} </td>
+                                        {{-- <td style="text-align: center"> {!! Form::checkbox('gggg', null, $integrante->Octava_Session) !!} </td>
                                         <td style="text-align: center"> {!! Form::checkbox('gg', null, $integrante->Novena_Session) !!} </td>
                                         <td style="text-align: center"> {!! Form::checkbox('ger', null, $integrante->Decima_Session) !!} </td> --}}
                                         

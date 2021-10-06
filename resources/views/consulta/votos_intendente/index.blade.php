@@ -100,8 +100,11 @@
                                             <button class="btn btn-primary btn-sm">PDF</button>
                                         </a>
                                         @if ((Auth::user()->id == 1) || (Auth::user()->id == 2))
-                                            <a href="{{ route('consulta_intendente.eliminar',[$voto->Id_Local, $voto->Id_Mesa]) }}">
+                                            {{-- <a href="{{ route('consulta_intendente.eliminar',[$voto->Id_Local, $voto->Id_Mesa]) }}">
                                                 <button class="btn btn-danger btn-sm">Eliminar</button>
+                                            </a> --}}
+                                            <a href="" data-target="#modal-delete-{{$voto->Id_Local}}-{{$voto->Id_Mesa}}" data-toggle="modal">
+                                                <button class="btn btn-danger">Borrar</button>
                                             </a>
                                         @endif
 
@@ -109,6 +112,8 @@
 
 
                                 </tr>
+
+                                @include('consulta.votos_intendente.modal_eliminar')
                                 
                             @endforeach
 

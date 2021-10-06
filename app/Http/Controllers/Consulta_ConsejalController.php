@@ -132,7 +132,7 @@ class Consulta_ConsejalController extends Controller
         $id->Activo = 1;
         $id->save();
 
-        return redirect()->route('consulta_intendente.index')->with('msj', 'Se elimino registro con exito');
+        return redirect()->route('consulta_consejal.index')->with('msj', 'Se elimino registro con exito');
 
     }
 
