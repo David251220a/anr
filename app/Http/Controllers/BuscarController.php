@@ -85,7 +85,7 @@ class BuscarController extends Controller
     }
 
     public function store(Request $request){
-
+        
         $comprometido = $request->comprometido;
         $voto = $request->voto;
         $id_user = auth()->id();
@@ -121,27 +121,62 @@ class BuscarController extends Controller
 
         }
 
-        if ($comprometido == 0) {
-
-            $padron_comprometido = Padron_Comprometido::where('Cod_Comprometido',  $request->codpadron)
-            ->where('Id_User', $id_user)
-            ->delete();
-
-            return redirect()->route('consulta.index');
-        }
-
         $existe = Padron_Comprometido::where('Cod_Comprometido',  $request->codpadron)
         ->where('Id_User', $id_user)
         ->first();
 
         if($existe){
 
-            // if($voto == 1){
+            if ($comprometido == 0) {
 
-                $existe->voto = $voto;
+                // $padron_comprometido = Padron_Comprometido::where('Cod_Comprometido',  $request->codpadron)
+                // ->where('Id_User', $id_user)
+                // ->delete();
+
+                $existe->Cod_Referente = 99999;
+                $existe->apellido_nombre_Referente = "";
+                $existe->comprometido = $comprometido;
                 $existe->save();
 
-            // }
+                return redirect()->route('consulta.index');
+
+            }
+
+            if ($persona->CodPadron == 99999){
+            
+                return redirect()->route('consulta.index')->with('msj', 'No existe referente con este numero de C.I: '.$cedula);
+
+            }
+
+            $existe->Cod_Referente = $persona->CodPadron;
+            $existe->apellido_nombre_Referente = $persona->cedula . " " .$persona->apellido_nombre;
+            $existe->voto = $voto;
+            $existe->comprometido = $comprometido;
+            $existe->save();
+
+            return redirect()->route('consulta.index');
+
+        }
+
+        if (($voto == 1) && ($comprometido == 0)){
+
+            $padron_comprometido= new Padron_Comprometido();
+
+            $padron_comprometido->Cod_Referente = 99999;
+            $padron_comprometido->apellido_nombre_Referente = "";
+            $padron_comprometido->Cod_Comprometido = $request->codpadron;
+            $padron_comprometido->voto = $voto;
+            $padron_comprometido->comprometido = $comprometido;
+            $padron_comprometido->Id_User = $id_user;
+            $padron_comprometido->Fecha_Comprometido = $fecha;
+            $padron_comprometido->save();
+
+
+            $padron = Padron::where('CodPadron', $request->codpadron)
+            ->first();
+
+            $padron->si_voto = $voto;
+            $padron->save();
 
             return redirect()->route('consulta.index');
 
@@ -202,7 +237,7 @@ class BuscarController extends Controller
     }
 
     public function padron_celular_store(Request $request){
-
+        
         $comprometido = $request->comprometido;
         $voto = $request->voto;
         $id_user = auth()->id();
@@ -232,34 +267,69 @@ class BuscarController extends Controller
         
         $persona = Padron::where('cedula', $cedula)
         ->first();
-
+        
         if (empty($persona)){
 
             return redirect()->route('consulta.padron_celular')->with('msj', 'No existe referente con este numero de C.I: '.$cedula);
 
         }
 
-        if ($comprometido == 0) {
-
-            $padron_comprometido = Padron_Comprometido::where('Cod_Comprometido',  $request->codpadron)
-            ->where('Id_User', $id_user)
-            ->delete();
-
-            return redirect()->route('consulta.padron_celular');
-        }
-        
         $existe = Padron_Comprometido::where('Cod_Comprometido',  $request->codpadron)
         ->where('Id_User', $id_user)
         ->first();
 
         if($existe){         
             
-            // if($voto == 1){
+            if ($comprometido == 0) {
 
-                $existe->voto = $voto;
+                // $padron_comprometido = Padron_Comprometido::where('Cod_Comprometido',  $request->codpadron)
+                // ->where('Id_User', $id_user)
+                // ->delete();
+
+                $existe->Cod_Referente = 99999;
+                $existe->apellido_nombre_Referente = "";
+                $existe->comprometido = $comprometido;
                 $existe->save();
 
-            // }
+                return redirect()->route('consulta.padron_celular');
+
+            }
+
+            if ($persona->CodPadron == 99999){
+            
+                return redirect()->route('consulta.padron_celular')->with('msj', 'No existe referente con este numero de C.I: '.$cedula);
+
+            }
+
+            $existe->Cod_Referente = $persona->CodPadron;
+            $existe->apellido_nombre_Referente = $persona->cedula . " " .$persona->apellido_nombre;
+            $existe->voto = $voto;
+            $existe->comprometido = $comprometido;
+            $existe->save();
+
+            return redirect()->route('consulta.padron_celular');
+
+        }
+
+        if (($voto == 1) && ($comprometido == 0)){
+
+            $padron_comprometido= new Padron_Comprometido();
+
+            $padron_comprometido->Cod_Referente = 99999;
+            $padron_comprometido->apellido_nombre_Referente = "";
+            $padron_comprometido->Cod_Comprometido = $request->codpadron;
+            $padron_comprometido->voto = $voto;
+            $padron_comprometido->comprometido = $comprometido;
+            $padron_comprometido->Id_User = $id_user;
+            $padron_comprometido->Fecha_Comprometido = $fecha;
+            $padron_comprometido->save();
+
+
+            $padron = Padron::where('CodPadron', $request->codpadron)
+            ->first();
+
+            $padron->si_voto = $voto;
+            $padron->save();
 
             return redirect()->route('consulta.padron_celular');
 

@@ -286,6 +286,11 @@
                 <div class="form-group md-form mt-3">
                                                                 
                     <input id="total_votos" name="total_votos" type="number" required="required" value="{{old('total_votos', 0)}}" class="form-control">
+                    @error('total_votos')
+
+                        <span class="text-danger">{{$message}}</span>
+
+                    @enderror
 
                 </div>                        
                 

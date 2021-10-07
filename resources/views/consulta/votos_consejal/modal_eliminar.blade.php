@@ -16,13 +16,13 @@
 
                 </button>
 
-                <h4 class="modal-title">Eliminar Funcionario</h4>
+                <h4 class="modal-title">Eliminar</h4>
 
             </div>
 
             <div class="modale-body">
 
-                <p>Confirme si desea Eliminar Funcionario</p>
+                <p>Confirme si desea Eliminar</p>
 
 
             </div>

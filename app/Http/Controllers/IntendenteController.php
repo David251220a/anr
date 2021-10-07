@@ -59,6 +59,10 @@ class IntendenteController extends Controller
 
         $id_user = auth()->id();
 
+        $request->validate([
+            'total_votos' => 'required|numeric|min:0|not_in:0',
+        ]);
+
         $existe_registro = DB::table('votacion_intendente')
         ->where('Id_Local', $request->id_local)
         ->where('Id_Mesa', $request->id_mesa)

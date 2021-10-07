@@ -129,9 +129,9 @@ return [
     |
     */
 
-    'custom' => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
+    'custom' => [        
+        'total_votos' => [
+            'not_in' => 'No ha cargado ningun votos. Por favor vuelva a cargar los datos.',
         ],
     ],
 
