@@ -343,7 +343,7 @@
       $("#padron_ver").remove();
       $("#referente_intendente").remove();
       $("#integrante_mesa").remove();
-      $("#padron_voto").remove();
+      // $("#padron_voto").remove();
       
     }
 
