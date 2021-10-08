@@ -64,6 +64,7 @@ class ConsejalController extends Controller
         
         $id_user = auth()->id();
 
+        // return $request->all();
 
         $request->validate([
             'total_votos' => 'required|numeric|min:0|not_in:0',
@@ -108,6 +109,8 @@ class ConsejalController extends Controller
 
         }
 
+        return $votos[10];
+
         while($cont < count($orden)){
 
             $cont_lista = 0;
@@ -130,6 +133,7 @@ class ConsejalController extends Controller
                 $votacion_consejal->imagen = $url;
                 
                 $votacion_consejal->save();
+
                 $cont_lista = $cont_lista + 1 ;
                 $cont_votos = $cont_votos + 1 ;
                 

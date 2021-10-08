@@ -310,18 +310,20 @@ class PDFController extends Controller
         ->join('consejal AS b', 'b.Id_Consejal', '=', 'a.Id_Consejal')
         ->where('a.Id_Local', $id1)
         ->where('a.Id_Mesa', $id2)
-        ->orderBy('b.Orden', 'ASC')
-        ->orderBy('b.Id_Lista', 'ASC')
+        // ->orderBy('b.Orden', 'ASC')
+        // ->orderBy('b.Id_Lista', 'ASC')
         ->get();
 
         $totales = DB::table('votacion_consejal AS a')
         ->join('consejal AS b', 'b.Id_Consejal', '=', 'a.Id_Consejal')
+        ->join('lista AS c', 'c.Id_Lista', '=', 'b.Id_Lista')
         ->select('b.Id_Lista'
+        , 'c.numero_lista'
         , DB::raw('SUM(a.Votos) AS total'))
         ->where('a.Id_Local', $id1)
         ->where('a.Id_Mesa', $id2)
-        ->groupBy('b.Id_Lista')
-        ->orderBy('b.Id_Lista')
+        ->groupBy('b.Id_Lista', 'c.numero_lista')
+        ->orderBy('c.numero_lista')
         ->get();
 
         $total = Votacion_Consejal::where('Id_Local', $id1)

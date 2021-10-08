@@ -177,7 +177,7 @@
                                 <div class="form-group" style="text-align: center">
                                     
                                     <label for="total_votos"></label>
-                                    <input type="number"  readonly id="total_votos" name="total_votos" class="form-control" value="{{old('total_votos', 0)}}">
+                                    <input type="number"  readonly id="total_votos" name="total_votos" class="form-control " value="{{old('total_votos', 0)}}">
                                     @error('total_votos')
 
                                         <span class="text-danger">{{$message}}</span>
