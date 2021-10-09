@@ -450,7 +450,10 @@ class PDFController extends Controller
     
             $comprometidos = DB::select($sql_Call, array($consejal_id->Id_Consejal));
             
-            $PDF = PDF::loadView('pdf.consejal_listado', compact('comprometidos', 'consejal'));
+            $locales = DB::table('local_votacion')
+            ->get();
+
+            $PDF = PDF::loadView('pdf.consejal_listado', compact('comprometidos', 'consejal', 'locales'));
                 
             return $PDF->stream();
 

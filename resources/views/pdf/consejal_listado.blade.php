@@ -1,3 +1,27 @@
+
+@php
+$total = 0;
+@endphp
+
+@php
+$total_voto = 0;
+@endphp
+
+@foreach ($comprometidos as $comprometido)
+
+    @php
+        $total = $total +1;
+    @endphp
+
+    @if ($comprometido->voto == 1)
+        
+        @php
+            $total_voto = $total_voto + 1;
+        @endphp
+    @endif
+    
+@endforeach
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -94,6 +118,10 @@
                 margin-bottom: 1px;                
             }
 
+            .saltopagina{
+                page-break-after:always;
+            }
+
         </style>
 
     </head>
@@ -113,83 +141,91 @@
                 <br>        
             
                 @if ($comprometidos)
-                
-                    <div class="table table-responsive table-bordered">
+
+                    @php
+                        $cont = 0;
+                    @endphp
+
+                    @foreach ($locales as $local)
+
+                        @php
+                            $cont = $cont + 1;
+                        @endphp
                         
-                        <table class="table">
-                        
-                            <thead >
-
-                                <tr style="background-color:#f71808a8">
-                                    
-                                    <th scope="col" style="text-align: center" width="50px">Cedula</th>
-                                    <th scope="col" style="text-align: center" width="200px">Apellido y Nombre</th>
-                                    <th scope="col" style="text-align: center" width="15px">C</th>
-                                    <th scope="col" style="text-align: center" width="15px">V</th>
-                                    <th scope="col" style="text-align: center" width="230px">Referente</th>
-                                    <th scope="col" style="text-align: center" width="60px">Usuario</th>
-
-                                </tr>
-                            </thead>
-
-                            @php
-                                $total = 0;
-                            @endphp
-
-                            @php
-                                $total_voto = 0;
-                            @endphp
+                        <div class="table table-responsive table-bordered">
                             
-                            <tbody>
+                            <table class="table">
+                            
+                                <thead >
 
-                                @foreach ($comprometidos as $comprometido)
-                                    
                                     <tr>
-
-                                        <td style="text-align: right;font-size: 0.9rem">{{number_format($comprometido->cedula, 0, ".", ".")}}</td>
-                                        <td style="text-align: center;font-size: 0.9rem">{{$comprometido->apellido_nombre}}</td>
-                                        <td style="text-align: center;font-size: 0.9rem"> {!! Form::checkbox('comprometido', null, $comprometido->comprometido) !!} </td>
-                                        <td style="text-align: center;font-size: 0.9rem">{!! Form::checkbox('voto', null, $comprometido->voto) !!} </td>
-                                        <td style="text-align: center;font-size: 0.9rem">{{$comprometido->apellido_nombre_Referente}}</td>
-                                        <td style="text-align: center;font-size: 0.9rem">{{$comprometido->name}}</td>
+                                        <th colspan="6" style="text-align: center">{{$local->Desc_Local}} </th>
+                                    </tr>
+                                    <tr style="background-color:#f71808a8">
+                                        
+                                        <th scope="col" style="text-align: center" width="50px">Cedula</th>
+                                        <th scope="col" style="text-align: center" width="200px">Apellido y Nombre</th>
+                                        <th scope="col" style="text-align: center" width="15px">C</th>
+                                        <th scope="col" style="text-align: center" width="15px">V</th>
+                                        <th scope="col" style="text-align: center" width="230px">Referente</th>
+                                        <th scope="col" style="text-align: center" width="60px">Usuario</th>
 
                                     </tr>
-                                    @php
-                                        $total = $total +1;
-                                    @endphp
+                                </thead>
+                                
+                                <tbody>
 
-                                    @if ($comprometido->voto == 1)
+                                    @foreach ($comprometidos as $comprometido)
                                         
-                                        @php
-                                            $total_voto = $total_voto + 1;
-                                        @endphp
-                                    @endif
+                                        @if ($local->Id_Local == $comprometido->local)
+                                        
+                                            <tr>
 
-                                @endforeach
+                                                <td style="text-align: right;font-size: 0.9rem">{{number_format($comprometido->cedula, 0, ".", ".")}}</td>
+                                                <td style="text-align: center;font-size: 0.9rem">{{$comprometido->apellido_nombre}}</td>
+                                                <td style="text-align: center;font-size: 0.9rem"> {!! Form::checkbox('comprometido', null, $comprometido->comprometido) !!} </td>
+                                                <td style="text-align: center;font-size: 0.9rem">{!! Form::checkbox('voto', null, $comprometido->voto) !!} </td>
+                                                <td style="text-align: center;font-size: 0.9rem">{{$comprometido->apellido_nombre_Referente}}</td>
+                                                <td style="text-align: center;font-size: 0.9rem">{{$comprometido->name}}</td>
 
-                            </tbody>
+                                            </tr>
+                                        
+                                        @endif
 
-                            <tfoot>
+                                    @endforeach
 
-                                <tr>
+                                </tbody>
 
-                                    <td colspan="5" style="text-align: center"><b> TOTAL DE COMPROMETIDOS </b></td>
-                                    <td colspan="1" style="text-align: left"><b>{{number_format($total, 0, ".", ".")}}</b></td>
+                                {{-- <tfoot>
 
-                                </tr>
+                                    <tr>
 
-                                <tr>
+                                        <td colspan="5" style="text-align: center"><b> TOTAL DE COMPROMETIDOS </b></td>
+                                        <td colspan="1" style="text-align: left"><b>{{number_format($total, 0, ".", ".")}}</b></td>
 
-                                    <td colspan="5" style="text-align: center"><b> TOTAL DE VOTADOS </b></td>
-                                    <td colspan="1" style="text-align: left"><b>{{number_format($total_voto, 0, ".", ".")}}</b></td>
+                                    </tr>
 
-                                </tr>
+                                    <tr>
 
-                            </tfoot>
+                                        <td colspan="5" style="text-align: center"><b> TOTAL DE VOTADOS </b></td>
+                                        <td colspan="1" style="text-align: left"><b>{{number_format($total_voto, 0, ".", ".")}}</b></td>
 
-                        </table>
+                                    </tr>
 
-                    </div>
+                                </tfoot> --}}
+
+                            </table>
+
+                        </div>
+
+                    @endforeach
+
+                    @if ($cont < 12)
+                
+                        <div class="saltopagina">
+                        </div>    
+                
+                    @endif
 
                 @endif
 
