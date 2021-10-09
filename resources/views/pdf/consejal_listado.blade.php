@@ -55,10 +55,6 @@ $total_voto = 0;
                 
             }
 
-            .rows {
-                margin-top: 3.5cm;
-            }
-
             footer {
                 position: fixed;
                 bottom: 0cm;
@@ -70,54 +66,6 @@ $total_voto = 0;
                 text-align: center;
                 line-height: 35px;
             }
-            br { 
-                display:block;
-                margin-top:10px; 
-                line-height:22px; 
-            }
-            .br1 { 
-                display:block;
-                margin-top:5px; 
-                line-height:5%; 
-            }
-
-            .caja{
-                background: white;
-                width: 90%;
-                height: 270px;
-                margin-top: 150px;
-                margin-left: 50px;
-                border-width: 2px;
-                border-style: solid;
-                position: absolute;                                
-            }
-
-            .caja1{
-                
-                width: 500px;
-                height: 100px;
-                margin-top: 200px;
-                margin-left: 50px;
-                margin-right: 50px;
-                border-width: 4px;
-                position: absolute;                                
-            }
-
-            p {                
-                margin-left: 2px;
-                margin-bottom: 1px;
-                margin-top: 1px;
-            }
-            hr.myhrline{
-                margin-top: 1px;
-                margin-bottom: 1px;
-            }
-            label.mylabel{
-                margin-left: 2px;
-                margin-top: 1px;
-                margin-bottom: 1px;                
-            }
-
             .saltopagina{
                 page-break-after:always;
             }
@@ -130,108 +78,96 @@ $total_voto = 0;
 
         <div class="container">
 
-            <header style="background: url({{Auth::user()->url}})"></header>
+            <h3 style="text-align: center"><b>LISTA 1 / OPCION {{$consejal->Id_Consejal}} - {{$consejal->Nombre}} {{$consejal->Apellido}} </b></h3>
 
-            <div class="rows">
-
-                <h3 style="text-align: center"><b>LISTA 1 / OPCION {{$consejal->Id_Consejal}} - {{$consejal->Nombre}} {{$consejal->Apellido}} </b></h3>
-
-                <h2 style="text-align: center">{{date('d-m-Y H:i', strtotime(Carbon\Carbon::now()))}}</h2>
-                
-                <br>        
+            <h2 style="text-align: center">{{date('d-m-Y H:i', strtotime(Carbon\Carbon::now()))}}</h2>
             
-                @if ($comprometidos)
+            <br>
+            
+            @if ($comprometidos)
+
+                @php
+                    $cont = 0;
+                @endphp
+
+                @foreach ($locales as $local)
 
                     @php
-                        $cont = 0;
+                        $cont = $cont + 1;
                     @endphp
-
-                    @foreach ($locales as $local)
-
-                        @php
-                            $cont = $cont + 1;
-                        @endphp
+                    
+                    <div class="table table-responsive table-bordered">
                         
-                        <div class="table table-responsive table-bordered">
+                        <table class="table">
+                        
+                            <thead >
+
+                                <tr>
+                                    <th colspan="6" style="text-align: center">{{$local->Desc_Local}} </th>
+                                </tr>
+                                <tr style="background-color:#f71808a8">
+                                    
+                                    <th scope="col" style="text-align: center" width="50px">Cedula</th>
+                                    <th scope="col" style="text-align: center" width="200px">Apellido y Nombre</th>
+                                    <th scope="col" style="text-align: center" width="15px">C</th>
+                                    <th scope="col" style="text-align: center" width="15px">V</th>
+                                    <th scope="col" style="text-align: center" width="230px">Referente</th>
+                                    <th scope="col" style="text-align: center" width="60px">Usuario</th>
+
+                                </tr>
+                            </thead>
                             
-                            <table class="table">
-                            
-                                <thead >
+                            <tbody>
 
-                                    <tr>
-                                        <th colspan="6" style="text-align: center">{{$local->Desc_Local}} </th>
-                                    </tr>
-                                    <tr style="background-color:#f71808a8">
-                                        
-                                        <th scope="col" style="text-align: center" width="50px">Cedula</th>
-                                        <th scope="col" style="text-align: center" width="200px">Apellido y Nombre</th>
-                                        <th scope="col" style="text-align: center" width="15px">C</th>
-                                        <th scope="col" style="text-align: center" width="15px">V</th>
-                                        <th scope="col" style="text-align: center" width="230px">Referente</th>
-                                        <th scope="col" style="text-align: center" width="60px">Usuario</th>
+                                @foreach ($comprometidos as $comprometido)
+                                    
+                                    @if ($local->Id_Local == $comprometido->local)
+                                    
+                                        <tr>
 
-                                    </tr>
-                                </thead>
-                                
-                                <tbody>
+                                            <td style="text-align: right;font-size: 0.9rem">{{number_format($comprometido->cedula, 0, ".", ".")}}</td>
+                                            <td style="text-align: center;font-size: 0.9rem">{{$comprometido->apellido_nombre}}</td>
+                                            <td style="text-align: center;font-size: 0.9rem"> {!! Form::checkbox('comprometido', null, $comprometido->comprometido) !!} </td>
+                                            <td style="text-align: center;font-size: 0.9rem">{!! Form::checkbox('voto', null, $comprometido->voto) !!} </td>
+                                            <td style="text-align: center;font-size: 0.9rem">{{$comprometido->apellido_nombre_Referente}}</td>
+                                            <td style="text-align: center;font-size: 0.9rem">{{$comprometido->name}}</td>
 
-                                    @foreach ($comprometidos as $comprometido)
-                                        
-                                        @if ($local->Id_Local == $comprometido->local)
-                                        
-                                            <tr>
+                                        </tr>
+                                    
+                                    @endif
 
-                                                <td style="text-align: right;font-size: 0.9rem">{{number_format($comprometido->cedula, 0, ".", ".")}}</td>
-                                                <td style="text-align: center;font-size: 0.9rem">{{$comprometido->apellido_nombre}}</td>
-                                                <td style="text-align: center;font-size: 0.9rem"> {!! Form::checkbox('comprometido', null, $comprometido->comprometido) !!} </td>
-                                                <td style="text-align: center;font-size: 0.9rem">{!! Form::checkbox('voto', null, $comprometido->voto) !!} </td>
-                                                <td style="text-align: center;font-size: 0.9rem">{{$comprometido->apellido_nombre_Referente}}</td>
-                                                <td style="text-align: center;font-size: 0.9rem">{{$comprometido->name}}</td>
+                                @endforeach
 
-                                            </tr>
-                                        
-                                        @endif
+                            </tbody>
 
-                                    @endforeach
+                        </table>
 
-                                </tbody>
+                    </div>
 
-                                {{-- <tfoot>
+                @endforeach
 
-                                    <tr>
-
-                                        <td colspan="5" style="text-align: center"><b> TOTAL DE COMPROMETIDOS </b></td>
-                                        <td colspan="1" style="text-align: left"><b>{{number_format($total, 0, ".", ".")}}</b></td>
-
-                                    </tr>
-
-                                    <tr>
-
-                                        <td colspan="5" style="text-align: center"><b> TOTAL DE VOTADOS </b></td>
-                                        <td colspan="1" style="text-align: left"><b>{{number_format($total_voto, 0, ".", ".")}}</b></td>
-
-                                    </tr>
-
-                                </tfoot> --}}
-
-                            </table>
-
-                        </div>
-
-                    @endforeach
-
-                    @if ($cont < 12)
-                
-                        <div class="saltopagina">
-                        </div>    
-                
-                    @endif
-
+                @if ($cont < 12)
+            
+                    <div class="saltopagina">
+                    </div>    
+            
                 @endif
 
-            </div>
+            @endif
+
 
         </div>
+
+        <div class="saltopagina">
+        </div>
+
+        <div>
+
+            <h3 style="text-align: center">TOTAL COMPROMETIDOS: {{$total}} </h3>total
+            <h3 style="text-align: center">TOTAL vOTO: {{$total_voto}} </h3>
+
+        </div>
+
         
     </body>
 </html>
