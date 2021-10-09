@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Padron;
 use App\Padron_Comprometido;
+use App\Auditoria;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -176,6 +177,8 @@ class BuscarController extends Controller
             ->first();
 
             $padron->si_voto = $voto;
+            $padron->Id_User = $voto;
+            $padron->FechaHora = Carbon::now();
             $padron->save();
 
             return redirect()->route('consulta.index');
@@ -329,6 +332,8 @@ class BuscarController extends Controller
             ->first();
 
             $padron->si_voto = $voto;
+            $padron->Id_User = $voto;
+            $padron->FechaHora = Carbon::now();
             $padron->save();
 
             return redirect()->route('consulta.padron_celular');
@@ -380,6 +385,18 @@ class BuscarController extends Controller
             ->orderBy('a.local', 'ASC')
             ->orderBy('a.mesa', 'ASC')
             ->first();
+
+            // if($votante){
+
+            //     $auditoria = new Auditoria();
+
+            //     $auditoria->Cod_Padron = $votante->CodPadron;
+            //     $auditoria->cedula = $votante->cedula;
+            //     $auditoria->Id_User = $id_user;
+            //     $auditoria->Fecha_Hora = Carbon::now();
+
+            //     $auditoria->save();
+            // }
             
         }
 
@@ -391,11 +408,14 @@ class BuscarController extends Controller
         
         $voto = 1;
         $cont= 0;
+        $id_user = auth()->id();
 
         $padron = Padron::where('CodPadron', $request->codpadron)
         ->first();
 
         $padron->si_voto = $voto;
+        $padron->Id_User = $voto;
+        $padron->FechaHora = Carbon::now();
 
         $padron->save();
 

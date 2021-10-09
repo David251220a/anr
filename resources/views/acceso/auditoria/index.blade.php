@@ -37,35 +37,46 @@
                 <thead style="background-color:#f20a0ade">
                     
                     <tr style="text-align: center">
-                        <th  style="text-align: center" colspan="8">Intendente</th>
+                        <th  style="text-align: center" colspan="5">Auditoria</th>
                     </tr>
                     <tr style="text-align: center">
                         
-                        <th style="text-align: center">Lista</th>
-                        <th style="text-align: center">Intendente</th>
+                        <th style="text-align: center">Cedula</th>
+                        <th style="text-align: center">Apellido Nombre</th>
                         <th style="text-align: center">Local</th>
                         <th style="text-align: center">Mesa</th>
-                        <th style="text-align: center">Descripcion Cambio</th>
-                        <th style="text-align: center">Fecha</th>
-                        <th style="text-align: center">Usuario</th>                    
+                        <th style="text-align: center">Orden</th>
+                        {{-- <th style="text-align: center">Fecha</th> --}}
+                    
                     </tr>
 
-                </thead>                
-                @foreach ($auditoria as $audi)
+                </thead>  
+                @php
+                    $cont = 0;
+                @endphp
 
-                    <tr style="vertical-align: middle ; text-align: center">
+                <tbody>
+
+                    @foreach ($auditoria as $audi)
+
+                        <tr style="vertical-align: middle ; text-align: center">
+                            
+                            <td>{{number_format($audi->Cedula, 0, ".", ".")}}</td>
+                            <td>{{$audi->apellido_nombre}}</td>
+                            <td>{{$audi->Desc_Local}}</td>
+                            <td>{{$audi->mesa}}</td>
+                            <td>{{$audi->orden}}</td>
+                            {{-- <td>{{date('H:i', strtotime($audi->Fecha_Hora))}}</td> --}}
                         
-                        <td>{{$audi->Desc_Lista}}</td>
-                        <td>{{$audi->Nombre}} {{$audi->Apellido}} </td>
-                        <td>{{$audi->Desc_Local}}</td>
-                        <td>{{$audi->Mesa}}</td>
-                        <td>{{$audi->Descripcion_Cambio}}</td>
-                        <td>{{date('d-m-Y H:i', strtotime($audi->Fecha))}}</td>
-                        <td>{{$audi->name}}</td>
+                        </tr>                                        
+
+                        @php
+                            $cont = $cont + 1;
+                        @endphp
                     
-                    </tr>                                        
-                
-                @endforeach
+                    @endforeach
+
+                </tbody>
 
             </table>
 
@@ -75,52 +86,21 @@
 
 </div>
 
-<br>
-<br>
-<hr width="100%" style="color: #ed1212;" />
-<br>
-<br>
-
 <div class="rows">
 
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 
         <div class="table table-responsive">
 
-            <table id="detalles1"  class="table table-striped table-bordered table-condensed table-hover">                
+            <table id="detalles"  class="table table-striped table-bordered table-condensed table-hover">                
                 
                 <thead style="background-color:#f20a0ade">
                     
                     <tr style="text-align: center">
-                        <th  style="text-align: center" colspan="8">Consejal</th>
-                    </tr>
-                    <tr style="text-align: center">
-                        
-                        <th style="text-align: center">Lista</th>
-                        <th style="text-align: center">Consejal</th>
-                        <th style="text-align: center">Local</th>
-                        <th style="text-align: center">Mesa</th>
-                        <th style="text-align: center">Descripcion Cambio</th>
-                        <th style="text-align: center">Fecha</th>
-                        <th style="text-align: center">Usuario</th>                    
+                        <th  colspan="4" style="text-align: center">Total: {{number_format($cont, 0, ".", ".")}}</th>
                     </tr>
 
-                </thead>                
-                @foreach ($auditoria_consejal as $audi1)
-
-                    <tr style="vertical-align: middle ; text-align: center">
-                                            
-                        <td>{{$audi1->Desc_Lista}}</td>
-                        <td>{{$audi1->Desc_Lista}} - {{$audi1->Nombre}} {{$audi1->Apellido}} </td>
-                        <td>{{$audi1->Desc_Local}}</td>
-                        <td>{{$audi1->Mesa}}</td>
-                        <td>{{$audi1->Descripcion_Cambio}}</td>
-                        <td>{{date('d-m-Y H:i', strtotime($audi1->Fecha))}}</td>
-                        <td>{{$audi1->name}}</td>
-                    
-                    </tr>                                        
-                
-                @endforeach
+                </thead>
 
             </table>
 

@@ -620,4 +620,80 @@ class ConsultaController extends Controller
 
     }
 
+    public function comprometido_voto(Request $request){
+
+        $id_user = auth()->id();
+        $local=trim($request->get('local'));
+
+        if($local){
+            
+           
+
+        }else{
+            $local = 99;
+        }
+
+        $dale = DB::table('local_votacion')
+        ->where('Id_Local', '=', $local)
+        ->first();
+
+        $url_consulta = User::where('id', $id_user)
+        ->first();
+
+        $url = $url_consulta->url;  
+
+        $consejal_id = DB::table('equivalente_consejal') 
+        ->where('equivalente_nombre', '=' ,  $url_consulta->url)
+        ->first();
+
+        $local_votacion = DB::table('local_votacion')
+        ->orderBy('Id_Local', 'ASC' )
+        ->get();
+
+        $sql_Call = 'CALL comprometido_voto(?)';
+
+        $votaciones = DB::select($sql_Call, array($consejal_id->Id_Consejal));
+
+        return view('consulta.comprometido_voto', compact('votaciones' , 'local_votacion', 'local', 'dale'));
+
+    }
+
+    public function comprometido_inte(Request $request){
+
+        $id_user = auth()->id();
+        $local=trim($request->get('local'));
+
+        if($local){
+            
+           
+
+        }else{
+            $local = 99;
+        }
+
+        $dale = DB::table('local_votacion')
+        ->where('Id_Local', '=', $local)
+        ->first();
+
+        $url_consulta = User::where('id', $id_user)
+        ->first();
+
+        $url = $url_consulta->url;  
+
+        $consejal_id = DB::table('equivalente_consejal') 
+        ->where('equivalente_nombre', '=' ,  $url_consulta->url)
+        ->first();
+
+        $local_votacion = DB::table('local_votacion')
+        ->orderBy('Id_Local', 'ASC' )
+        ->get();
+
+        $sql_Call = 'CALL comprometido_inte';
+
+        $votaciones = DB::select($sql_Call);
+
+        return view('consulta.comprometido_inte', compact('votaciones' , 'local_votacion', 'local', 'dale'));
+
+    }
+
 }

@@ -53,19 +53,17 @@
                     @endif
 
                     @if ($votante)
-                    
-                        @if ($votante->si_voto == 1)
+                        
+                        <tbody>
+                            
+                            @if ($votante->si_voto == 1)
 
-                            <tbody>
                                 <tr style="text-align: center">
                                     <td><h3><b>{{$votante->cedula}} - {{$votante->apellido_nombre}} </b> ya voto!!!. </h3></td>
                                 </tr>
-                            </tbody>
+
+                            @else
                             
-                        @else
-                        
-                            <tbody>
-                                
                                 {!! Form::open(['route' => 'consulta.padron_voto_store', 'method'=>'POST', 'autocomplete' => 'off', 'files' => true]) !!}
 
                                     <tr style="display: none">
@@ -78,42 +76,44 @@
 
                                 {!! Form::close() !!}
 
-                                <tr>
-                                    <td style="text-align: center">CEDULA DE IDENTIDAD</td>
-                                </tr>
-                                <tr>
-                                    <td style="text-align: center"><b>{{number_format($votante->cedula, 0, ".", ".")}}</b></td>
-                                </tr>
-                                <tr>
-                                    <td style="text-align: center">APELLIDO Y NOMBRE</td>
-                                </tr>
-                                <tr>
-                                    <td style="text-align: center"><b>{{$votante->apellido_nombre}}</b></td>
-                                </tr>
-                                <tr>
-                                    <td style="text-align: center">LOCAL</td>
-                                </tr>
-                                <tr>
-                                    <td style="text-align: center"><b>{{$votante->Desc_Local}}</b></td>
-                                </tr>                           
-                                <tr>
-                                    <td style="text-align: center"> MESA : <b>{{$votante->mesa}} </b></td>
-                                </tr>
-                                <tr>
-                                    <td style="text-align: center">ORDEN : <b>{{$votante->orden}} </b></td>
-                                </tr>
-                                {{-- <tr>
+                            @endif
 
-                                    <td style="text-align: center" width="30px">
-                                        <a href=" {{ route('persona_padron', $votante->CodPadron) }}" target="_blank">
-                                            <button class="btn btn-info btn-sm"><li  class="fa fa-file-pdf-o"></li> PDF</button>
-                                        </a>
-                                    </td>
+                            <tr>
+                                <td style="text-align: center">CEDULA DE IDENTIDAD</td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center"><b>{{number_format($votante->cedula, 0, ".", ".")}}</b></td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center">APELLIDO Y NOMBRE</td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center"><b>{{$votante->apellido_nombre}}</b></td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center">LOCAL</td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center"><b>{{$votante->Desc_Local}}</b></td>
+                            </tr>                           
+                            <tr>
+                                <td style="text-align: center"> MESA : <b>{{$votante->mesa}} </b></td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center">ORDEN : <b>{{$votante->orden}} </b></td>
+                            </tr>
+                            
+                            {{-- <tr>
 
-                                </tr> --}}
-                                
-                            </tbody>
-                        @endif
+                                <td style="text-align: center" width="30px">
+                                    <a href=" {{ route('persona_padron', $votante->CodPadron) }}" target="_blank">
+                                        <button class="btn btn-info btn-sm"><li  class="fa fa-file-pdf-o"></li> PDF</button>
+                                    </a>
+                                </td>
+
+                            </tr> --}}
+                            
+                        </tbody>
 
                     @else
 

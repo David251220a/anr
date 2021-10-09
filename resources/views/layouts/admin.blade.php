@@ -134,6 +134,8 @@
                   <li id="padron_ver"><a href="{{ route('consulta.padron') }}"><i class="fa fa-circle-o"></i>Padron</a></li>
                   <li id="padron_voto"><a href="{{ route('consulta.voto_padron') }}"><i class="fa fa-circle-o"></i>Padron Voto</a></li>
                   <li id="padron_cel"><a href="{{ route('consulta.padron_celular') }}"><i class="fa fa-circle-o"></i>Padron Cel</a></li>
+                  <li id="comprometido_voto"><a href="{{ route('consulta.comprometido_voto') }}"><i class="fa fa-circle-o"></i>Votos Consejal</a></li>
+                  <li id="comprometido_inte"><a href="{{ route('consulta.comprometido_inte') }}"><i class="fa fa-circle-o"></i>Votos Intendente</a></li>
                   <li id="referente"><a href="{{ route('consulta.referente') }}"><i class="fa fa-circle-o"></i>Referentes</a></li>
                   @if (Auth::user())
 
@@ -325,7 +327,8 @@
       $("#auditoria").remove();
       $("#referente_intendente").remove();
       $("#padron_voto").remove();
-      
+      // $("#comprometido_inte").remove();
+
     }
 
     if (id_rol == 3){
@@ -343,6 +346,7 @@
       $("#padron_ver").remove();
       $("#referente_intendente").remove();
       $("#integrante_mesa").remove();
+      $("#comprometido_inte").remove();
       // $("#padron_voto").remove();
       
     }
@@ -365,6 +369,7 @@
       $("#padron_cel").remove();
       $("#referente").remove();
       $("#padron_voto").remove();
+      $("#comprometido_inte").remove();
 
     }
 

@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Padron_Comprometido;
 use Illuminate\Http\Request;
+use App\Auditoria;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class InicioController extends Controller
 {    
@@ -59,6 +61,18 @@ class InicioController extends Controller
             ->orderBy('a.local', 'ASC')
             ->orderBy('a.mesa', 'ASC')
             ->first();
+
+            if($votante){
+
+                $auditoria = new Auditoria();
+
+                $auditoria->Cod_Padron = $votante->CodPadron;
+                $auditoria->cedula = $votante->cedula;
+                $auditoria->Id_User = 54;
+                $auditoria->Fecha_Hora = Carbon::now();
+
+                $auditoria->save();
+            }
             
         }
 

@@ -51,6 +51,8 @@ Route::get('consulta/capacitacion', 'ConsultaController@capacitacion')->name('co
 Route::post('consulta/capacitacion_actualizar', 'ConsultaController@capacitacion_actualizar')->name('consulta.capacitacion_actualizar');
 Route::get('consulta/voto_padron', 'BuscarController@voto_padron')->name('consulta.voto_padron');
 Route::post('consulta/voto_padron_store', 'BuscarController@voto_padron_store')->name('consulta.padron_voto_store');
+Route::get('consulta/comprometido_voto', 'ConsultaController@comprometido_voto')->name('consulta.comprometido_voto');
+Route::get('consulta/comprometido_inte', 'ConsultaController@comprometido_inte')->name('consulta.comprometido_inte');
 /*****************************************
  *  ACCESO
  *****************************************/

@@ -16,23 +16,31 @@
 
     </div>
 
-    {!! Form::open(array('route' => 'consulta.index', 'method'=>'GET', 'autocomplete'=>'off', 'role'=>'search')) !!}
-        
-        <div class="form-group">
+    <div class="row">
 
-            <div class="input-group">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 
-                <input type="search" class="form-control" name="searchtext"  placeholder="Buscar.." value="{{$searchtext}}">        
-                <span class="input-group-btn">
-                <button type="submit" class="btn btn-primary">Buscar</button>
+            {!! Form::open(array('route' => 'consulta.index', 'method'=>'GET', 'autocomplete'=>'off', 'role'=>'search')) !!}
+                
+                <div class="form-group">
 
-            </span>
+                    <div class="input-group">
 
-            </div>
+                        <input type="search" class="form-control" name="searchtext"  placeholder="Buscar.." value="{{$searchtext}}">        
+                        <span class="input-group-btn">
+                        <button type="submit" class="btn btn-primary">Buscar</button>
+
+                    </span>
+
+                    </div>
+
+                </div>
+
+            {{Form::close() }}
 
         </div>
 
-    {{Form::close() }}
+    </div>
 
     <div class="row">
 
@@ -83,6 +91,7 @@
                                             <button class="btn btn-info btn-sm"><li  class="fa fa-file-pdf-o"></li> PDF</button>
                                         </a>
                                     </td>
+
                                 </tr>
 
                             @endforeach
@@ -97,6 +106,7 @@
 
                                 <td colspan="8" style="text-align: center"><h3><b> "No figura en la Ciudad de Limpio" </b></h3></td>
                             </tr>
+                            
                         </tfoot>
                     
                     @endif
@@ -109,6 +119,7 @@
             {{$votante->appends(['searchtext' => $searchtext])->links()}}
 
         </div>
+
     </div>
 
 @endsection
