@@ -109,7 +109,7 @@ class ConsejalController extends Controller
 
         }
 
-        return $votos[10];
+        // return $votos[10];
 
         while($cont < count($orden)){
 

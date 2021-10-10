@@ -99,6 +99,7 @@ class Consulta_ConsejalController extends Controller
         ->join('consejal AS b', 'b.Id_Consejal', '=', 'a.Id_Consejal')
         ->where('a.Id_Local', $id1)
         ->where('a.Id_Mesa', $id2)
+        ->orderBy('a.Id_Votacion_Consejal', 'ASC')
         // ->orderBy('b.Orden', 'ASC')
         // ->orderBy('b.Id_Lista', 'ASC')
         ->get();

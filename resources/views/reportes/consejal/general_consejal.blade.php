@@ -71,7 +71,7 @@
                                 <tr style="text-align: center">
                                     
                                     <td>{{$vot->Desc_Lista}}</th>
-                                    <td>{{$vot->consejal}}</td>
+                                    <td>{{$vot->consejal}} / {{$vot->Orden}}</td>
                                     <td style="text-align: right">{{number_format($vot->votos,0, ".", ".")}}</td>
                                     
                                 </tr>

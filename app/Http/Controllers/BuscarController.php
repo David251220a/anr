@@ -414,7 +414,7 @@ class BuscarController extends Controller
         ->first();
 
         $padron->si_voto = $voto;
-        $padron->Id_User = $voto;
+        $padron->Id_User = $id_user;
         $padron->FechaHora = Carbon::now();
 
         $padron->save();
