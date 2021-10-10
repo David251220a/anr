@@ -7,7 +7,7 @@ $total = 0;
 $total_voto = 0;
 @endphp
 
-@foreach ($comprometidos as $comprometido)
+{{-- @foreach ($comprometidos as $comprometido)
 
     @php
         $total = $total +1;
@@ -19,8 +19,8 @@ $total_voto = 0;
             $total_voto = $total_voto + 1;
         @endphp
     @endif
-    
-@endforeach
+     
+@endforeach--}}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -90,21 +90,22 @@ $total_voto = 0;
                     $cont = 0;
                 @endphp
 
-                @foreach ($locales as $local)
+                {{-- @foreach ($locales as $local)
 
                     @php
                         $cont = $cont + 1;
-                    @endphp
+                    @endphp --}}
                     
                     <div class="table table-responsive table-bordered">
                         
                         <table class="table">
                         
-                            <thead >
+                            <thead style="background-color:#f71808a8">
 
-                                <tr>
-                                    <th colspan="6" style="text-align: center">{{$local->Desc_Local}} </th>
+                                <tr style="background-color:#f71808a8">
+                                    <th colspan="6" style="text-align: center">{{$locales->Desc_Local}} </th>
                                 </tr>
+
                                 <tr style="background-color:#f71808a8">
                                     
                                     <th scope="col" style="text-align: center" width="50px">Cedula</th>
@@ -121,7 +122,7 @@ $total_voto = 0;
 
                                 @foreach ($comprometidos as $comprometido)
                                     
-                                    @if ($local->Id_Local == $comprometido->local)
+                                    @if ($comprometido->local == 1)
                                     
                                         <tr>
 
@@ -133,6 +134,16 @@ $total_voto = 0;
                                             <td style="text-align: center;font-size: 0.9rem">{{$comprometido->name}}</td>
 
                                         </tr>
+                                        @php
+                                            $total = $total +1;
+                                        @endphp
+
+                                        @if ($comprometido->voto == 1)
+                                            
+                                            @php
+                                                $total_voto = $total_voto + 1;
+                                            @endphp
+                                        @endif
                                     
                                     @endif
 
@@ -142,31 +153,44 @@ $total_voto = 0;
 
                         </table>
 
+                        <div class="table table-responsive table-bordered">
+                        
+                            <table class="table">
+                            
+                                <thead style="background-color:#f71808a8">
+                
+                                    <tr>
+                                        <th style="text-align: center"> TOTAL COMPROMETIDOS : {{$total}}</th>
+                                    </tr>
+                                    <tr>
+                                        <th  style="text-align: center"> TOTAL VOTOS : {{$total_voto}}</th>
+                                    </tr>
+                
+                                    </tr>
+                                </thead>
+                            </table>
+                
+                        </div>
+
                     </div>
 
-                @endforeach
+                {{-- @endforeach --}}
 
-                @if ($cont < 12)
+                {{-- @if ($cont < 12)
             
                     <div class="saltopagina">
                     </div>    
             
-                @endif
+                @endif --}}
 
             @endif
 
-
         </div>
 
-        <div class="saltopagina">
-        </div>
+        {{-- <div class="saltopagina">
+        </div> --}}
 
-        <div>
-
-            <h3 style="text-align: center">TOTAL COMPROMETIDOS: {{$total}} </h3>total
-            <h3 style="text-align: center">TOTAL vOTO: {{$total_voto}} </h3>
-
-        </div>
+        
 
         
     </body>

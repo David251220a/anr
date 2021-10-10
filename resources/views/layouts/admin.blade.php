@@ -149,7 +149,7 @@
                   
                   @if (Auth::user())
 
-                    @if ((Auth::user()->id == 1) ||  (Auth::user()->id == 2))
+                    @if ((Auth::user()->id == 1) ||  (Auth::user()->id == 2) ||  (Auth::user()->id == 25))
 
                       <li id="referente_consejal"><a href="{{ route('consulta.referente_consejal') }}"><i class="fa fa-circle-o"></i>Referentes Consejal</a></li>
                     

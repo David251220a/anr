@@ -49,6 +49,9 @@
 
     <div class="row" style="text-align: center">
 
+        @php
+            $la = 1;
+        @endphp
         <div class="col-lg-10 col-md-10 col-sm-10 col-xs-8">
 
             @if (99 == $referente)
@@ -61,7 +64,7 @@
 
             @if (98 == $referente)
 
-                <a class="btn btn-secondary btn-sm float-right" href=" {{ route('referente_lista_consejal') }}" target="_blank">
+                <a class="btn btn-secondary btn-sm float-right" href=" {{ route('referente_lista_consejal', $la) }}" target="_blank">
                     <button class="btn btn-info"><li  class="fa fa-file-pdf-o"></li> PDF</button>
                 </a>
 

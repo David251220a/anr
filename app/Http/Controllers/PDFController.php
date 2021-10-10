@@ -429,7 +429,7 @@ class PDFController extends Controller
 
     }
 
-    public function referente_lista_consejal(){
+    public function referente_lista_consejal($id){
 
         $id_user = auth()->id();
 
@@ -451,7 +451,8 @@ class PDFController extends Controller
             $comprometidos = DB::select($sql_Call, array($consejal_id->Id_Consejal));
             
             $locales = DB::table('local_votacion')
-            ->get();
+            ->where('Id_Local' , $id)
+            ->first();
 
             $PDF = PDF::loadView('pdf.consejal_listado', compact('comprometidos', 'consejal', 'locales'));
                 

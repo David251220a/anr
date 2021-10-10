@@ -284,7 +284,7 @@ class ConsultaController extends Controller
 
         $id_user = auth()->id();
 
-        if (($id_user == 1) || ($id_user == 2)) {
+        if (($id_user == 1) || ($id_user == 2) || ($id_user == 25)) {
             
             $referente=trim($request->get('referente'));
         

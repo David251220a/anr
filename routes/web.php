@@ -99,7 +99,7 @@ Route::get('pdf/consejal_acta/{id1}/{id2}', 'PDFController@consejal_acta')->name
 Route::get('pdf/referente_intendente', 'PDFController@referente_intendente')->name('referente_intendente');
 Route::get('pdf/referente_consejal', 'PDFController@referente_consejal')->name('referente_consejal');
 Route::get('pdf/referente_inte/{id}', 'PDFController@referentes_inte')->name('referente_inte_pdf');
-Route::get('pdf/referente_lista_consejal', 'PDFController@referente_lista_consejal')->name('referente_lista_consejal');
+Route::get('pdf/referente_lista_consejal/{id}', 'PDFController@referente_lista_consejal')->name('referente_lista_consejal');
 Route::get('pdf/integrante_general', 'PDFController@integrante_todos')->name('integrante_todos');
 Route::get('pdf/integrante_local', 'PDFController@integrante_local')->name('integrante_local');
 Route::get('pdf/lista', 'PDFController@lista_integrante_local')->name('lista_integrante_local');
